@@ -22,15 +22,45 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: admins; Type: TABLE; Schema: public; Owner: postgres
+-- Name: annonces; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.admins (
-    userid integer NOT NULL
+CREATE TABLE public.annonces (
+    id integer NOT NULL,
+    title character varying(255),
+    photo character varying(255),
+    description text,
+    prix numeric,
+    disponibilite character varying(255),
+    date_de_publication timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    category_id integer,
+    promotion_id integer
 );
 
 
-ALTER TABLE public.admins OWNER TO postgres;
+ALTER TABLE public.annonces OWNER TO postgres;
+
+--
+-- Name: annonces_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.annonces_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.annonces_id_seq OWNER TO postgres;
+
+--
+-- Name: annonces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.annonces_id_seq OWNED BY public.annonces.id;
+
 
 --
 -- Name: categories; Type: TABLE; Schema: public; Owner: postgres
@@ -73,10 +103,8 @@ ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 CREATE TABLE public.logements (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
-    photo character varying(255),
     description text,
-    categoryid integer NOT NULL,
-    disponible boolean DEFAULT true
+    category_id integer
 );
 
 
@@ -142,15 +170,112 @@ ALTER SEQUENCE public.messages_id_seq OWNED BY public.messages.id;
 
 
 --
--- Name: proprietaires; Type: TABLE; Schema: public; Owner: postgres
+-- Name: paiment; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.proprietaires (
-    userid integer NOT NULL
+CREATE TABLE public.paiment (
+    id integer NOT NULL,
+    date_de_paiment timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
-ALTER TABLE public.proprietaires OWNER TO postgres;
+ALTER TABLE public.paiment OWNER TO postgres;
+
+--
+-- Name: paiment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.paiment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.paiment_id_seq OWNER TO postgres;
+
+--
+-- Name: paiment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.paiment_id_seq OWNED BY public.paiment.id;
+
+
+--
+-- Name: profile; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.profile (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    photo character varying(255),
+    location character varying(255),
+    categoryname character varying(255)
+);
+
+
+ALTER TABLE public.profile OWNER TO postgres;
+
+--
+-- Name: profile_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.profile_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.profile_id_seq OWNER TO postgres;
+
+--
+-- Name: profile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.profile_id_seq OWNED BY public.profile.id;
+
+
+--
+-- Name: promotion; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.promotion (
+    id integer NOT NULL,
+    title character varying(255),
+    pourcentage_promotion integer,
+    date_de_debut date,
+    date_de_fin date
+);
+
+
+ALTER TABLE public.promotion OWNER TO postgres;
+
+--
+-- Name: promotion_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.promotion_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.promotion_id_seq OWNER TO postgres;
+
+--
+-- Name: promotion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.promotion_id_seq OWNED BY public.promotion.id;
+
 
 --
 -- Name: ratings; Type: TABLE; Schema: public; Owner: postgres
@@ -198,7 +323,9 @@ CREATE TABLE public.reservations (
     id integer NOT NULL,
     logementid integer NOT NULL,
     voyageurid integer NOT NULL,
-    reservationdate timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    reservationdatedebut timestamp without time zone,
+    reservationdatefin timestamp without time zone,
+    paiment_id integer
 );
 
 
@@ -233,10 +360,10 @@ ALTER SEQUENCE public.reservations_id_seq OWNED BY public.reservations.id;
 CREATE TABLE public.users (
     id integer NOT NULL,
     username character varying(255) NOT NULL,
-    photo character varying(255),
     password character varying(255) NOT NULL,
     email character varying(255) NOT NULL,
-    role character varying(50) NOT NULL
+    role character varying(50),
+    CONSTRAINT users_role_check CHECK (((role)::text = ANY ((ARRAY['Admins'::character varying, 'Proprietaires'::character varying, 'Voyageurs'::character varying])::text[])))
 );
 
 
@@ -265,15 +392,11 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: voyageurs; Type: TABLE; Schema: public; Owner: postgres
+-- Name: annonces id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.voyageurs (
-    userid integer NOT NULL
-);
+ALTER TABLE ONLY public.annonces ALTER COLUMN id SET DEFAULT nextval('public.annonces_id_seq'::regclass);
 
-
-ALTER TABLE public.voyageurs OWNER TO postgres;
 
 --
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -294,6 +417,27 @@ ALTER TABLE ONLY public.logements ALTER COLUMN id SET DEFAULT nextval('public.lo
 --
 
 ALTER TABLE ONLY public.messages ALTER COLUMN id SET DEFAULT nextval('public.messages_id_seq'::regclass);
+
+
+--
+-- Name: paiment id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.paiment ALTER COLUMN id SET DEFAULT nextval('public.paiment_id_seq'::regclass);
+
+
+--
+-- Name: profile id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.profile ALTER COLUMN id SET DEFAULT nextval('public.profile_id_seq'::regclass);
+
+
+--
+-- Name: promotion id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.promotion ALTER COLUMN id SET DEFAULT nextval('public.promotion_id_seq'::regclass);
 
 
 --
@@ -318,10 +462,10 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Data for Name: admins; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: annonces; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.admins (userid) FROM stdin;
+COPY public.annonces (id, title, photo, description, prix, disponibilite, date_de_publication, category_id, promotion_id) FROM stdin;
 \.
 
 
@@ -337,7 +481,7 @@ COPY public.categories (id, categoryname) FROM stdin;
 -- Data for Name: logements; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.logements (id, title, photo, description, categoryid, disponible) FROM stdin;
+COPY public.logements (id, title, description, category_id) FROM stdin;
 \.
 
 
@@ -350,10 +494,26 @@ COPY public.messages (id, senderid, receiverid, messagetext, "timestamp") FROM s
 
 
 --
--- Data for Name: proprietaires; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: paiment; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.proprietaires (userid) FROM stdin;
+COPY public.paiment (id, date_de_paiment) FROM stdin;
+\.
+
+
+--
+-- Data for Name: profile; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.profile (id, user_id, photo, location, categoryname) FROM stdin;
+\.
+
+
+--
+-- Data for Name: promotion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.promotion (id, title, pourcentage_promotion, date_de_debut, date_de_fin) FROM stdin;
 \.
 
 
@@ -369,7 +529,7 @@ COPY public.ratings (id, logementid, voyageurid, rating, review) FROM stdin;
 -- Data for Name: reservations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.reservations (id, logementid, voyageurid, reservationdate) FROM stdin;
+COPY public.reservations (id, logementid, voyageurid, reservationdatedebut, reservationdatefin, paiment_id) FROM stdin;
 \.
 
 
@@ -377,16 +537,15 @@ COPY public.reservations (id, logementid, voyageurid, reservationdate) FROM stdi
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, username, photo, password, email, role) FROM stdin;
+COPY public.users (id, username, password, email, role) FROM stdin;
 \.
 
 
 --
--- Data for Name: voyageurs; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: annonces_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-COPY public.voyageurs (userid) FROM stdin;
-\.
+SELECT pg_catalog.setval('public.annonces_id_seq', 1, false);
 
 
 --
@@ -411,6 +570,27 @@ SELECT pg_catalog.setval('public.messages_id_seq', 1, false);
 
 
 --
+-- Name: paiment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.paiment_id_seq', 1, false);
+
+
+--
+-- Name: profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.profile_id_seq', 1, false);
+
+
+--
+-- Name: promotion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.promotion_id_seq', 1, false);
+
+
+--
 -- Name: ratings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -432,11 +612,11 @@ SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
--- Name: admins admins_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: annonces annonces_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.admins
-    ADD CONSTRAINT admins_pkey PRIMARY KEY (userid);
+ALTER TABLE ONLY public.annonces
+    ADD CONSTRAINT annonces_pkey PRIMARY KEY (id);
 
 
 --
@@ -464,11 +644,27 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- Name: proprietaires proprietaires_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: paiment paiment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.proprietaires
-    ADD CONSTRAINT proprietaires_pkey PRIMARY KEY (userid);
+ALTER TABLE ONLY public.paiment
+    ADD CONSTRAINT paiment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profile profile_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT profile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: promotion promotion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.promotion
+    ADD CONSTRAINT promotion_pkey PRIMARY KEY (id);
 
 
 --
@@ -504,27 +700,27 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: voyageurs voyageurs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: annonces annonces_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.voyageurs
-    ADD CONSTRAINT voyageurs_pkey PRIMARY KEY (userid);
-
-
---
--- Name: admins admins_userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.admins
-    ADD CONSTRAINT admins_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(id);
+ALTER TABLE ONLY public.annonces
+    ADD CONSTRAINT annonces_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id);
 
 
 --
--- Name: logements logements_categoryid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: annonces annonces_promotion_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.annonces
+    ADD CONSTRAINT annonces_promotion_id_fkey FOREIGN KEY (promotion_id) REFERENCES public.promotion(id);
+
+
+--
+-- Name: logements logements_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.logements
-    ADD CONSTRAINT logements_categoryid_fkey FOREIGN KEY (categoryid) REFERENCES public.categories(id);
+    ADD CONSTRAINT logements_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id);
 
 
 --
@@ -544,11 +740,11 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- Name: proprietaires proprietaires_userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: profile profile_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.proprietaires
-    ADD CONSTRAINT proprietaires_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(id);
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT profile_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -564,7 +760,7 @@ ALTER TABLE ONLY public.ratings
 --
 
 ALTER TABLE ONLY public.ratings
-    ADD CONSTRAINT ratings_voyageurid_fkey FOREIGN KEY (voyageurid) REFERENCES public.voyageurs(userid);
+    ADD CONSTRAINT ratings_voyageurid_fkey FOREIGN KEY (voyageurid) REFERENCES public.users(id);
 
 
 --
@@ -576,19 +772,19 @@ ALTER TABLE ONLY public.reservations
 
 
 --
+-- Name: reservations reservations_paiment_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reservations
+    ADD CONSTRAINT reservations_paiment_id_fkey FOREIGN KEY (paiment_id) REFERENCES public.paiment(id);
+
+
+--
 -- Name: reservations reservations_voyageurid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.reservations
-    ADD CONSTRAINT reservations_voyageurid_fkey FOREIGN KEY (voyageurid) REFERENCES public.voyageurs(userid);
-
-
---
--- Name: voyageurs voyageurs_userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.voyageurs
-    ADD CONSTRAINT voyageurs_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(id);
+    ADD CONSTRAINT reservations_voyageurid_fkey FOREIGN KEY (voyageurid) REFERENCES public.users(id);
 
 
 --
