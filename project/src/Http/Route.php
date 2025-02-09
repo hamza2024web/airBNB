@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Src\Http;
 
 
@@ -9,8 +8,6 @@ class Route
     public Request $request ;
     public Response $response;
     public static array $routes = [];
-
-
 
 
     public function __construct($request,$response)
@@ -29,9 +26,8 @@ class Route
     }
 
 
-
     public function resolve(){
-        $path = $this->request->path(); 
+        $path = $this->request->path();
         $method = $this->request->Methode();
 
         $action = self::$routes[$method][$path];

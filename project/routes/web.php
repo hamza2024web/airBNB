@@ -1,10 +1,7 @@
 <?php
+require_once("../vendor/autoload.php");
 
-use Src\Http\Route ;
+use Src\Http\Route;
 
 Route::get('home', 'HomeController@index');
-
-// Route::get('about',function (){
-//     echo "this is fun ";
-//     exit;
-// });
+Route::get('proprietaire','ProprietaireController@Proprietaires');
