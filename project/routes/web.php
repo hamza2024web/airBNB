@@ -1,8 +1,10 @@
-RewriteEngine On
+<?php
 
-#accept loading of actual files and directories
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+use Src\Http\Route ;
 
-#send everything else to the index page
-RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+Route::get('home', 'HomeController@index');
+
+// Route::get('about',function (){
+//     echo "this is fun ";
+//     exit;
+// });
