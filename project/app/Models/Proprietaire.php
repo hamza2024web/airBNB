@@ -21,5 +21,6 @@ class Proprietaire {
         $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $annonces ;
     }
+    
 
 }
