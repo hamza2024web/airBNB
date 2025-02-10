@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -59,15 +62,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($results as $result) { ?>
                         <tr class="text-center">
-                            <td class="border p-3"></td>
-                            <td class="border p-3 text-green-600"></td>
-                            <td class="border p-3"></td>
-                            <td class="border p-3">€/mois</td>
-                            <td class="border p-3"></td>
+                            <td class="border p-3"><?= $result["title"]?></td>
+                            <td class="border p-3 text-green-600"><?= $result["photo"]?></td>
+                            <td class="border p-3"><?= $result["description"]?></td>
+                            <td class="border p-3"><?= $result["prix"]?>€/mois</td>
+                            <td class="border p-3"><?= $result["disponabilite"]?></td>
                             <td class="border p-3"></td>
                             <td class="border p-3"><button class="text-blue-600">Modifier</button></td>
                         </tr>
+                        <? } ?>
                     </tbody>
                 </table>
             </div>
