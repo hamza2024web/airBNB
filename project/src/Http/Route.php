@@ -44,7 +44,8 @@ class Route
 
             [$controllerAction , $methodeAction] = explode('@',$action);
 
-            $controllerAction = "App\\Controllers\\$controllerAction";
+            $controllerAction = "App\\Controllers\\Proprietaire\\$controllerAction";
+
 
             if(!class_exists($controllerAction)){
                 echo "class not exist";

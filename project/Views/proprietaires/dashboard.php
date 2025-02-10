@@ -1,12 +1,12 @@
 <?php
 
-use App\Controllers\ProprietaireController;
+use App\Controllers\Proprietaire\DashboardController;
 
 if (isset($_POST["disponibilite"])){
     $id = $_POST["id"];
     $newdisponibilite = $_POST["disponibilite"];
 }
-$fetchAnnonces = new ProprietaireController();
+$fetchAnnonces = new DashboardController();
 $results = $fetchAnnonces->annonces();
 
 ?>
@@ -33,7 +33,7 @@ $results = $fetchAnnonces->annonces();
                     </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-600 transition-all duration-200">
                         <span>📋</span>
-                        <span class="font-medium">Mes Propriétés</span>
+                        <span class="font-medium">Messages</span>
                     </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-600 transition-all duration-200">
                         <span>📊</span>
@@ -41,7 +41,7 @@ $results = $fetchAnnonces->annonces();
                     </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-600 transition-all duration-200">
                         <span>⚙️</span>
-                        <span class="font-medium">Paramètres</span>
+                        <span class="font-medium">Déconnexion</span>
                     </a></li>
                 </ul>
             </nav>
@@ -128,7 +128,7 @@ $results = $fetchAnnonces->annonces();
                                     <td class="px-6 py-4 text-gray-600"><?= $result["categoryname"] ?></td>
                                     <td class="px-6 py-4">
                                         <button class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
-                                            Modifier
+                                            View More
                                         </button>
                                     </td>
                                 </tr>
@@ -136,6 +136,9 @@ $results = $fetchAnnonces->annonces();
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg" type="hidden">
+                    
             </div>
         </main>
     </div>
