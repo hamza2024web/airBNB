@@ -13,7 +13,9 @@ class Proprietaire {
     }
 
     public function getAllAnnonces () {
-        $sql = "select * from annonces";
+        $sql = "select  annonces.id , annonces.title , annonces.photo , annonces.description , annonces.prix ,annonces.disponibilite , categories.categoryname 
+        from annonces
+        inner join categories on categories.id = annonces.category_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
