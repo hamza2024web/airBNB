@@ -2,7 +2,7 @@
 
 use App\Controllers\Proprietaire\DashboardController;
 
-if (isset($_POST["disponibilite"])){
+if (isset($_POST["disponibilite"])) {
     $id = $_POST["id"];
     $newdisponibilite = $_POST["disponibilite"];
 }
@@ -28,21 +28,21 @@ $results = $fetchAnnonces->annonces();
             <nav>
                 <ul class="space-y-6">
                     <li><a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-600 transition-all duration-200">
-                        <span>🏠</span>
-                        <span class="font-medium">Accueil</span>
-                    </a></li>
+                            <span>🏠</span>
+                            <span class="font-medium">Accueil</span>
+                        </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-600 transition-all duration-200">
-                        <span>📋</span>
-                        <span class="font-medium">Messages</span>
-                    </a></li>
+                            <span>📋</span>
+                            <span class="font-medium">Messages</span>
+                        </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-600 transition-all duration-200">
-                        <span>📊</span>
-                        <span class="font-medium">Statistiques</span>
-                    </a></li>
+                            <span>📊</span>
+                            <span class="font-medium">Statistiques</span>
+                        </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-600 transition-all duration-200">
-                        <span>⚙️</span>
-                        <span class="font-medium">Déconnexion</span>
-                    </a></li>
+                            <span>⚙️</span>
+                            <span class="font-medium">Déconnexion</span>
+                        </a></li>
                 </ul>
             </nav>
         </aside>
@@ -103,7 +103,7 @@ $results = $fetchAnnonces->annonces();
                                         <form action="" method="POST">
                                             <input type="hidden" name="id" value="<?= $result["id"] ?>">
                                             <?php if ($result["disponibilite"] === "Disponible") { ?>
-                                                <button type="submit" name="disponibilite" value="Disponible" 
+                                                <button type="submit" name="disponibilite" value="Disponible"
                                                     class="px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-lg shadow hover:bg-yellow-600 transition-colors duration-200">
                                                     Disponible
                                                 </button>
@@ -127,7 +127,8 @@ $results = $fetchAnnonces->annonces();
                                     </td>
                                     <td class="px-6 py-4 text-gray-600"><?= $result["categoryname"] ?></td>
                                     <td class="px-6 py-4">
-                                        <button class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
+                                        <button class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+                                            onclick="showAnnonces('<?= $result['title'] ?>', '<?= $result['photo'] ?>', '<?= $result['description'] ?>', '<?= $result['prix'] ?>', '<?= $result['disponibilite'] ?>', '<?= $result['categoryname'] ?>')">
                                             View More
                                         </button>
                                     </td>
@@ -137,11 +138,41 @@ $results = $fetchAnnonces->annonces();
                     </table>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg" type="hidden">
-                    
+
+            <div id="annonceDetails" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800" id="detailTitle"></h2>
+                    <img id="detailPhoto" src="" alt="Photo" class="w-full h-64 object-cover rounded-lg my-4">
+                    <p class="text-gray-600" id="detailDescription"></p>
+                    <p class="font-bold text-lg text-blue-600 mt-2">Prix: <span id="detailPrix"></span> €/mois</p>
+                    <p class="font-bold text-md text-green-600 mt-2">Disponibilité: <span id="detailDisponibilite"></span></p>
+                    <p class="text-gray-500 mt-2">Catégorie: <span id="detailCategory"></span></p>
+
+                    <button onclick="closeAnnonces()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                        Fermer
+                    </button>
+                </div>
             </div>
+
         </main>
     </div>
+    <script>
+        function showAnnonces(title, photo, description, prix, disponibilite, category) {
+            document.getElementById("detailTitle").innerText = title;
+            document.getElementById("detailPhoto").src = photo;
+            document.getElementById("detailDescription").innerText = description;
+            document.getElementById("detailPrix").innerText = prix;
+            document.getElementById("detailDisponibilite").innerText = disponibilite;
+            document.getElementById("detailCategory").innerText = category;
+
+            document.getElementById("annonceDetails").classList.remove("hidden");
+        }
+
+        function closeAnnonces() {
+            document.getElementById("annonceDetails").classList.add("hidden");
+        }
+    </script>
+
 </body>
 
 </html>
