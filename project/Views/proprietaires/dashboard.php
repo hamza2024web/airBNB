@@ -4,6 +4,8 @@ use App\Controllers\Proprietaire\DashboardController;
 use App\Controllers\Proprietaire\ProprietaireController;
 
 $fetchAnnonces = new DashboardController();
+$allProprietes = $fetchAnnonces->numbresProprietes();
+$numbreAnnocesReserve = $fetchAnnonces->numbreReserve();
 $results = $fetchAnnonces->annonces();
 
 ?>
@@ -59,11 +61,11 @@ $results = $fetchAnnonces->annonces();
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-blue-500 transform hover:-translate-y-1">
                     <h3 class="text-lg font-semibold text-gray-600 mb-2">Total Propriétés</h3>
-                    <p class="text-4xl font-bold text-gray-800">12</p>
+                    <p class="text-4xl font-bold text-gray-800"><?= $allProprietes; ?></p>
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-green-500 transform hover:-translate-y-1">
                     <h3 class="text-lg font-semibold text-gray-600 mb-2">Propriétés Louées</h3>
-                    <p class="text-4xl font-bold text-gray-800">8</p>
+                    <p class="text-4xl font-bold text-gray-800"><?= $numbreAnnocesReserve; ?></p>
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-yellow-500 transform hover:-translate-y-1">
                     <h3 class="text-lg font-semibold text-gray-600 mb-2">Propriétés Disponibles</h3>

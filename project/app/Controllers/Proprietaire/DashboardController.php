@@ -11,7 +11,16 @@ class DashboardController {
         $this->loadView('proprietaire', ['results' => $results]); 
         return $results;
     }
-    
+    public function numbresProprietes(){
+        $proprietaireModel = new Proprietaire();
+        $results = $proprietaireModel->allAnnonces();
+        return $results;
+    }
+    public function numbreReserve(){
+        $proprietaireModel = new Proprietaire();
+        $results = $proprietaireModel->numbreOfReserve();
+        return $results;
+    }
 
     private function loadView($viewName, $data = []) {
         extract($data);
