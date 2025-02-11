@@ -4,7 +4,9 @@ use App\Models\AnnoncesDisponabilite;
 
 
 class ProprietaireController {
-    public function disponabilite ($id , $newdisponibilite){
+    public function disponabilite (){
+        $id = $_POST["id"];
+        $newdisponibilite = $_POST["disponibilite"];
         $disponabilite = new AnnoncesDisponabilite();
         $results = $disponabilite->EditDisponabilite($id , $newdisponibilite);
         $this->loadView('proprietaire', ['results' => $results]); 

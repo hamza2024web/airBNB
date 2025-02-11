@@ -30,6 +30,7 @@ class Route
         $path = $this->request->path();
         $method = $this->request->Methode();
 
+
         $action = self::$routes[$method][$path];
 
         if (!$action){
