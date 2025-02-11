@@ -22,6 +22,12 @@ class DashboardController {
         return $results;
     }
 
+    public function numbreDisponible(){
+        $proprietaireModel = new Proprietaire();
+        $results = $proprietaireModel->numbreOfDisponible();
+        return $results;
+    }
+
     private function loadView($viewName, $data = []) {
         extract($data);
         require_once __DIR__ . "/../../../Views/proprietaires/dashboard.php"; 

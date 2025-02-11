@@ -6,6 +6,7 @@ use App\Controllers\Proprietaire\ProprietaireController;
 $fetchAnnonces = new DashboardController();
 $allProprietes = $fetchAnnonces->numbresProprietes();
 $numbreAnnocesReserve = $fetchAnnonces->numbreReserve();
+$numbreAnnocesDisponibile = $fetchAnnonces->numbreDisponible();
 $results = $fetchAnnonces->annonces();
 
 ?>

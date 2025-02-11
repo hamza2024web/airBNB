@@ -46,6 +46,19 @@ class Proprietaire {
         }
     }
 
+    public function numbreOfDisponible(){
+        $sql = "SELECT COUNT(*) as numbredisponible FROM annonces 
+        WHERE disponibilite = 'Disponible'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['numbredisponible'];
+        } else {
+            return false;
+        }
+    }
+
 
 
 }
