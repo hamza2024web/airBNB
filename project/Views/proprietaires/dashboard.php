@@ -8,6 +8,7 @@ $allProprietes = $fetchAnnonces->numbresProprietes();
 $numbreAnnocesReserve = $fetchAnnonces->numbreReserve();
 $numbreAnnocesDisponibile = $fetchAnnonces->numbreDisponible();
 $annoncesRevenu = $fetchAnnonces->annoncesRevenu();
+$tauxOccupation = $fetchAnnonces->tauxOccupation();
 $results = $fetchAnnonces->annonces();
 
 ?>
@@ -36,11 +37,11 @@ $results = $fetchAnnonces->annonces();
                             <span class="text-xl">📋</span>
                             <span class="font-medium">Messages</span>
                         </a></li>
-                    <li><a href="#" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/statistique" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">📊</span>
                             <span class="font-medium">Statistiques</span>
                         </a></li>
-                    <li><a href="#" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-600 transition">
                             <span class="text-xl">⚙️</span>
                             <span class="font-medium">Déconnexion</span>
                         </a></li>
@@ -58,26 +59,6 @@ $results = $fetchAnnonces->annonces();
                     </button>
                 </div>
             </header>
-
-            <!-- Enhanced Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-blue-500 transform hover:-translate-y-1">
-                    <h3 class="text-lg font-semibold text-gray-600 mb-2">Total Propriétés</h3>
-                    <p class="text-4xl font-bold text-gray-800"><?= $allProprietes; ?></p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-green-500 transform hover:-translate-y-1">
-                    <h3 class="text-lg font-semibold text-gray-600 mb-2">Propriétés Louées</h3>
-                    <p class="text-4xl font-bold text-gray-800"><?= $numbreAnnocesReserve; ?></p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-yellow-500 transform hover:-translate-y-1">
-                    <h3 class="text-lg font-semibold text-gray-600 mb-2">Propriétés Disponibles</h3>
-                    <p class="text-4xl font-bold text-gray-800"><?= $numbreAnnocesDisponibile ?></p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-yellow-500 transform hover:-translate-y-1">
-                    <h3 class="text-lg font-semibold text-gray-600 mb-2">Propriétés Revenu</h3>
-                    <p class="text-4xl font-bold text-gray-800"><?= $annoncesRevenu ?>€</p>
-                </div>
-            </div>
 
             <!-- Enhanced Properties Table -->
             <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
@@ -291,7 +272,7 @@ $results = $fetchAnnonces->annonces();
             setTimeout(() => {
                 modal.classList.add("hidden");
                 modalContent.classList.remove("scale-95", "opacity-0");
-            }, 300); 
+            }, 300);
         }
 
         document.getElementById("annonceDetails").addEventListener("click", (e) => {

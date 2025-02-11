@@ -70,5 +70,8 @@ class Proprietaire {
             return false;
         }
     }
+    public function TauxOccupation(){
+        
+    }
 
 }

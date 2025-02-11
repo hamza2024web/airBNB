@@ -8,7 +8,11 @@ class DashboardController {
     public function annonces(){
         $proprietaireModel = new Proprietaire(); 
         $results = $proprietaireModel->getAllAnnonces(); 
-        $this->loadView('proprietaire', ['results' => $results]); 
+        $this->loadView('dashboard', ['results' => $results]); 
+        return $results;
+    }
+    public function statistique (){
+        $results = $this->loadView('statistique'); 
         return $results;
     }
     public function numbresProprietes(){
@@ -33,8 +37,13 @@ class DashboardController {
         $results = $proprietaireModel->RevenuOfAnnonce();
         return $results;
     }
+
+    public function tauxOccupation(){
+        $proprietaireModel = new Proprietaire();
+        $results = $proprietaireModel->TauxOccupation();
+    }
     private function loadView($viewName, $data = []) {
         extract($data);
-        require_once __DIR__ . "/../../../Views/proprietaires/dashboard.php"; 
+        require_once __DIR__ . "/../../../Views/proprietaires/".$viewName.".php"; 
     }
 }
