@@ -7,6 +7,7 @@ $fetchAnnonces = new DashboardController();
 $allProprietes = $fetchAnnonces->numbresProprietes();
 $numbreAnnocesReserve = $fetchAnnonces->numbreReserve();
 $numbreAnnocesDisponibile = $fetchAnnonces->numbreDisponible();
+$annoncesRevenu = $fetchAnnonces->annoncesRevenu();
 $results = $fetchAnnonces->annonces();
 
 ?>
@@ -70,7 +71,11 @@ $results = $fetchAnnonces->annonces();
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-yellow-500 transform hover:-translate-y-1">
                     <h3 class="text-lg font-semibold text-gray-600 mb-2">Propriétés Disponibles</h3>
-                    <p class="text-4xl font-bold text-gray-800">4</p>
+                    <p class="text-4xl font-bold text-gray-800"><?= $numbreAnnocesDisponibile ?></p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-yellow-500 transform hover:-translate-y-1">
+                    <h3 class="text-lg font-semibold text-gray-600 mb-2">Propriétés Revenu</h3>
+                    <p class="text-4xl font-bold text-gray-800"><?= $annoncesRevenu ?>€</p>
                 </div>
             </div>
 

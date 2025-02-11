@@ -48,7 +48,7 @@ class Proprietaire {
 
     public function numbreOfDisponible(){
         $sql = "SELECT COUNT(*) as numbredisponible FROM annonces 
-        WHERE disponibilite = 'Disponible'";
+        WHERE disponibilite = 'Disponible'"; 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
@@ -59,6 +59,16 @@ class Proprietaire {
         }
     }
 
-
+    public function RevenuOfAnnonce(){
+        $sql = "SELECT SUM(prix) AS revenus_totaux FROM annonces WHERE disponibilite = 'Vendu';";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['revenus_totaux'];
+        } else {
+            return false;
+        }
+    }
 
 }
