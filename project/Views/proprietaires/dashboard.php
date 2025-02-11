@@ -1,10 +1,15 @@
 <?php
 
 use App\Controllers\Proprietaire\DashboardController;
+use App\Controllers\Proprietaire\ProprietaireController;
+
 
 if (isset($_POST["disponibilite"])) {
     $id = $_POST["id"];
     $newdisponibilite = $_POST["disponibilite"];
+
+    $disponibiliteController = new ProprietaireController();
+    $disponibiliteController->disponabilite($id, $newdisponibilite);
 }
 $fetchAnnonces = new DashboardController();
 $results = $fetchAnnonces->annonces();
@@ -103,25 +108,33 @@ $results = $fetchAnnonces->annonces();
                                         <form action="" method="POST">
                                             <input type="hidden" name="id" value="<?= $result["id"] ?>">
                                             <?php if ($result["disponibilite"] === "Disponible") { ?>
-                                                <button type="submit" name="disponibilite" value="Disponible"
-                                                    class="px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-lg shadow hover:bg-yellow-600 transition-colors duration-200">
-                                                    Disponible
-                                                </button>
+                                                <a href="/disponibilite">
+                                                    <button type="submit" name="disponibilite" value="Disponible"
+                                                        class="px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-lg shadow hover:bg-yellow-600 transition-colors duration-200">
+                                                        Disponible
+                                                    </button>
+                                                </a>
                                             <?php } elseif ($result["disponibilite"] === "Réservé") { ?>
-                                                <button type="submit" name="disponibilite" value="Réservé"
-                                                    class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded-lg shadow hover:bg-green-600 transition-colors duration-200">
-                                                    Réservé
-                                                </button>
+                                                <a href="/disponibilite">
+                                                    <button type="submit" name="disponibilite" value="Réservé"
+                                                        class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded-lg shadow hover:bg-green-600 transition-colors duration-200">
+                                                        Réservé
+                                                    </button>
+                                                </a>
                                             <?php } elseif ($result["disponibilite"] === "En attente") { ?>
-                                                <button type="submit" name="disponibilite" value="En attente"
-                                                    class="px-4 py-2 text-sm font-semibold text-white bg-orange-500 rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
-                                                    En attente
-                                                </button>
+                                                <a href="/disponibilite">
+                                                    <button type="submit" name="disponibilite" value="En attente"
+                                                        class="px-4 py-2 text-sm font-semibold text-white bg-orange-500 rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">
+                                                        En attente
+                                                    </button>
+                                                </a>
                                             <?php } elseif ($result["disponibilite"] === "Vendu") { ?>
-                                                <button type="submit" name="disponibilite" value="Vendu"
-                                                    class="px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded-lg shadow hover:bg-red-600 transition-colors duration-200">
-                                                    Vendu
-                                                </button>
+                                                <a href="/disponibilite">
+                                                    <button type="submit" name="disponibilite" value="Vendu"
+                                                        class="px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded-lg shadow hover:bg-red-600 transition-colors duration-200">
+                                                        Vendu
+                                                    </button>
+                                                </a>
                                             <?php } ?>
                                         </form>
                                     </td>
