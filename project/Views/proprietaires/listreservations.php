@@ -1,16 +1,5 @@
 <?php
 
-use App\Controllers\Proprietaire\DashboardController;
-use App\Controllers\Proprietaire\ProprietaireController;
-
-$fetchAnnonces = new DashboardController();
-$allProprietes = $fetchAnnonces->numbresProprietes();
-$numbreAnnocesReserve = $fetchAnnonces->numbreReserve();
-$numbreAnnocesDisponibile = $fetchAnnonces->numbreDisponible();
-$annoncesRevenu = $fetchAnnonces->annoncesRevenu();
-$tauxOccupation = $fetchAnnonces->tauxOccupation();
-$results = $fetchAnnonces->annonces();
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +18,7 @@ $results = $fetchAnnonces->annonces();
             <h1 class="text-3xl font-bold px-8 py-6 border-b border-blue-700/50">DashBoard</h1>
             <nav class="p-4">
                 <ul class="space-y-2">
-                    <li><a href="#" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/proprietaire" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">🏠</span>
                             <span class="font-medium">Accueil</span>
                         </a></li>
@@ -76,7 +65,7 @@ $results = $fetchAnnonces->annonces();
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
-                    Mes Propriétés
+                    Mes Reservations
                 </h3>
                 <div class="overflow-x-auto rounded-xl border border-gray-200">
                     <table class="w-full">
@@ -84,13 +73,11 @@ $results = $fetchAnnonces->annonces();
                             <tr class="bg-gray-50 border-b border-gray-200">
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Title</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Photo</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Description</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Prix</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Disponibilité</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Catégorie</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Change the Disponabilité</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Action</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">username</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">email</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">date de début</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">date de fin</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">date de paiment</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
@@ -105,101 +92,20 @@ $results = $fetchAnnonces->annonces();
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="text-sm text-gray-600 max-w-xs truncate hover:text-clip hover:overflow-visible">
-                                            <?= $result["description"] ?>
+                                            <?= $result["username"] ?>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-lg font-semibold text-blue-600"><?= $result["prix"] ?>€<span class="text-sm text-gray-500">/mois</span></div>
+                                        <div class="text-sm text-gray-600"><?= $result["email"] ?></div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-                                            <?php
-                                            switch ($result["disponibilite"]) {
-                                                case 'Disponible':
-                                                    echo 'bg-green-100 text-green-800 ring-1 ring-green-600/20';
-                                                    break;
-                                                case 'Réservé':
-                                                    echo 'bg-blue-100 text-blue-800 ring-1 ring-blue-600/20';
-                                                    break;
-                                                case 'En attente':
-                                                    echo 'bg-yellow-100 text-yellow-800 ring-1 ring-yellow-600/20';
-                                                    break;
-                                                case 'Vendu':
-                                                    echo 'bg-red-100 text-red-800 ring-1 ring-red-600/20';
-                                                    break;
-                                            }
-                                            ?>">
-                                            <?= $result["disponibilite"] ?>
-                                        </span>
+                                        <div class="text-sm text-gray-600"><?= $result["reservationdatedebut"] ?></div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600"><?= $result["categoryname"] ?></div>
+                                        <div class="text-sm text-gray-600"><?= $result["reservationdatefin"] ?></div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <form action="/disponibilite" method="POST" class="flex flex-wrap gap-2">
-                                            <input type="hidden" name="id" value="<?= $result["id"] ?>">
-                                            <?php if ($result["disponibilite"] !== "Disponible") { ?>
-                                                <button type="submit" name="disponibilite" value="Disponible"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-500 rounded-lg shadow-sm hover:bg-green-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                                    </svg>
-                                                    Disponible
-                                                </button>
-                                            <?php } ?>
-                                            <?php if ($result["disponibilite"] !== "Réservé") { ?>
-                                                <button type="submit" name="disponibilite" value="Réservé"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg shadow-sm hover:bg-blue-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    Réservé
-                                                </button>
-                                            <?php } ?>
-                                            <?php if ($result["disponibilite"] !== "En attente") { ?>
-                                                <button type="submit" name="disponibilite" value="En attente"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-yellow-500 rounded-lg shadow-sm hover:bg-yellow-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    En attente
-                                                </button>
-                                            <?php } ?>
-                                            <?php if ($result["disponibilite"] !== "Vendu") { ?>
-                                                <button type="submit" name="disponibilite" value="Vendu"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-lg shadow-sm hover:bg-red-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    Vendu
-                                                </button>
-                                            <?php } ?>
-                                        </form>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-                                            <?php
-                                            switch ($result["statut"]) {
-                                                case 'Validé':
-                                                    echo 'bg-green-100 text-green-800 ring-1 ring-green-600/20';
-                                                    break;
-                                                case 'Non Validé':
-                                                    echo 'bg-red-100 text-red-800 ring-1 ring-red-600/20';
-                                                    break;
-                                            }
-                                            ?>">
-                                            <?= $result["statut"] ?>
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                                            onclick="showAnnonces('<?= $result['title'] ?>', '<?= $result['photo'] ?>', '<?= $result['description'] ?>', '<?= $result['prix'] ?>', '<?= $result['disponibilite'] ?>', '<?= $result['categoryname'] ?>')">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                                            </svg>
-                                            Voir plus
-                                        </button>
+                                        <div class="text-sm text-gray-600"><?= $result["date_de_paiment"] ?></div>
                                     </td>
                                 </tr>
                             <?php } ?>

@@ -22,7 +22,7 @@ class Proprietaire {
         return $annonces ;
     }
     public function getAllReservations(){
-        $sql = "SELECT annonces.title , users.username , users.email ,reservations.reservationdatedebut , reservations.reservationdatefin , paiment.date_de_paiment
+        $sql = "SELECT annonces.title , annonces.photo, users.username , users.email ,reservations.reservationdatedebut , reservations.reservationdatefin , paiment.date_de_paiment
         FROM reservations
         INNER JOIN annonces ON annonces.id = reservations.annonceid 
         INNER JOIN users ON users.id = reservations.voyageurid

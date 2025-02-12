@@ -27,28 +27,28 @@ $tauxOccupation = $fetchAnnonces->tauxOccupation();
         <!-- Sidebar -->
         <aside class="w-64 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white shadow-2xl p-5">
             <h1 class="text-2xl font-bold mb-8">📊 Dashboard</h1>
-            <nav>
-                <ul class="space-y-4">
-                    <li>
-                        <a href="/proprietaire" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/20 transition">
-                            <span>🏠</span> <span class="font-medium">Accueil</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/20 transition">
-                            <span>📩</span> <span class="font-medium">Messages</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/statistique" class="flex items-center space-x-3 p-3 rounded-lg bg-white/20">
-                            <span>📊</span> <span class="font-medium">Statistiques</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-600 transition">
-                            <span>🚪</span> <span class="font-medium">Déconnexion</span>
-                        </a>
-                    </li>
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li><a href="#" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                            <span class="text-xl">🏠</span>
+                            <span class="font-medium">Accueil</span>
+                        </a></li>
+                    <li><a href="#" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                            <span class="text-xl">📋</span>
+                            <span class="font-medium">Messages</span>
+                        </a></li>
+                    <li><a href="/statistique" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                            <span class="text-xl">📊</span>
+                            <span class="font-medium">Statistiques</span>
+                        </a></li>
+                    <li><a href="/listreservations" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                            <span class="text-xl">📊</span>
+                            <span class="font-medium">List des Reservations</span>
+                        </a></li>
+                    <li><a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-600 transition">
+                            <span class="text-xl">⚙️</span>
+                            <span class="font-medium">Déconnexion</span>
+                        </a></li>
                 </ul>
             </nav>
         </aside>
