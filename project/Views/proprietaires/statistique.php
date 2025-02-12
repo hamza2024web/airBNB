@@ -42,7 +42,7 @@ $tauxOccupation = $fetchAnnonces->tauxOccupation();
                             <span class="font-medium">Statistiques</span>
                         </a></li>
                     <li><a href="/listreservations" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
-                            <span class="text-xl">📅</span> <!-- Changed icon -->
+                            <span class="text-xl">📅</span> 
                             <span class="font-medium">List des Reservations</span>
                         </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-600 transition">
