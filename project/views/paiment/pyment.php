@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LankaStay Payment</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=AQ9863vajf3QGQa6elkhfo95J9lMk0zGMYlh6lE71jjBOTzN2NFTKGX-Cc2hWbLvJBF51luLCi6Yq9jT&currency=USD"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-3xl mx-auto px-8 py-6 bg-white border-2 border-gray-200 rounded-xl shadow-sm">
+        <!-- Logo -->
+        <div class="text-center mb-12">
+            <h1 class="text-2xl">
+                <span class="text-blue-600">Lanka</span>Stay.
+            </h1>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="flex justify-center items-center gap-6 mb-12">
+            <div class="w-10 h-10 rounded-full bg-emerald-400 flex items-center justify-center text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-emerald-400 flex items-center justify-center text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">3</div>
+        </div>
+
+        <!-- Payment Header -->
+        <div class="text-center mb-12">
+            <h2 class="text-2xl font-medium text-gray-800 mb-2">Payment</h2>
+            <p class="text-gray-400 text-sm">Kindly follow the instructions below</p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-2 gap-16">
+            <!-- Left Column - Payment Info -->
+            <div class="space-y-4 max-w-lg mx-auto">
+                <div class="bg-white shadow-lg border-2 border-dashed border-gray-300 p-4 rounded-lg relative">
+                    <!-- Ticket Ribbon -->
+                    <div class="absolute top-0 left-0 bg-blue-600 text-white text-xs uppercase px-4 h-4 rounded-br-lg">
+                        Payment Ticket
+                    </div>
+
+                    <!-- Ticket Header -->
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2 truncate">Transfer LankaStay</h3>
+                    
+                    <!-- Ticket Body -->
+                    <div class="space-y-1">
+                        <p class="text-gray-600 text-sm truncate">
+                            <span class="font-semibold">Stay Duration:</span> <?php echo "$numberOfDays" ?> Days at Blue Origin Farms
+                        </p>
+                        <p class="text-gray-600 text-sm truncate">
+                            <span class="font-semibold">Location:</span> Galle, Sri Lanka
+                        </p>
+                    </div>
+
+                    <div class="mt-4 border-t pt-2 space-y-1">
+                        <p class="text-gray-700 text-sm">
+                            <span class="font-medium">Total:</span> <span class="text-blue-600 font-bold"><?php echo "$prixTotale" ?> USD</span>
+                        </p>
+                        <p class="text-gray-700 text-sm">
+                            <span class="font-medium">Initial Payment:</span> <span class="text-emerald-600 font-bold">$200</span>
+                        </p>
+                    </div>
+
+                    <!-- Ticket Footer -->
+                    <div class="mt-2 pt-2 border-t text-xs text-gray-500">
+                        <span>Issued on: <?php echo date("Y-m-d"); ?></span>
+                        <span class="font-semibold">LankaStay</span>
+                    </div>
+                </div>
+            </div>
+        <div>
+        <!-- PayPal Form -->
+        <div id="paypal-button-container" class="flex"></div>  
+
+    </div>
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                    value: <?php echo "$prixTotale"?>
+                    }
+                }]
+                });
+            },
+
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+
+                fetch('verify_payment.php', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                orderID: data.orderID,
+                payerID: details.payer.payer_id
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                alert('The payment was successful.');
+                window.location.href = 'success.html';
+                } else {
+                alert('Payment verification failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during verification:', error);
+            });
+            });
+        }
+        }).render('#paypal-button-container');
+</script>
+</body>
+</html>
