@@ -30,8 +30,8 @@ class Database
                 $pdo_instance = new PDO($dsn, $_ENV['DB_USER'],$_ENV['DB_PASSWORD']);
 
                 self::$pdoSinglton =  $pdo_instance ;
-                echo "sf connexion dazt";
                 return self::$pdoSinglton;
+               
                 
             } catch (PDOException $e) {
                 print_r($_ENV);

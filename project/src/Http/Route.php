@@ -3,14 +3,11 @@
 
 namespace Src\Http;
 
-
 class Route 
 {
     public Request $request ;
     public Response $response;
     public static array $routes = [];
-
-
 
 
     public function __construct($request,$response)
@@ -27,15 +24,19 @@ class Route
     public static function post($route , $action){
         self::$routes['post'][$route] = $action;
     }
+   
+   
 
 
 
     public function resolve(){
+       
         $path = $this->request->path(); 
         $method = $this->request->Methode();
-
+       
+        
         $action = self::$routes[$method][$path];
-
+ 
         if (!$action){
             return ;
         }
@@ -59,13 +60,11 @@ class Route
                 echo "methode not exist";
                 exit;
             }
+          
 
 
-            $objectController = new $controllerAction;
+            $objectController = new $controllerAction();
             return $objectController->$methodeAction();
         }
-
-
-
     }
 }
