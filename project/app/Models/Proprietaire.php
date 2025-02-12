@@ -60,7 +60,7 @@ class Proprietaire {
     }
 
     public function RevenuOfAnnonce(){
-        $sql = "SELECT SUM(prix) AS revenus_totaux FROM annonces WHERE disponibilite = 'Vendu';";
+        $sql = "SELECT SUM(prix) AS revenus_totaux FROM annonces WHERE disponibilite IN ('Vendu', 'Réservé');";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {

@@ -41,6 +41,7 @@ class DashboardController {
     public function tauxOccupation(){
         $proprietaireModel = new Proprietaire();
         $results = $proprietaireModel->TauxOccupation();
+        return $results;
     }
     private function loadView($viewName, $data = []) {
         extract($data);
