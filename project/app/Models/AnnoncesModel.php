@@ -28,8 +28,6 @@ class AnnoncesModel {
 
         $Annonces = new Annonces('',$row['title'],$row['photo'],$row['description'],$row['prix'],$row['categoryname']);
         
-        
-        
         return $Annonces;
     }
 
