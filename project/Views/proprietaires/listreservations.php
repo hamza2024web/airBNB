@@ -115,128 +115,144 @@
             </div>
         </main>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         document.getElementById('exportExcel').addEventListener('click', function() {
-            // Obtenir toutes les lignes visibles
+            // Get visible rows
             const rows = Array.from(document.querySelectorAll('tbody tr')).filter(row =>
                 row.style.display !== 'none'
             );
 
-            // Transformer les données
+            // Transform the data
             const data = rows.map(row => {
-                const nameCell = row.querySelector('td:nth-child(1)');
-                // Récupérer uniquement le texte du nom en excluant l'initiale
-                const fullNameWithoutInitial = nameCell.textContent.replace(/^\s+/, '').trim();
-
                 return {
-                    'Nom Complet': fullNameWithoutInitial,
-                    'Email': row.querySelector('td:nth-child(2)').textContent.trim(),
-                    'annonces': row.querySelector('td:nth-child(3) span').textContent.trim(),
-                    'Date de reservation': row.querySelector('td:nth-child(4)').textContent.trim()
+                    'Title of Annonce': row.querySelector('td:nth-child(1)').textContent.trim(),
+                    'Photo URL': row.querySelector('td:nth-child(2) img')?.src || 'No Image',
+                    'Username': row.querySelector('td:nth-child(3)').textContent.trim(),
+                    'Email': row.querySelector('td:nth-child(4)').textContent.trim(),
+                    'Date De Debut': row.querySelector('td:nth-child(5)').textContent.trim(),
+                    'Date De Fin': row.querySelector('td:nth-child(6)').textContent.trim(),
+                    'Date De Paiment': row.querySelector('td:nth-child(7)').textContent.trim()
                 };
             });
 
-            // Créer la feuille Excel
+            // Create worksheet and convert it to CSV
             const worksheet = XLSX.utils.json_to_sheet(data);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Liste des étudiants");
+            const csvOutput = XLSX.utils.sheet_to_csv(worksheet);
 
-            // Styliser l'en-tête
-            const range = XLSX.utils.decode_range(worksheet['!ref']);
+            // Create and download CSV file
+            const blob = new Blob([csvOutput], {
+                type: 'text/csv;charset=utf-8;'
+            });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', 'list_reservations.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
 
-            // Style pour l'en-tête
-            const headerStyle = {
-                font: {
-                    bold: true,
-                    color: {
-                        rgb: "FFFFFF"
-                    }
-                },
-                fill: {
-                    fgColor: {
-                        rgb: "4338CA"
-                    }
-                },
-                alignment: {
-                    horizontal: 'center',
-                    vertical: 'center'
+        // Créer la feuille Excel
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Liste des Réservations");
+
+        // Styliser l'en-tête
+        const range = XLSX.utils.decode_range(worksheet['!ref']);
+
+        // Style pour l'en-tête
+        const headerStyle = {
+            font: {
+                bold: true,
+                color: {
+                    rgb: "FFFFFF"
                 }
-            };
+            },
+            fill: {
+                fgColor: {
+                    rgb: "4338CA"
+                }
+            },
+            alignment: {
+                horizontal: 'center',
+                vertical: 'center'
+            }
+        };
 
-            // Appliquer le style à l'en-tête
+        // Appliquer le style à l'en-tête
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+            const address = XLSX.utils.encode_cell({
+                r: 0,
+                c: C
+            });
+            if (!worksheet[address]) continue;
+            worksheet[address].s = headerStyle;
+        }
+
+        // Ajuster la largeur des colonnes
+        const columnWidths = data.reduce((acc, row) => {
+            Object.entries(row).forEach(([key, value], index) => {
+                const valueLength = value ? value.toString().length : 0;
+                acc[index] = Math.max(acc[index] || 0, valueLength, key.length);
+            });
+            return acc;
+        }, []);
+
+        worksheet['!cols'] = columnWidths.map(width => ({
+            width: width + 2
+        }));
+
+        // Style pour les cellules de données
+        for (let R = 1; R <= range.e.r; ++R) {
             for (let C = range.s.c; C <= range.e.c; ++C) {
                 const address = XLSX.utils.encode_cell({
-                    r: 0,
+                    r: R,
                     c: C
                 });
                 if (!worksheet[address]) continue;
-                worksheet[address].s = headerStyle;
-            }
 
-            // Ajuster la largeur des colonnes
-            const columnWidths = data.reduce((acc, row) => {
-                Object.entries(row).forEach(([key, value], index) => {
-                    const valueLength = value ? value.toString().length : 0;
-                    acc[index] = Math.max(acc[index] || 0, valueLength, key.length);
-                });
-                return acc;
-            }, []);
-
-            worksheet['!cols'] = columnWidths.map(width => ({
-                width: width + 2
-            }));
-
-            // Style pour les cellules de données
-            for (let R = 1; R <= range.e.r; ++R) {
-                for (let C = range.s.c; C <= range.e.c; ++C) {
-                    const address = XLSX.utils.encode_cell({
-                        r: R,
-                        c: C
-                    });
-                    if (!worksheet[address]) continue;
-
-                    worksheet[address].s = {
-                        font: {
-                            name: "Arial"
+                worksheet[address].s = {
+                    font: {
+                        name: "Arial"
+                    },
+                    alignment: {
+                        vertical: 'center'
+                    },
+                    border: {
+                        top: {
+                            style: 'thin',
+                            color: {
+                                rgb: "E5E7EB"
+                            }
                         },
-                        alignment: {
-                            vertical: 'center'
+                        bottom: {
+                            style: 'thin',
+                            color: {
+                                rgb: "E5E7EB"
+                            }
                         },
-                        border: {
-                            top: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
-                            },
-                            bottom: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
-                            },
-                            left: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
-                            },
-                            right: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
+                        left: {
+                            style: 'thin',
+                            color: {
+                                rgb: "E5E7EB"
+                            }
+                        },
+                        right: {
+                            style: 'thin',
+                            color: {
+                                rgb: "E5E7EB"
                             }
                         }
-                    };
-                }
+                    }
+                };
             }
+        }
 
-            // Générer et télécharger le fichier
-            const date = new Date().toLocaleDateString('fr-FR').replace(/\//g, '-');
-            XLSX.writeFile(workbook, `liste_etudiants_${date}.xlsx`);
-        });
+        // Générer et télécharger le fichier
+        const date = new Date().toLocaleDateString('fr-FR').replace(/\//g, '-');
+        XLSX.writeFile(workbook, `liste_etudiants_${date}.xlsx`);
     </script>
+
 </body>
 
 </html>
