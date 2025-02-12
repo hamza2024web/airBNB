@@ -11,6 +11,12 @@ class DashboardController {
         $this->loadView('dashboard', ['results' => $results]); 
         return $results;
     }
+    public function reservations(){
+        $proprietaireModel = new Proprietaire();
+        $results = $proprietaireModel->getAllReservations();
+        $this->loadView('listreservations',['results' => $results]);
+        return $results;
+    }
     public function statistique (){
         $results = $this->loadView('statistique'); 
         return $results;

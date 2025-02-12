@@ -21,6 +21,17 @@ class Proprietaire {
         $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $annonces ;
     }
+    public function getAllReservations(){
+        $sql = "SELECT annonces.title , users.username , users.email ,reservations.reservationdatedebut , reservations.reservationdatefin , paiment.date_de_paiment
+        FROM reservations
+        INNER JOIN annonces ON annonces.id = reservations.annonceid 
+        INNER JOIN users ON users.id = reservations.voyageurid
+        INNER JOIN paiment ON paiment.id = reservations.paiment_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $reservations ;
+        }
     public function allAnnonces(){
         $sql = "SELECT count(*) as numbreannonces FROM annonces";
         $stmt = $this->conn->prepare($sql);

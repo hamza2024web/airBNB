@@ -58,7 +58,7 @@ $results = $fetchAnnonces->annonces();
             <header class="bg-white/80 backdrop-blur-md p-8 rounded-2xl mb-8 flex justify-between items-center border border-white/20 shadow-lg">
                 <div>
                     <h2 class="text-4xl font-bold text-gray-800 mb-2">Tableau de Bord</h2>
-                    <p class="text-gray-500">Gérez vos propriétés et réservations</p>
+                    <p class="text-gray-500">Gérez vos réservations</p>
                 </div>
                 <div class="flex items-center gap-6">
                     <button id="exportExcel" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors flex items-center gap-2">
@@ -66,12 +66,6 @@ $results = $fetchAnnonces->annonces();
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                         Exporter
-                    </button>
-                    <button class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Nouvelle Propriété
                     </button>
                 </div>
             </header>
@@ -213,112 +207,8 @@ $results = $fetchAnnonces->annonces();
                     </table>
                 </div>
             </div>
-
-            <!-- Enhanced Modal -->
-            <div id="annonceDetails" class="hidden fixed inset-0 bg-gray-900/75 backdrop-blur-sm flex justify-center items-center z-50">
-                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
-                    <!-- Header -->
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-gray-800 line-clamp-2" id="detailTitle"></h2>
-                        <button onclick="closeAnnonces()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Image Container -->
-                    <div class="relative mb-6 rounded-xl overflow-hidden shadow-lg">
-                        <img id="detailPhoto" src="" alt="Property Photo" class="w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
-                        <div class="absolute top-4 right-4">
-                            <span class="px-4 py-2 bg-blue-600 text-white rounded-full font-bold shadow-lg">
-                                <span id="detailPrix"></span> €/mois
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 p-4 rounded-xl">
-                            <div class="flex items-center space-x-2 mb-2">
-                                <div class="w-3 h-3 rounded-full" id="availabilityDot"></div>
-                                <p class="font-semibold">
-                                    Disponibilité: <span id="detailDisponibilite" class="font-normal"></span>
-                                </p>
-                            </div>
-                            <p class="text-gray-600">
-                                Catégorie: <span id="detailCategory" class="font-medium"></span>
-                            </p>
-                        </div>
-
-                        <div class="prose max-w-none">
-                            <p class="text-gray-600 leading-relaxed" id="detailDescription"></p>
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="mt-8 flex justify-end">
-                        <button onclick="closeAnnonces()" class="px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0">
-                            Fermer
-                        </button>
-                    </div>
-                </div>
-            </div>
         </main>
     </div>
-
-    <script>
-        function showAnnonces(title, photo, description, prix, disponibilite, category) {
-
-            const modal = document.getElementById("annonceDetails");
-            const modalContent = document.getElementById("modalContent");
-
-            document.getElementById("detailTitle").innerText = title;
-            document.getElementById("detailPhoto").src = photo;
-            document.getElementById("detailDescription").innerText = description;
-            document.getElementById("detailPrix").innerText = prix;
-            document.getElementById("detailDisponibilite").innerText = disponibilite;
-            document.getElementById("detailCategory").innerText = category;
-
-            const availabilityDot = document.getElementById("availabilityDot");
-            availabilityDot.className = "w-3 h-3 rounded-full";
-            availabilityDot.classList.add(
-                disponibilite.toLowerCase().includes('disponible') ? 'bg-green-500' : 'bg-red-500'
-            );
-
-            modal.classList.remove("hidden");
-
-            requestAnimationFrame(() => {
-                modalContent.classList.remove("scale-95", "opacity-0");
-                modalContent.classList.add("scale-100", "opacity-100");
-            });
-        }
-
-        function closeAnnonces() {
-            const modal = document.getElementById("annonceDetails");
-            const modalContent = document.getElementById("modalContent");
-
-            modalContent.classList.remove("scale-100", "opacity-100");
-            modalContent.classList.add("scale-95", "opacity-0");
-
-            setTimeout(() => {
-                modal.classList.add("hidden");
-                modalContent.classList.remove("scale-95", "opacity-0");
-            }, 300);
-        }
-
-        document.getElementById("annonceDetails").addEventListener("click", (e) => {
-            if (e.target.id === "annonceDetails") {
-                closeAnnonces();
-            }
-        });
-
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && !document.getElementById("annonceDetails").classList.contains("hidden")) {
-                closeAnnonces();
-            }
-        });
-    </script>
     <script>
         document.getElementById('exportExcel').addEventListener('click', function() {
             // Obtenir toutes les lignes visibles
