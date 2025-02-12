@@ -13,7 +13,7 @@ class Proprietaire {
     }
 
     public function getAllAnnonces () {
-        $sql = "SELECT  annonces.id , annonces.title , annonces.photo , annonces.description , annonces.prix ,annonces.disponibilite , categories.categoryname 
+        $sql = "SELECT  annonces.id , annonces.title , annonces.photo , annonces.description , annonces.prix ,annonces.disponibilite ,annonces.statut , categories.categoryname 
         from annonces
         inner join categories on categories.id = annonces.category_id";
         $stmt = $this->conn->prepare($sql);
@@ -60,7 +60,7 @@ class Proprietaire {
     }
 
     public function RevenuOfAnnonce(){
-        $sql = "SELECT SUM(prix) AS revenus_totaux FROM annonces WHERE disponibilite IN ('Vendu', 'Réservé');";
+        $sql = "SELECT SUM(prix) AS revenus_totaux FROM annonces WHERE disponibilite IN ('Vendu', 'Réservé') AND statut IN ('Validé');";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {

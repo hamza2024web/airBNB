@@ -78,6 +78,7 @@ $results = $fetchAnnonces->annonces();
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Prix</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Disponibilité</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Catégorie</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Change the Disponabilité</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Action</th>
                             </tr>
@@ -164,6 +165,21 @@ $results = $fetchAnnonces->annonces();
                                                 </button>
                                             <?php } ?>
                                         </form>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                            <?php
+                                            switch ($result["statut"]) {
+                                                case 'Validé':
+                                                    echo 'bg-green-100 text-green-800 ring-1 ring-green-600/20';
+                                                    break;
+                                                case 'Non Validé':
+                                                    echo 'bg-red-100 text-red-800 ring-1 ring-red-600/20';
+                                                    break;
+                                            }
+                                            ?>">
+                                            <?= $result["statut"] ?>
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
