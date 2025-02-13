@@ -48,7 +48,7 @@ class AuthentificationController
     public function authenticate()
     {
         session_start();
-        
+
             $email = trim($_POST['email']);
             $password = $_POST['password'];
             $userLogin = new UserModel($email, $password);
@@ -57,7 +57,7 @@ class AuthentificationController
                 header('Location: /register');
                 exit;
             }elseif ($results["role"] == "Proprietaires"){
-                header('Location: /register');
+                header('Location: /proprietaire');
                 exit;
             }elseif ($results["role"] == "Voyageurs"){
                 header('Location: /register');
