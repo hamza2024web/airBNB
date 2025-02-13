@@ -57,7 +57,7 @@ class AuthentificationController
                 header('Location: /register');
                 exit;
             }elseif ($results["role"] == "Proprietaires"){
-                header('Location: /register');
+                header('Location: /proprietaire');
                 exit;
             }elseif ($results["role"] == "Voyageurs"){
                 header('Location: /register');
