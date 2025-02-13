@@ -1,10 +1,12 @@
 <?php
+require_once("../vendor/autoload.php");
 
-use Src\Http\Route ;
+use Src\Http\Route;
 
-Route::get('home', 'HomeController@index');
-
-// Route::get('about',function (){
-//     echo "this is fun ";
-//     exit;
-// });
+Route::get('proprietaire', 'DashboardController@annonces');
+Route::get('statistique', 'DashboardController@statistique');
+Route::post('disponibilite','ProprietaireController@disponabilite');
+Route::get('listreservations','DashboardController@reservations');
+Route::get('messageProprietaire','ProprietaireController@message');
+Route::get('messageVoyageur','VoyageurController@messageVoyageur');
+Route::post('sendMessage','ProprietaireController@sendMessage');
