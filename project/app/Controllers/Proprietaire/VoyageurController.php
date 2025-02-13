@@ -10,4 +10,5 @@ class VoyageurController extends BaseController {
         $results = $this->render('messageVoyageur');
         return $results;
     }
+
 }

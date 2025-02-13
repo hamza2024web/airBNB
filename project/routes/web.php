@@ -8,3 +8,4 @@ Route::get('statistique', 'DashboardController@statistique');
 Route::post('disponibilite','ProprietaireController@disponabilite');
 Route::get('listreservations','DashboardController@reservations');
 Route::get('messageProprietaire','DashboardController@message');
+Route::get('messageVoyageur','VoyageurController@messageVoyageur');
