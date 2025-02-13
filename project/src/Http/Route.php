@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Src\Http;
 
 
@@ -9,9 +8,6 @@ class Route
     public Request $request ;
     public Response $response;
     public static array $routes = [];
-
-
-
     public function __construct($request,$response)
     {
         $this->request = $request;
@@ -27,11 +23,11 @@ class Route
         self::$routes['post'][$route] = $action;
     }
 
-
-
     public function resolve(){
         $path = $this->request->path(); 
         $method = $this->request->Methode();
+
+        if(isset(self::$routes[$method][$path])){
 
         $action = self::$routes[$method][$path];
 
@@ -47,8 +43,8 @@ class Route
 
             [$controllerAction , $methodeAction] = explode('@',$action);
 
-            $controllerAction = "App\\Controllers\\$controllerAction";
-
+            $controllerAction = "App\\Controllers\\Proprietaire\\$controllerAction";
+          
             if(!class_exists($controllerAction)){
                 echo "class not exist";
                 exit;
@@ -64,7 +60,11 @@ class Route
             return $objectController->$methodeAction();
         }
 
+    }else{
+        echo'error 404';
+        
+    }
 
-
+}
     }
 }
