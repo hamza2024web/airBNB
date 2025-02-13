@@ -17,8 +17,16 @@ class ProprietaireController extends BaseController{
     }
     public function message(){
         $proprietaireModel = new Proprietaire();
-        $results = $proprietaireModel->sendMessage();
+        $results = $proprietaireModel->AfficheMessage();
         $results = $this->render('messageProprietaire');
+        return $results;
+    }
+    public function sendMessage(){
+        $id = $_POST["id"];
+        $sendMessage = $_POST["sendMessage"];
+        $proprietaireModel = new Proprietaire($id,$sendMessage);
+        $results = $proprietaireModel->sendMessageToVoyageur($id , $sendMessage);
+        $this->loadView('messageProprietaire',['results' => $results]);
         return $results;
     }
     private function loadView($viewName, $data = []) {

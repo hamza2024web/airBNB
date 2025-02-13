@@ -84,8 +84,22 @@ class Proprietaire {
     public function TauxOccupation(){
         
     }
-    public function sendMessage(){
-        
+    public function AfficheMessage(){
+        $sql = "SELECT * FROM messages";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
     }
+    public function sendMessageToVoyageur($id, $sendMessage) {
+        $sql = "INSERT INTO messages (senderid, receiverid, messagetext) 
+        VALUES (:senderId, :receiverId, :sendMessage)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":senderId", $id, PDO::PARAM_INT); 
+        $stmt->bindValue(":receiverId", 2, PDO::PARAM_INT); 
+        $stmt->bindParam(":sendMessage", $sendMessage, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+    
 
 }

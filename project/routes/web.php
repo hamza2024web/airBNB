@@ -9,3 +9,4 @@ Route::post('disponibilite','ProprietaireController@disponabilite');
 Route::get('listreservations','DashboardController@reservations');
 Route::get('messageProprietaire','ProprietaireController@message');
 Route::get('messageVoyageur','VoyageurController@messageVoyageur');
+Route::post('sendMessage','ProprietaireController@sendMessage');
