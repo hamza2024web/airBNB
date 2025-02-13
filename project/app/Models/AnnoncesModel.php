@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use App\Classes\Annonces;
+
 use Config\Database;
 use PDO;
 
@@ -27,12 +28,11 @@ class AnnoncesModel {
         $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
         $Annonces = new Annonces('',$row['title'],$row['photo'],$row['description'],$row['prix'],$row['categoryname']);
-        
+
         return $Annonces;
     }
 
-     
-} 
 
+}
 
 ?>
