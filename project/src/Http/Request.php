@@ -16,6 +16,7 @@ class Request {
         if (str_contains($path, '?')) {
             return explode('?', $path)[0];
         }
+     
         
         return $path;
     }

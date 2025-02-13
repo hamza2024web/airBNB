@@ -8,8 +8,6 @@ class Route
     public Request $request ;
     public Response $response;
     public static array $routes = [];
-
-
     public function __construct($request,$response)
     {
         $this->request = $request;
