@@ -18,7 +18,7 @@ class ProprietaireController extends BaseController{
     public function message(){
         $proprietaireModel = new Proprietaire();
         $results = $proprietaireModel->AfficheMessage();
-        $results = $this->render('messageProprietaire');
+        $this->render('messageProprietaire', ['results' => $results]);
         return $results;
     }
     public function sendMessage(){
