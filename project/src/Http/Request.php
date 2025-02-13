@@ -2,7 +2,6 @@
 namespace Src\Http;
 
 class Request {
-
     public function Methode() {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
@@ -17,6 +16,7 @@ class Request {
         if (str_contains($path, '?')) {
             return explode('?', $path)[0];
         }
+     
         
         return $path;
     }
