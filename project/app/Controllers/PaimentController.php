@@ -24,14 +24,27 @@ class PaimentController {
             $prixTotale   = $_POST['prixTotale'];
             $numberOfDays = $_POST['nuberOfDay'];
             $dateStart    = $_POST['dateStart'];
-            var_dump($dateStart);
-            exit;
-            
+            $dateFine     = $_POST['dateFine'];
+            $prix         = $_POST['prix'];
 
-            View::render('pyment.twig', ['prixTotale' => $prixTotale,'numberOfDays'=>$numberOfDays]);
-            
 
             
+
+            $startDay= new Datetime ( $dateStart );
+            $endtDay = new Datetime ( $dateFine );
+            
+            $diff = $startDay->diff( $endtDay );
+
+            if($numberOfDays>$diff->days){
+                $days = $numberOfDays;
+
+            }else{
+                $days = $diff->days; 
+            }
+
+
+            View::render('pyment.twig', ['prixTotale' => $prixTotale,'days'=>$days,'prix'=>$prix]);
+         
         }   
     }
 
