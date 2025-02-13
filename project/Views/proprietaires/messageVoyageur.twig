@@ -47,13 +47,13 @@
                     <div class="flex items-start space-x-3">
                         <img src="https://via.placeholder.com/40" class="w-8 h-8 rounded-full" alt="User">
                         <div class="p-3 bg-gray-200 rounded-lg">
-                            <p class="text-gray-700">Salut ! Comment vas-tu ?</p>
+                            <p class="text-gray-700"></p>
                         </div>
                     </div>
                     <!-- Sent Message -->
                     <div class="flex items-start space-x-3 justify-end">
                         <div class="p-3 bg-blue-600 text-white rounded-lg">
-                            <p>Ça va bien, merci ! Et toi ?</p>
+                            <p></p>
                         </div>
                         <img src="https://via.placeholder.com/40" class="w-8 h-8 rounded-full" alt="User">
                     </div>
@@ -61,8 +61,9 @@
 
                 <!-- Message Input -->
                 <form action="/messageVoyageur" method="post" class="p-4 border-t bg-white flex items-center">
+                    <input type="hidden" value="2">
                     <input type="text" placeholder="Écrire un message..." class="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button class="ml-3 bg-blue-600 text-white px-4 py-2 rounded-full"><i class="fas fa-paper-plane"></i></button>
+                    <button class="ml-3 bg-blue-600 text-white px-4 py-2 rounded-full" name="send"><i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>

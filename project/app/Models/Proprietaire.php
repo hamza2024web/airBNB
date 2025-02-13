@@ -84,5 +84,8 @@ class Proprietaire {
     public function TauxOccupation(){
         
     }
+    public function sendMessage(){
+        
+    }
 
 }
