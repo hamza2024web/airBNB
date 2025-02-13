@@ -28,17 +28,17 @@ class UserModel {
     }
 
     public function addMember($username, $email, $password, $role) {
-        // if (empty($username) || empty($email) || empty($password) || empty($role)) {
-        //     throw new \Exception("Tous les champs sont obligatoires.");
-        // }
+        if (empty($username) || empty($email) || empty($password) || empty($role)) {
+            throw new \Exception("Tous les champs sont obligatoires.");
+        }
 
-        // if (!$this->isValidEmail($email)) {
-        //     throw new \Exception("Format d'email invalide.");
-        // }
+        if (!$this->isValidEmail($email)) {
+            throw new \Exception("Format d'email invalide.");
+        }
 
-        // if ($this->emailExists($email)) {
-        //     throw new \Exception("Un compte avec cet email existe déjà.");
-        // }
+        if ($this->emailExists($email)) {
+            throw new \Exception("Un compte avec cet email existe déjà.");
+        }
 
         $hashedPassword = $this->hashPassword($password);
         $query = "INSERT INTO users (username,email, password,role )
@@ -53,12 +53,11 @@ class UserModel {
     }
 
     public function login($email, $password) {
-        // Validate inputs
+
         if (empty($email) || empty($password)) {
             throw new \Exception("Email et mot de passe sont requis.");
         }
 
-        // Prepare SQL query to fetch user
         $query = "SELECT * FROM users WHERE email = :email";
         try {
             $stmt = $this->connexion->prepare($query);
