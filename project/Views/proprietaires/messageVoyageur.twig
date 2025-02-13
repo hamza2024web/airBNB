@@ -60,9 +60,9 @@
                 </div>
 
                 <!-- Message Input -->
-                <form action="/messageVoyageur" method="post" class="p-4 border-t bg-white flex items-center">
-                    <input type="hidden" value="2">
-                    <input type="text" placeholder="Écrire un message..." class="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <form action="/sendMessage" method="post" class="p-4 border-t bg-white flex items-center">
+                    <input type="hidden" value="1" name="id">
+                    <input type="text" name="sendMessage" placeholder="Écrire un message..." class="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <button class="ml-3 bg-blue-600 text-white px-4 py-2 rounded-full" name="send"><i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>

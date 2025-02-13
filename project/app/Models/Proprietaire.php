@@ -85,10 +85,15 @@ class Proprietaire {
         
     }
     public function AfficheMessage(){
-        $sql = "SELECT * FROM messages";
+        $sql = "SELECT * FROM messages ORDER BY timestamp";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
-
+        if ($stmt->rowCount() > 0) {
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } else {
+            return false;
+        }
     }
     public function sendMessageToVoyageur($id, $sendMessage) {
         $sql = "INSERT INTO messages (senderid, receiverid, messagetext) 
