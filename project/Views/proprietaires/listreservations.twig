@@ -78,34 +78,34 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
-                            <?php foreach ($results as $result) { ?>
+                            {% for result in results %}
                                 <tr class="hover:bg-gray-50/75 transition-all duration-200">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="font-medium text-gray-900"><?= $result["title"] ?></div>
+                                        <div class="font-medium text-gray-900">{{result.title}}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <img src="<?= $result["photo"] ?>" alt="Annonce Photo"
+                                        <img src="{{result.photo}}" alt="Annonce Photo"
                                             class="w-24 h-24 rounded-xl shadow-md object-cover hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="text-sm text-gray-600 max-w-xs truncate hover:text-clip hover:overflow-visible">
-                                            <?= $result["username"] ?>
+                                            {{result.username}}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600"><?= $result["email"] ?></div>
+                                        <div class="text-sm text-gray-600">{{result.email}}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600"><?= $result["reservationdatedebut"] ?></div>
+                                        <div class="text-sm text-gray-600">{{result.reservationdatedebut}}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600"><?= $result["reservationdatefin"] ?></div>
+                                        <div class="text-sm text-gray-600">{{result.reservationdatefin}}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600"><?= $result["date_de_paiment"] ?></div>
+                                        <div class="text-sm text-gray-600">{{result.date_de_paiment}}</div>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

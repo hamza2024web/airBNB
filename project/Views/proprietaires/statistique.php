@@ -1,6 +1,6 @@
 <?php
 
-use App\Controllers\Proprietaire\DashboardController;
+use App\Controllers\DashboardController;
 
 $fetchAnnonces = new DashboardController();
 $allProprietes = $fetchAnnonces->numbresProprietes();
