@@ -12,7 +12,6 @@ class Route
 
 
 
-
     public function __construct($request,$response)
     {
         $this->request = $request;
