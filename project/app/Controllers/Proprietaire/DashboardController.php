@@ -12,6 +12,12 @@ class DashboardController extends BaseController {
         $this->render('dashboard', ['results' => $results]);
         return $results;
     }
+    public function message(){
+        $proprietaireModel = new Proprietaire(); 
+        $results = $proprietaireModel->getAllAnnonces(); 
+        $this->render('message', ['results' => $results]);
+        return $results;
+    }
     public function reservations(){
         $proprietaireModel = new Proprietaire();
         $results = $proprietaireModel->getAllReservations();
