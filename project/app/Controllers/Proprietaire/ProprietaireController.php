@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers\Proprietaire;
+
+use App\Controllers\BaseController;
 use App\Models\AnnoncesDisponabilite;
 
 
-class ProprietaireController {
+class ProprietaireController extends BaseController{
     public function disponabilite (){
         $id = $_POST["id"];
         $newdisponibilite = $_POST["disponibilite"];
@@ -15,7 +17,7 @@ class ProprietaireController {
 
     private function loadView($viewName, $data = []) {
         extract($data);
-        require_once __DIR__ . "/../../../Views/proprietaires/dashboard.php"; 
+        require_once __DIR__ . "/../../../Views/proprietaires/$viewName.twig"; 
     }
 
 }

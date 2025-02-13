@@ -2,13 +2,14 @@
 namespace App\Controllers\Proprietaire;
 
 use App\Models\Proprietaire;
+use App\Controllers\BaseController;
 use Config\Database;
 
-class DashboardController {
+class DashboardController extends BaseController {
     public function annonces(){
         $proprietaireModel = new Proprietaire(); 
         $results = $proprietaireModel->getAllAnnonces(); 
-        $this->loadView('dashboard', ['results' => $results]); 
+        $this->render('dashboard', ['results' => $results]);
         return $results;
     }
     public function reservations(){
@@ -51,6 +52,6 @@ class DashboardController {
     }
     private function loadView($viewName, $data = []) {
         extract($data);
-        require_once __DIR__ . "/../../../Views/proprietaires/".$viewName.".php"; 
+        require_once __DIR__ . "/../../../Views/proprietaires/".$viewName.".twig"; 
     }
 }

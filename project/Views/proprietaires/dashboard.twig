@@ -1,17 +1,3 @@
-<?php
-
-use App\Controllers\Proprietaire\DashboardController;
-use App\Controllers\Proprietaire\ProprietaireController;
-
-$fetchAnnonces = new DashboardController();
-$allProprietes = $fetchAnnonces->numbresProprietes();
-$numbreAnnocesReserve = $fetchAnnonces->numbreReserve();
-$numbreAnnocesDisponibile = $fetchAnnonces->numbreDisponible();
-$annoncesRevenu = $fetchAnnonces->annoncesRevenu();
-$tauxOccupation = $fetchAnnonces->tauxOccupation();
-$results = $fetchAnnonces->annonces();
-
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,7 +15,7 @@ $results = $fetchAnnonces->annonces();
             <h1 class="text-3xl font-bold px-8 py-6 border-b border-blue-700/50">DashBoard</h1>
             <nav class="p-4">
                 <ul class="space-y-2">
-                    <li><a href="#" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/proprietaire" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">🏠</span>
                             <span class="font-medium">Accueil</span>
                         </a></li>
@@ -42,7 +28,7 @@ $results = $fetchAnnonces->annonces();
                             <span class="font-medium">Statistiques</span>
                         </a></li>
                     <li><a href="/listreservations" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
-                            <span class="text-xl">📅</span> 
+                            <span class="text-xl">📅</span>
                             <span class="font-medium">List des Reservations</span>
                         </a></li>
                     <li><a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-600 transition">
@@ -94,115 +80,89 @@ $results = $fetchAnnonces->annonces();
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
-                            <?php foreach ($results as $result) { ?>
-                                <tr class="hover:bg-gray-50/75 transition-all duration-200">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="font-medium text-gray-900"><?= $result["title"] ?></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <img src="<?= $result["photo"] ?>" alt="Annonce Photo"
-                                            class="w-24 h-24 rounded-xl shadow-md object-cover hover:shadow-xl transition-all duration-200 transform hover:scale-105">
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-600 max-w-xs truncate hover:text-clip hover:overflow-visible">
-                                            <?= $result["description"] ?>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-lg font-semibold text-blue-600"><?= $result["prix"] ?>€<span class="text-sm text-gray-500">/mois</span></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-                                            <?php
-                                            switch ($result["disponibilite"]) {
-                                                case 'Disponible':
-                                                    echo 'bg-green-100 text-green-800 ring-1 ring-green-600/20';
-                                                    break;
-                                                case 'Réservé':
-                                                    echo 'bg-blue-100 text-blue-800 ring-1 ring-blue-600/20';
-                                                    break;
-                                                case 'En attente':
-                                                    echo 'bg-yellow-100 text-yellow-800 ring-1 ring-yellow-600/20';
-                                                    break;
-                                                case 'Vendu':
-                                                    echo 'bg-red-100 text-red-800 ring-1 ring-red-600/20';
-                                                    break;
-                                            }
-                                            ?>">
-                                            <?= $result["disponibilite"] ?>
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600"><?= $result["categoryname"] ?></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <form action="/disponibilite" method="POST" class="flex flex-wrap gap-2">
-                                            <input type="hidden" name="id" value="<?= $result["id"] ?>">
-                                            <?php if ($result["disponibilite"] !== "Disponible") { ?>
-                                                <button type="submit" name="disponibilite" value="Disponible"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-500 rounded-lg shadow-sm hover:bg-green-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                                    </svg>
-                                                    Disponible
-                                                </button>
-                                            <?php } ?>
-                                            <?php if ($result["disponibilite"] !== "Réservé") { ?>
-                                                <button type="submit" name="disponibilite" value="Réservé"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg shadow-sm hover:bg-blue-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    Réservé
-                                                </button>
-                                            <?php } ?>
-                                            <?php if ($result["disponibilite"] !== "En attente") { ?>
-                                                <button type="submit" name="disponibilite" value="En attente"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-yellow-500 rounded-lg shadow-sm hover:bg-yellow-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    En attente
-                                                </button>
-                                            <?php } ?>
-                                            <?php if ($result["disponibilite"] !== "Vendu") { ?>
-                                                <button type="submit" name="disponibilite" value="Vendu"
-                                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-lg shadow-sm hover:bg-red-600 transition-all duration-200 hover:shadow-md">
-                                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    Vendu
-                                                </button>
-                                            <?php } ?>
-                                        </form>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-                                            <?php
-                                            switch ($result["statut"]) {
-                                                case 'Validé':
-                                                    echo 'bg-green-100 text-green-800 ring-1 ring-green-600/20';
-                                                    break;
-                                                case 'Non Validé':
-                                                    echo 'bg-red-100 text-red-800 ring-1 ring-red-600/20';
-                                                    break;
-                                            }
-                                            ?>">
-                                            <?= $result["statut"] ?>
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                                            onclick="showAnnonces('<?= $result['title'] ?>', '<?= $result['photo'] ?>', '<?= $result['description'] ?>', '<?= $result['prix'] ?>', '<?= $result['disponibilite'] ?>', '<?= $result['categoryname'] ?>')">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                                            </svg>
-                                            Voir plus
+                            {% for result in results %}
+                            <tr class="hover:bg-gray-50/75 transition-all duration-200">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">{{ result.title }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <img src="{{ result.photo }}" alt="Annonce Photo"
+                                        class="w-24 h-24 rounded-xl shadow-md object-cover hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-600 max-w-xs truncate hover:text-clip hover:overflow-visible">
+                                        {{ result.description }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-lg font-semibold text-blue-600">{{ result.prix }}€<span class="text-sm text-gray-500">/mois</span></div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                        {% if result.disponibilite == 'Disponible' %}
+                                            bg-green-100 text-green-800 ring-1 ring-green-600/20
+                                        {% elseif result.disponibilite == 'Réservé' %}
+                                            bg-blue-100 text-blue-800 ring-1 ring-blue-600/20
+                                        {% elseif result.disponibilite == 'En attente' %}
+                                            bg-yellow-100 text-yellow-800 ring-1 ring-yellow-600/20
+                                        {% elseif result.disponibilite == 'Vendu' %}
+                                            bg-red-100 text-red-800 ring-1 ring-red-600/20
+                                        {% endif %}
+                                    ">
+                                        {{ result.disponibilite }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-600">{{ result.categoryname }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <form action="/disponibilite" method="POST" class="flex flex-wrap gap-2">
+                                        <input type="hidden" name="id" value="{{ result.id }}">
+                                        {% if result.disponibilite != "Disponible" %}
+                                        <button type="submit" name="disponibilite" value="Disponible"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-500 rounded-lg shadow-sm hover:bg-green-600 transition-all duration-200 hover:shadow-md">
+                                            Disponible
                                         </button>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                                        {% endif %}
+                                        {% if result.disponibilite != "Réservé" %}
+                                        <button type="submit" name="disponibilite" value="Réservé"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg shadow-sm hover:bg-blue-600 transition-all duration-200 hover:shadow-md">
+                                            Réservé
+                                        </button>
+                                        {% endif %}
+                                        {% if result.disponibilite != "En attente" %}
+                                        <button type="submit" name="disponibilite" value="En attente"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-yellow-500 rounded-lg shadow-sm hover:bg-yellow-600 transition-all duration-200 hover:shadow-md">
+                                            En attente
+                                        </button>
+                                        {% endif %}
+                                        {% if result.disponibilite != "Vendu" %}
+                                        <button type="submit" name="disponibilite" value="Vendu"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-lg shadow-sm hover:bg-red-600 transition-all duration-200 hover:shadow-md">
+                                            Vendu
+                                        </button>
+                                        {% endif %}
+                                    </form>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                        {% if result.statut == 'Validé' %}
+                                            bg-green-100 text-green-800 ring-1 ring-green-600/20
+                                        {% else %}
+                                            bg-red-100 text-red-800 ring-1 ring-red-600/20
+                                        {% endif %}
+                                    ">
+                                        {{ result.statut }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                                        onclick="showAnnonces('{{ result.title }}', '{{ result.photo }}', '{{ result.description }}', '{{ result.prix }}', '{{ result.disponibilite }}', '{{ result.categoryname }}')">
+                                        Voir plus
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
