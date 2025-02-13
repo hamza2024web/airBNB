@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book ME</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -20,7 +22,7 @@
                 <a href="/home" class="text-gray-700 hover:text-indigo-600">Home</a>
                 <a href="/about" class="text-gray-700 hover:text-indigo-600">About</a>
                 <a href="/publication" class="text-gray-700 hover:text-indigo-600">Accommodations</a>
-                <a href="login" class="text-gray-700 hover:text-indigo-600">Login</a>
+                <a href="/login" class="text-gray-700 hover:text-indigo-600">Login</a>
                 <a href="/signUp" class="text-white bg-indigo-600 px-4 py-2 rounded-md hover:bg-indigo-500">Sign Up</a>
             </nav>
 

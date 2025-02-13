@@ -20,5 +20,6 @@ class Request {
         }
         
         return $path;
+       
     }
 }

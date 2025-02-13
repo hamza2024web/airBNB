@@ -13,8 +13,35 @@ class Publication {
 
     public function getAllPublications() { 
         try {
-            $stmt = $this->pdo->query("SELECT * FROM annonces");
+            $stmt = $this->pdo->query("SELECT *,annonces.id as idannonce,annonces.title as titleAnnonce,categories.categoryname,promotion.title as titlePromotion,
+            promotion.pourcentage_promotion,promotion.date_de_fin FROM annonces
+            INNER JOIN promotion ON promotion.id=annonces.promotion_id
+               INNER JOIN categories ON categories.id=annonces.category_id");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Erreur: " . $e->getMessage());
+        }
+    }
+     public function getAllPublicationsCategories() { 
+        try {
+            $stmt = $this->pdo->query("SELECT DISTINCT categories.categoryname FROM categories");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Erreur: " . $e->getMessage());
+        }
+    }
+     public function getById($id) { 
+        try {
+            $stmt = $this->pdo->query("SELECT *,annonces.id as idannonce,annonces.title as titleAnnonce,categories.categoryname,promotion.title as titlePromotion,
+            promotion.pourcentage_promotion,promotion.date_de_fin FROM annonces
+            INNER JOIN promotion ON promotion.id=annonces.promotion_id
+               INNER JOIN categories ON categories.id=annonces.category_id
+               where annonces.id= $id");
+
+            // return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
+            exit;
+
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
         }

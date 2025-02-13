@@ -22,10 +22,13 @@ class PublicationController {
         $allPublication = new Publication();
         $annonces = $allPublication->getAllPublications();
         $categories=$allPublication->getAllPublicationsCategories();
+
         echo $this->twig->render('publications.twig', ['annonces' => $annonces,'categories'=>$categories]);
     }
-    public function detailsPublication($id='1'){
+    public function detailsPublication($id){
        $PublicationById = new Publication();
-       $row= $PublicationById->getById($id); 
+       $row= $PublicationById->getById($id);
+        
+        
     }
 }
