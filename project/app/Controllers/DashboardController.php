@@ -1,5 +1,5 @@
 <?php  
-namespace App\Controllers\Proprietaire;
+namespace App\Controllers;
 
 use App\Models\Proprietaire;
 use App\Controllers\BaseController;
