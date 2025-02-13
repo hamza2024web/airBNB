@@ -88,7 +88,7 @@
                            <div class="flex-grow border-t border-gray-300"></div>
                        </div>
 
-                       <form method="POST" action"/login" class="space-y-6">
+                       <form method="POST" action="/login" class="space-y-6">
                            <div>
                                <input type="email" name="email" 
                                    class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1A4B84] focus:border-[#1A4B84] outline-none" 
