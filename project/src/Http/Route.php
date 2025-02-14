@@ -40,10 +40,12 @@ class Route
         }
 
         if (is_string($action)){
-
+        
+        
             [$controllerAction , $methodeAction] = explode('@',$action);
 
-            $controllerAction = "App\\Controllers\\Proprietaire\\$controllerAction";
+            $controllerAction = "App\\Controllers\\$controllerAction";
+
           
             if(!class_exists($controllerAction)){
                 echo "class not exist";
