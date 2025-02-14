@@ -20,5 +20,4 @@ class AdminDashboard extends BaseController{
         $this->renderAdmin('admin', ['results' => $results]);
     }
 }
-
-?>
+?> 
