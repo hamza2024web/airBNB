@@ -16,13 +16,10 @@
             <h1 class="text-2xl font-bold text-center mb-6">AirBnb</h1>
             <nav>
                 <ul class="space-y-4">
-                    <li><a href="./dashboard.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tachometer-alt"></i><span class="ml-2">Tableau de bord</span></a></li>
-                    <li><a href="./tag.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tags"></i><span class="ml-2">Tags Utilisés</span></a></li>
-                    <li><a href="./categorie.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tags"></i><span class="ml-2">Categorie Utilisés</span></a></li>
-                    <li><a href="./UsersList.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Users List</span></a></li>
-                    <li><a href="./cours.php" class="flex items-center bg-blue-700 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Enseignant Cours</span></a></li>
-                    <li><a href="./statistique.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Statistique</span></a></li>
-                    <li><a href="../auth/logout.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Déconnexione</span></a></li>
+                    <li><a href="admin" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tachometer-alt"></i><span class="ml-2">Tableau de bord</span></a></li>
+                    <li><a href="#" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tags"></i><span class="ml-2">Gestion des litiges</span></a></li>
+                    <li><a href="#" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tags"></i><span class="ml-2">Statistiques globales </span></a></li>
+                    <li><a href="#" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Modération des avis et commentaires</span></a></li>
                 </ul>
             </nav>
         </aside>
@@ -30,7 +27,6 @@
         <main class="flex-1 p-6">
             <h2 class="text-3xl font-semibold mb-6">Bienvenue sur votre tableau de Bord</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1 -->
                 <div class="bg-white shadow-lg rounded-lg p-4">
                     <h3 class="font-bold text-xl">Numbre Des Proprietaire</h3>
                     <p class="text-2xl mt-2"></p>
@@ -61,6 +57,7 @@
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Catégorie</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Date De Publication</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Change Status</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Action</th>
                             </tr>
                         </thead>
@@ -118,6 +115,23 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
+                                    <form action="/" method="POST" class="flex flex-wrap gap-2">
+                                        <input type="hidden" name="id" value="{{ result.id }}">
+                                        {% if result.statut != "Validé" %}
+                                        <button type="submit" name="Non Validé" value="Validé"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-500 rounded-lg shadow-sm hover:bg-green-600 transition-all duration-200 hover:shadow-md">
+                                            Validé
+                                        </button>
+                                        {% endif %}
+                                        {% if result.statut != "Non Validé" %}
+                                        <button type="submit" name="Non Validé" value="Non Validé"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-lg shadow-sm hover:bg-red-600 transition-all duration-200 hover:shadow-md">
+                                            Non Validé
+                                        </button>
+                                        {% endif %}
+                                    </form>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
                                         onclick="showAnnonces('{{ result.title }}', '{{ result.photo }}', '{{ result.description }}', '{{ result.prix }}', '{{ result.disponibilite }}', '{{ result.categoryname }}')">
                                         Voir plus
@@ -127,6 +141,55 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                </div>
+            </div>
+                        <div id="annonceDetails" class="hidden fixed inset-0 bg-gray-900/75 backdrop-blur-sm flex justify-center items-center z-50">
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800 line-clamp-2" id="detailTitle"></h2>
+                        <button onclick="closeAnnonces()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Image Container -->
+                    <div class="relative mb-6 rounded-xl overflow-hidden shadow-lg">
+                        <img id="detailPhoto" src="" alt="Property Photo" class="w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="absolute top-4 right-4">
+                            <span class="px-4 py-2 bg-blue-600 text-white rounded-full font-bold shadow-lg">
+                                <span id="detailPrix"></span> €/mois
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-xl">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="w-3 h-3 rounded-full" id="availabilityDot"></div>
+                                <p class="font-semibold">
+                                    Disponibilité: <span id="detailDisponibilite" class="font-normal"></span>
+                                </p>
+                            </div>
+                            <p class="text-gray-600">
+                                Catégorie: <span id="detailCategory" class="font-medium"></span>
+                            </p>
+                        </div>
+
+                        <div class="prose max-w-none">
+                            <p class="text-gray-600 leading-relaxed" id="detailDescription"></p>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="mt-8 flex justify-end">
+                        <button onclick="closeAnnonces()" class="px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0">
+                            Fermer
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>
