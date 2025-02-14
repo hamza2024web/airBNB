@@ -19,5 +19,14 @@ class AdminDashboard extends BaseController{
         header("location: /admin");
         $this->renderAdmin('admin', ['results' => $results]);
     }
+    public function statistique(){
+        $results = $this->loadView('statistique'); 
+        return $results;
+    }
+    public function numbreOfProprieties (){}
+    private function loadView($viewName, $data = []) {
+        extract($data);
+        require_once __DIR__ . "/../../Views/proprietaires/".$viewName.".php"; 
+    }
 }
-?> 
+?>
