@@ -28,5 +28,12 @@ class AdminModel {
         $stmt->execute();
         return true;
     }
+    public function users(){
+        $sql = "SELECT * FROM users";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $usersFetch = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $usersFetch;
+    }
 }
 ?>

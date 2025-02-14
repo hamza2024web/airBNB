@@ -29,7 +29,7 @@ $tauxOccupation = $fetchAnnonces->tauxOccupation();
             <h1 class="text-2xl font-bold mb-8">Dashboard</h1>
             <nav class="p-4">
                 <ul class="space-y-2">
-                    <li><a href="/proprietaire" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/admin" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">🏠</span>
                             <span class="font-medium">Accueil</span>
                         </a></li>
@@ -37,7 +37,7 @@ $tauxOccupation = $fetchAnnonces->tauxOccupation();
                             <span class="text-xl">📊</span>
                             <span class="font-medium">Statistiques</span>
                         </a></li>
-                    <li><a href="/listreservations" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/gestionLitige" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">📅</span>
                             <span class="font-medium">Gestion Des Litiges</span>
                         </a></li>

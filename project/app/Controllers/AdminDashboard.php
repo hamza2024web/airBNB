@@ -23,7 +23,11 @@ class AdminDashboard extends BaseController{
         $results = $this->loadView('statistique'); 
         return $results;
     }
-    public function numbreOfProprieties (){}
+    public function gestiondesLitiges(){
+        $adminModel = new AdminModel();
+        $results = $adminModel->users();
+        $this->renderAdmin('gestiondesLitiges', ['results' => $results]);
+    }
     private function loadView($viewName, $data = []) {
         extract($data);
         require_once __DIR__ . "/../../Views/proprietaires/".$viewName.".php"; 
