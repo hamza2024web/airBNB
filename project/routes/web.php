@@ -23,4 +23,4 @@ Route::get('messageProprietaire','ProprietaireController@message');
 Route::get('messageVoyageur','VoyageurController@messageVoyageur');
 Route::post('sendMessage','ProprietaireController@sendMessage');
 Route::get('admin','AdminDashboard@FetchAnnonces');
-Route::get('statut','AdminDashboard@statut');
+Route::post('statut','AdminDashboard@statut');

@@ -16,7 +16,7 @@ class AdminDashboard extends BaseController{
         $newStatut = $_POST["statut"];
         $statut = new AdminModel();
         $results = $statut->EditStatut($id,$newStatut);
-        header("location : /admin");
+        header("location: /admin");
         $this->renderAdmin('admin', ['results' => $results]);
     }
 }
