@@ -19,8 +19,8 @@ class AdminDashboard extends BaseController{
         header("location: /admin");
         $this->renderAdmin('admin', ['results' => $results]);
     }
-    public function statistique(){
-        $results = $this->loadView('statistique'); 
+    public function statistiqueAdmin(){
+        $results = $this->loadViewAdmin('statistiqueGlobale'); 
         return $results;
     }
     public function gestiondesLitiges(){
@@ -39,6 +39,10 @@ class AdminDashboard extends BaseController{
     private function loadView($viewName, $data = []) {
         extract($data);
         require_once __DIR__ . "/../../Views/proprietaires/".$viewName.".php"; 
+    }
+    private function loadViewAdmin($viewName, $data = []) {
+        extract($data);
+        require_once __DIR__ . "/../../Views/admins/".$viewName.".php"; 
     }
 }
 ?>

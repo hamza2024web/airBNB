@@ -10,9 +10,9 @@
 
 <body class="bg-gray-50">
     <div class="flex h-screen">
-        <!-- Enhanced Sidebar with better gradient and hover effects -->
-        <aside class="w-72 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white shadow-2xl">
-            <h1 class="text-3xl font-bold px-8 py-6 border-b border-blue-700/50">DashBoard</h1>
+        <!-- Enhanced Sidebar with green gradient -->
+        <aside class="w-72 bg-gradient-to-br from-green-800 to-green-600 text-white shadow-2xl">
+            <h1 class="text-3xl font-bold px-8 py-6 border-b border-green-700/50">DashBoard</h1>
             <nav class="p-4">
                 <ul class="space-y-2">
                     <li><a href="/proprietaire" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
@@ -29,7 +29,7 @@
                         </a></li>
                     <li><a href="/listreservations" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">📅</span>
-                            <span class="font-medium">List des Reservations</span>
+                            <span class="font-medium">Liste des Réservations</span>
                         </a></li>
                     <li><a href="/logout" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-600 transition">
                             <span class="text-xl">⚙️</span>
@@ -47,7 +47,7 @@
                     <p class="text-gray-500">Gérez vos propriétés et réservations</p>
                 </div>
                 <div class="flex items-center gap-6">
-                    <button class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <button class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
@@ -59,7 +59,7 @@
             <!-- Enhanced Properties Table -->
             <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
                 <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                     Mes Propriétés
@@ -68,14 +68,14 @@
                     <table class="w-full">
                         <thead>
                             <tr class="bg-gray-50 border-b border-gray-200">
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Title</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Titre</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Photo</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Description</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Prix</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Disponibilité</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Catégorie</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Change the Disponabilité</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Modifier Disponibilité</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Action</th>
                             </tr>
                         </thead>
@@ -95,7 +95,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-lg font-semibold text-blue-600">{{ result.prix }}€<span class="text-sm text-gray-500">/mois</span></div>
+                                    <div class="text-lg font-semibold text-green-600">{{ result.prix }}€<span class="text-sm text-gray-500">/mois</span></div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
@@ -156,7 +156,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                                    <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-green-600 hover:text-green-800 transition-colors duration-200"
                                         onclick="showAnnonces('{{ result.title }}', '{{ result.photo }}', '{{ result.description }}', '{{ result.prix }}', '{{ result.disponibilite }}', '{{ result.categoryname }}')">
                                         Voir plus
                                     </button>
@@ -185,7 +185,7 @@
                     <div class="relative mb-6 rounded-xl overflow-hidden shadow-lg">
                         <img id="detailPhoto" src="" alt="Property Photo" class="w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
                         <div class="absolute top-4 right-4">
-                            <span class="px-4 py-2 bg-blue-600 text-white rounded-full font-bold shadow-lg">
+                            <span class="px-4 py-2 bg-green-600 text-white rounded-full font-bold shadow-lg">
                                 <span id="detailPrix"></span> €/mois
                             </span>
                         </div>
@@ -223,7 +223,6 @@
 
     <script>
         function showAnnonces(title, photo, description, prix, disponibilite, category) {
-
             const modal = document.getElementById("annonceDetails");
             const modalContent = document.getElementById("modalContent");
 
@@ -271,128 +270,6 @@
             if (e.key === "Escape" && !document.getElementById("annonceDetails").classList.contains("hidden")) {
                 closeAnnonces();
             }
-        });
-    </script>
-    <script>
-        document.getElementById('exportExcel').addEventListener('click', function() {
-            // Obtenir toutes les lignes visibles
-            const rows = Array.from(document.querySelectorAll('tbody tr')).filter(row =>
-                row.style.display !== 'none'
-            );
-
-            // Transformer les données
-            const data = rows.map(row => {
-                const nameCell = row.querySelector('td:nth-child(1)');
-                // Récupérer uniquement le texte du nom en excluant l'initiale
-                const fullNameWithoutInitial = nameCell.textContent.replace(/^\s+/, '').trim();
-
-                return {
-                    'Nom Complet': fullNameWithoutInitial,
-                    'Email': row.querySelector('td:nth-child(2)').textContent.trim(),
-                    'annonces': row.querySelector('td:nth-child(3) span').textContent.trim(),
-                    'Date de reservation': row.querySelector('td:nth-child(4)').textContent.trim()
-                };
-            });
-
-            // Créer la feuille Excel
-            const worksheet = XLSX.utils.json_to_sheet(data);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Liste des étudiants");
-
-            // Styliser l'en-tête
-            const range = XLSX.utils.decode_range(worksheet['!ref']);
-
-            // Style pour l'en-tête
-            const headerStyle = {
-                font: {
-                    bold: true,
-                    color: {
-                        rgb: "FFFFFF"
-                    }
-                },
-                fill: {
-                    fgColor: {
-                        rgb: "4338CA"
-                    }
-                },
-                alignment: {
-                    horizontal: 'center',
-                    vertical: 'center'
-                }
-            };
-
-            // Appliquer le style à l'en-tête
-            for (let C = range.s.c; C <= range.e.c; ++C) {
-                const address = XLSX.utils.encode_cell({
-                    r: 0,
-                    c: C
-                });
-                if (!worksheet[address]) continue;
-                worksheet[address].s = headerStyle;
-            }
-
-            // Ajuster la largeur des colonnes
-            const columnWidths = data.reduce((acc, row) => {
-                Object.entries(row).forEach(([key, value], index) => {
-                    const valueLength = value ? value.toString().length : 0;
-                    acc[index] = Math.max(acc[index] || 0, valueLength, key.length);
-                });
-                return acc;
-            }, []);
-
-            worksheet['!cols'] = columnWidths.map(width => ({
-                width: width + 2
-            }));
-
-            // Style pour les cellules de données
-            for (let R = 1; R <= range.e.r; ++R) {
-                for (let C = range.s.c; C <= range.e.c; ++C) {
-                    const address = XLSX.utils.encode_cell({
-                        r: R,
-                        c: C
-                    });
-                    if (!worksheet[address]) continue;
-
-                    worksheet[address].s = {
-                        font: {
-                            name: "Arial"
-                        },
-                        alignment: {
-                            vertical: 'center'
-                        },
-                        border: {
-                            top: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
-                            },
-                            bottom: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
-                            },
-                            left: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
-                            },
-                            right: {
-                                style: 'thin',
-                                color: {
-                                    rgb: "E5E7EB"
-                                }
-                            }
-                        }
-                    };
-                }
-            }
-
-            // Générer et télécharger le fichier
-            const date = new Date().toLocaleDateString('fr-FR').replace(/\//g, '-');
-            XLSX.writeFile(workbook, `liste_etudiants_${date}.xlsx`);
         });
     </script>
 </body>

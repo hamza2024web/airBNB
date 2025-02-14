@@ -12,7 +12,7 @@
 <body class="bg-gray-100 font-sans">
     <div class="flex">
         <!-- Sidebar -->
-        <aside class="bg-blue-700 text-white w-64 min-h-screen p-6 shadow-lg">
+        <aside class="bg-gradient-to-b from-green-900 to-green-700 text-white w-64 min-h-screen p-6 shadow-lg">
             <h1 class="text-3xl font-bold text-center mb-8">AirBnb</h1>
             <nav class="p-4">
                 <ul class="space-y-2">
@@ -40,7 +40,7 @@
             <h2 class="text-4xl font-semibold mb-6">Bienvenue sur votre tableau de Bord Admin</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
                 <h3 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                     Mes Propriétés
@@ -81,7 +81,7 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-2 whitespace-nowrap">
-                                    <div class="text-lg font-semibold text-blue-600">{{ result.prix }}€<span class="text-sm text-gray-500">/mois</span></div>
+                                    <div class="text-lg font-semibold text-green-600">{{ result.prix }}€<span class="text-sm text-gray-500">/mois</span></div>
                                 </td>
                                 <td class="px-4 py-2 whitespace-nowrap">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
@@ -133,7 +133,7 @@
                                     </form>
                                 </td>
                                 <td class="px-4 py-2 whitespace-nowrap">
-                                    <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                                    <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-green-600 hover:text-green-800 transition-colors duration-200"
                                         onclick="showAnnonces('{{ result.title }}', '{{ result.photo }}', '{{ result.description }}', '{{ result.prix }}', '{{ result.disponibilite }}', '{{ result.categoryname }}')">
                                         Voir plus
                                     </button>
@@ -162,7 +162,7 @@
                     <div class="relative mb-6 rounded-xl overflow-hidden shadow-lg">
                         <img id="detailPhoto" src="" alt="Property Photo" class="w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
                         <div class="absolute top-4 right-4">
-                            <span class="px-4 py-2 bg-blue-600 text-white rounded-full font-bold shadow-lg">
+                            <span class="px-4 py-2 bg-green-600 text-white rounded-full font-bold shadow-lg">
                                 <span id="detailPrix"></span> €/mois
                             </span>
                         </div>
