@@ -20,4 +20,13 @@ class AdminModel {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
+    public function EditStatut($id,$newStatut){
+        $sql = "UPDATE annonces SET statut = :statut WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":statut",$newStatut);
+        $stmt->bindParam("id",$id);
+        $stmt->execute();
+        return true;
+    }
 }
+?>

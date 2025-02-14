@@ -115,16 +115,16 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <form action="/" method="POST" class="flex flex-wrap gap-2">
+                                    <form action="/statut" method="POST" class="flex flex-wrap gap-2">
                                         <input type="hidden" name="id" value="{{ result.id }}">
                                         {% if result.statut != "Validé" %}
-                                        <button type="submit" name="Non Validé" value="Validé"
+                                        <button type="submit" name="statut" value="Validé"
                                             class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-500 rounded-lg shadow-sm hover:bg-green-600 transition-all duration-200 hover:shadow-md">
                                             Validé
                                         </button>
                                         {% endif %}
                                         {% if result.statut != "Non Validé" %}
-                                        <button type="submit" name="Non Validé" value="Non Validé"
+                                        <button type="submit" name="statut" value="Non Validé"
                                             class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-lg shadow-sm hover:bg-red-600 transition-all duration-200 hover:shadow-md">
                                             Non Validé
                                         </button>
