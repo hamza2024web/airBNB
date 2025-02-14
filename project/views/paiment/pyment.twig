@@ -79,49 +79,55 @@
             </div>
         <div>
         <!-- PayPal Form -->
-        <div id="paypal-button-container" class="flex"></div>  
+        
+            <div id="paypal-button-container" class="flex"></div>  
+     
 
     </div>
     <script>
+       
         paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                    value: <?php echo "$prixTotale"?>
-                    }
-                }]
-                });
-            },
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: "10" 
+                }
+            }]
+        });
+    },
 
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-
-                fetch('verify_payment.php', {
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+            fetch('http://localhost:82/verifyPaymen', {
+                
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                orderID: data.orderID,
-                payerID: details.payer.payer_id
+                    orderID: data.orderID,
+                    payerID: details.payer.payer_id
                 })
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data); 
                 if (data.success) {
-                alert('The payment was successful.');
-                window.location.href = 'success.html';
+
+                    window.location.href = data.redirectUrl;
                 } else {
-                alert('Payment verification failed.');
+                    alert(data.message || 'Piyment is not successful');
                 }
             })
             .catch(error => {
-                console.error('Error during verification:', error);
+                console.error('sum erorr is hupen', error);
+                alert('sum erorr is hupen ples call seporte');
             });
-            });
-        }
-        }).render('#paypal-button-container');
+        });
+    }
+}).render('#paypal-button-container');
+
 </script>
 </body>
 </html>

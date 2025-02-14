@@ -28,6 +28,8 @@ class Route
     public function resolve(){
         $path = $this->request->path(); 
         $method = $this->request->Methode();
+        
+
 
         if(isset(self::$routes[$method][$path])){
 
