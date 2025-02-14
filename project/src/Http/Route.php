@@ -7,8 +7,6 @@ class Route
     public Request $request ;
     public Response $response;
     public static array $routes = [];
-
-
     public function __construct($request,$response)
     {
         $this->request = $request;
@@ -26,15 +24,12 @@ class Route
    
    
 
+    public function resolve(){
+        $path = $this->request->path(); 
+        $method = $this->request->Methode();
 
+        if(isset(self::$routes[$method][$path])){
 
-    public function resolve() {
-    $path = $this->request->path(); 
-    $method = $this->request->Methode();
-       
-    
-    // Vérifie si la route existe directement
-    if (isset(self::$routes[$method][$path])) {
         $action = self::$routes[$method][$path];
         
     } else {
@@ -50,10 +45,16 @@ class Route
         }
     }
 
-    if (!isset($action)) {
-        echo "Route not found";
-        exit;
-    }
+        if (is_string($action)){
+
+            [$controllerAction , $methodeAction] = explode('@',$action);
+
+            $controllerAction = "App\\Controllers\\Proprietaire\\$controllerAction";
+          
+            if(!class_exists($controllerAction)){
+                echo "class not exist";
+                exit;
+            }
 
     if (is_callable($action)) {
         call_user_func_array($action, $params ?? []);
@@ -68,7 +69,7 @@ class Route
             echo "Class $controller does not exist";
             exit;
         }
-
+      
         $object = new $controller();
         if (!method_exists($object, $method)) {
             echo "Method $method does not exist in $controller";
@@ -76,6 +77,12 @@ class Route
         }
         
         return call_user_func_array([$object, $method], $params ?? []);
+    }else{
+        echo'error 404';
+        
+    }
+
+}
     }
 }
 
