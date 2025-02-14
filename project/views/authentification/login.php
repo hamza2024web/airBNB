@@ -47,7 +47,7 @@
        <nav class="hidden md:flex gap-4">
            <a href="../../Views/index.php" class="hover:text-[#1A4B84] mt-2">Accueil</a>
            <a href="#about" class="hover:text-[#1A4B84] mt-2">A propos de</a>
-           <a href="#courses" class="hover:text-[#1A4B84] mt-2">Cours</a>
+           <a href="#courses" class="hover:text-[#1A4B84] mt-2">chambre</a>
            <a href="../Views/auth/Register.php" class="rounded-full overflow-hidden w-10 h-10">
                <i class="fas fa-user-circle text-3xl text-[#1A4B84]"></i>
            </a>
