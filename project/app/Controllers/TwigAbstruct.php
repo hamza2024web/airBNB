@@ -27,8 +27,9 @@ class PublicationController {
     }
     public function detailsPublication($id){
        $PublicationById = new Publication();
-       $row= $PublicationById->getById($id);
-        
+       $details= $PublicationById->getById($id);
+    echo $this->twig->render('detailsPublication.twig', ['details' => $details]);
+
         
     }
 }

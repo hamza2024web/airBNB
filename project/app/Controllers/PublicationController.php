@@ -27,5 +27,6 @@ class PublicationController {
     public function detailsPublication($id='1'){
        $PublicationById = new Publication();
        $row= $PublicationById->getById($id); 
+       
     }
 }

@@ -38,9 +38,8 @@ class Publication {
                INNER JOIN categories ON categories.id=annonces.category_id
                where annonces.id= $id");
 
-            // return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
-            exit;
+             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
 
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
