@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord - AirBnb</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="bg-blue-600 text-white w-64 min-h-screen p-6">
+            <h1 class="text-2xl font-bold text-center mb-6">AirBnb</h1>
+            <nav>
+                <ul class="space-y-4">
+                    <li><a href="./dashboard.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tachometer-alt"></i><span class="ml-2">Tableau de bord</span></a></li>
+                    <li><a href="./tag.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tags"></i><span class="ml-2">Tags Utilisés</span></a></li>
+                    <li><a href="./categorie.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-tags"></i><span class="ml-2">Categorie Utilisés</span></a></li>
+                    <li><a href="./UsersList.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Users List</span></a></li>
+                    <li><a href="./cours.php" class="flex items-center bg-blue-700 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Enseignant Cours</span></a></li>
+                    <li><a href="./statistique.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Statistique</span></a></li>
+                    <li><a href="../auth/logout.php" class="flex items-center hover:bg-blue-500 p-3 rounded transition duration-300"><i class="fas fa-chart-line"></i><span class="ml-2">Déconnexione</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6">
+            <h2 class="text-3xl font-semibold mb-6">Bienvenue sur votre tableau de Bord</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white shadow-lg rounded-lg p-4">
+                    <h3 class="font-bold text-xl">Numbre Des Proprietaire</h3>
+                    <p class="text-2xl mt-2"></p>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg p-4">
+                    <h3 class="font-bold text-xl">Numbre Des Voyageurs</h3>
+                    <p class="text-2xl mt-2"></p>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Mes Propriétés
+                </h3>
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-50 border-b border-gray-200">
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">id</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Title</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Photo</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Prix</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Disponibilité</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Catégorie</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Date De Publication</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            {% for result in results %}
+                            <tr class="hover:bg-gray-50/75 transition-all duration-200">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">{{ result.id }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">{{ result.title }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <img src="{{ result.photo }}" alt="Annonce Photo"
+                                        class="w-24 h-24 rounded-xl shadow-md object-cover hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-600 max-w-xs truncate hover:text-clip hover:overflow-visible">
+                                        {{ result.description }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-lg font-semibold text-blue-600">{{ result.prix }}€<span class="text-sm text-gray-500">/mois</span></div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                        {% if result.disponibilite == 'Disponible' %}
+                                            bg-green-100 text-green-800 ring-1 ring-green-600/20
+                                        {% elseif result.disponibilite == 'Réservé' %}
+                                            bg-blue-100 text-blue-800 ring-1 ring-blue-600/20
+                                        {% elseif result.disponibilite == 'En attente' %}
+                                            bg-yellow-100 text-yellow-800 ring-1 ring-yellow-600/20
+                                        {% elseif result.disponibilite == 'Vendu' %}
+                                            bg-red-100 text-red-800 ring-1 ring-red-600/20
+                                        {% endif %}
+                                    ">
+                                        {{ result.disponibilite }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-600">{{ result.categoryname }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-600">{{ result.date_de_publication }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                        {% if result.statut == 'Validé' %}
+                                            bg-green-100 text-green-800 ring-1 ring-green-600/20
+                                        {% else %}
+                                            bg-red-100 text-red-800 ring-1 ring-red-600/20
+                                        {% endif %}
+                                    ">
+                                        {{ result.statut }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                                        onclick="showAnnonces('{{ result.title }}', '{{ result.photo }}', '{{ result.description }}', '{{ result.prix }}', '{{ result.disponibilite }}', '{{ result.categoryname }}')">
+                                        Voir plus
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showAnnonces(title, photo, description, prix, disponibilite, category) {
+
+            const modal = document.getElementById("annonceDetails");
+            const modalContent = document.getElementById("modalContent");
+
+            document.getElementById("detailTitle").innerText = title;
+            document.getElementById("detailPhoto").src = photo;
+            document.getElementById("detailDescription").innerText = description;
+            document.getElementById("detailPrix").innerText = prix;
+            document.getElementById("detailDisponibilite").innerText = disponibilite;
+            document.getElementById("detailCategory").innerText = category;
+
+            const availabilityDot = document.getElementById("availabilityDot");
+            availabilityDot.className = "w-3 h-3 rounded-full";
+            availabilityDot.classList.add(
+                disponibilite.toLowerCase().includes('disponible') ? 'bg-green-500' : 'bg-red-500'
+            );
+
+            modal.classList.remove("hidden");
+
+            requestAnimationFrame(() => {
+                modalContent.classList.remove("scale-95", "opacity-0");
+                modalContent.classList.add("scale-100", "opacity-100");
+            });
+        }
+
+        function closeAnnonces() {
+            const modal = document.getElementById("annonceDetails");
+            const modalContent = document.getElementById("modalContent");
+
+            modalContent.classList.remove("scale-100", "opacity-100");
+            modalContent.classList.add("scale-95", "opacity-0");
+
+            setTimeout(() => {
+                modal.classList.add("hidden");
+                modalContent.classList.remove("scale-95", "opacity-0");
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>

@@ -7,20 +7,28 @@ use Twig\Loader\FilesystemLoader;
 
 class BaseController
 {
-    protected $twig;
-
+    protected $twigPro;
+    protected $twigAdmin;
     public function __construct()
     {
-        // Load templates from the Views directory
         $loader = new FilesystemLoader(__DIR__ . '/../../Views/proprietaires');
-        $this->twig = new Environment($loader, [
-            'cache' => false, // Set a path if you want caching
+        $this->twigPro = new Environment($loader, [
+            'cache' => false,
+            'debug' => true,
+        ]);
+        $loaderAdmin = new FilesystemLoader(__DIR__.'/../../Views/admins');
+        $this->twigAdmin = new Environment($loaderAdmin, [
+            'cache' => false,
             'debug' => true,
         ]);
     }
 
     protected function render($template, $data = [])
     {
-        echo $this->twig->render($template . '.twig', $data);
+        echo $this->twigPro->render($template . '.twig', $data);
+    }
+    protected function renderAdmin($template, $data = [])
+    {
+        echo $this->twigAdmin->render($template . '.twig', $data);
     }
 }

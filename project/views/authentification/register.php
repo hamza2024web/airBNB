@@ -132,7 +132,7 @@ if(isset($_SESSION['users'])){
 
                        <div class="text-center mt-6">
                            <p class="text-gray-600">Déjà inscrit ? 
-                               <a href="Login.php" class="text-[#1A4B84] hover:text-[#15396A] transition duration-300">
+                               <a href="login" class="text-[#1A4B84] hover:text-[#15396A] transition duration-300">
                                    Connectez-vous
                                </a>
                            </p>

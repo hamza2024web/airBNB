@@ -53,8 +53,8 @@ class AuthentificationController
             $password = $_POST['password'];
             $userLogin = new UserModel($email, $password);
             $results = $userLogin->login($email, $password);
-            if ($results["role"] == "admins") {
-                header('Location: /register');
+            if ($results["role"] == "Admins") {
+                header('Location: /admin');
                 exit;
             }elseif ($results["role"] == "Proprietaires"){
                 header('Location: /proprietaire');
