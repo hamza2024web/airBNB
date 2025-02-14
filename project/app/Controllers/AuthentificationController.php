@@ -11,7 +11,7 @@ class AuthentificationController
 
     public function login()
     {
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['role'])) {
             header('Location: /home');
             exit;
         }
@@ -21,7 +21,7 @@ class AuthentificationController
     public function register()
     {
 
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['role'])) {
             header('Location: /home');
             exit;
         }
