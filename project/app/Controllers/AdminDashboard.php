@@ -28,6 +28,14 @@ class AdminDashboard extends BaseController{
         $results = $adminModel->users();
         $this->renderAdmin('gestiondesLitiges', ['results' => $results]);
     }
+    public function statutUser(){
+        $id = $_POST["id"];
+        $newStatutUser = $_POST["statutUser"];
+        $statut = new AdminModel();
+        $results = $statut->EditStatutUser($id,$newStatutUser);
+        header("location: /gestionLitige");
+        $this->renderAdmin('gestiondesLitiges', ['results' => $results]);
+    }
     private function loadView($viewName, $data = []) {
         extract($data);
         require_once __DIR__ . "/../../Views/proprietaires/".$viewName.".php"; 

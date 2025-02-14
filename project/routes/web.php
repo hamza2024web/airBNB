@@ -26,3 +26,4 @@ Route::get('admin','AdminDashboard@FetchAnnonces');
 Route::post('statut','AdminDashboard@statut');
 Route::get('statistiqueGlobale','AdminDashboard@statistique');
 Route::get('gestionLitige','AdminDashboard@gestiondesLitiges');
+Route::post('statutUser','AdminDashboard@statutUser');

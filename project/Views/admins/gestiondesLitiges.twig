@@ -63,20 +63,20 @@
                                 <td class="px-6 py-4">{{result.email}}</td>
                                 <td class="px-6 py-4">{{result.role}}</td>
                                 <td class="px-6 py-4">
-                                    <span class="inline-block px-3 py-1 text-sm font-semibold {{ result.statut == 'Actif' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} rounded-full">
+                                    <span class="inline-block px-3 py-1 text-sm font-semibold {{ result.statut == 'Actif' ? 'text-green-800 bg-green-200' : 'text-red-800 bg-red-200' }} rounded-full">
                                         {{result.statut}}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <form method="POST" action="" class="flex items-center space-x-2">
+                                    <form method="POST" action="/statutUser" class="flex items-center space-x-2">
                                         <input type="hidden" name="id" value="{{result.id}}">
                                         {% if result.statut == "Actif" %}
-                                            <button type="submit" name="statut" value="Not Actif" class="px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
+                                            <button type="submit" name="statutUser" value="Not Actif" class="px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
                                                 Not Actif
                                             </button>
                                         {% endif %}
                                         {% if result.statut == "Not Actif" %}
-                                            <button type="submit" name="statut" value="Actif" class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded-lg hover:bg-green-600 transition">
+                                            <button type="submit" name="statutUser" value="Actif" class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded-lg hover:bg-green-600 transition">
                                                 Actif
                                             </button>
                                         {% endif %}

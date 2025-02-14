@@ -35,5 +35,13 @@ class AdminModel {
         $usersFetch = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $usersFetch;
     }
+    public function EditStatutUser($id,$newStatutUser){
+        $sql = "UPDATE users SET statut = :statut WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":statut",$newStatutUser);
+        $stmt->bindParam("id",$id);
+        $stmt->execute();
+        return true;
+    }
 }
 ?>
