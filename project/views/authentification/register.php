@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if(isset($_SESSION['users'])){
-
-    header('Location:/home');
-    }
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

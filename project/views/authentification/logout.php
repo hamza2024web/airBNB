@@ -3,9 +3,9 @@ session_start();
 
 require_once("../../../vendor/autoload.php");
 
-use App\Controllers\AuthController;
+use App\Controllers\AuthentificationController;
 
-$authController = new AuthController();
+$authController = new AuthentificationController();
 $authController->logout();
 
 ?>

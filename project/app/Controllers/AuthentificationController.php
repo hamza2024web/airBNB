@@ -37,7 +37,7 @@ class AuthentificationController
     public function insert()
     {
         session_start();
-        
+
         $username = trim(htmlspecialchars($_POST['username']));
         $email = $_POST['email'];
         $password = $_POST['password_'];
