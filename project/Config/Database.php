@@ -29,6 +29,7 @@ class Database
 
                 self::$pdoSinglton =  $pdo_instance ;
                 return self::$pdoSinglton;
+               
                 
             } catch (PDOException $e) {
                 print_r($_ENV);

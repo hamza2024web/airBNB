@@ -12,9 +12,6 @@ class PaimentController
 
     public function paiment()    {
 
-
-
-
         if (isset($_POST['prixTotale']) && isset($_POST['nuberOfDay']) && isset($_POST['dateStart'])) {
 
             $prixTotale = $_POST['prixTotale'];
@@ -37,6 +34,36 @@ class PaimentController
 
 
             View::render('pyment.twig', ['prixTotale' => $prixTotale, 'days' => $days, 'prix' => $prix]);
+
+        }
+    }
+
+    public function validation()    {
+
+        if (isset($_POST['prixTotale']) && isset($_POST['nuberOfDay']) && isset($_POST['dateStart'])) {
+            $prixTotale = $_POST['prixTotale'];
+            $numberOfDays = $_POST['nuberOfDay'];
+            $dateStart = $_POST['dateStart'];
+            $dateFine = $_POST['dateFine'];
+            $prix = $_POST['prix'];
+
+            var_dump($prixTotale, $numberOfDays, $dateStart, $dateFine, $prix);
+           
+
+            // $startDay = new Datetime($dateStart);
+            // $endtDay = new Datetime($dateFine);
+
+            // $diff = $startDay->diff($endtDay);
+
+            // if ($numberOfDays > $diff->days) {
+            //     $days = $numberOfDays;
+
+            // } else {
+            //     $days = $diff->days;
+            // }
+
+
+            View::render('validation.twig', ['an' => $prixTotale, 'bb' => $numberOfDays, 'dd' => $prix]);
 
         }
     }
@@ -118,9 +145,7 @@ class PaimentController
 
 
     }
-
-
-
+    
     private function getPayPalAccessToken($config)
     {
         $ch = curl_init();
