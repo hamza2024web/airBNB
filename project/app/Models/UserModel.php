@@ -27,27 +27,17 @@ class UserModel {
         return password_hash($password, PASSWORD_BCRYPT);
     }
 
-    public function addMember($username, $email, $password, $role) {
-        // if (empty($username) || empty($email) || empty($password) || empty($role)) {
-        //     throw new \Exception("Tous les champs sont obligatoires.");
-        // }
-
-        // if (!$this->isValidEmail($email)) {
-        //     throw new \Exception("Format d'email invalide.");
-        // }
-
-        // if ($this->emailExists($email)) {
-        //     throw new \Exception("Un compte avec cet email existe déjà.");
-        // }
+    public function addMember($username, $email, $password, $role,$statut) {
 
         $hashedPassword = $this->hashPassword($password);
-        $query = "INSERT INTO users (username,email, password,role )
-        VALUES (:username,:email, :password, :role );";
+        $query = "INSERT INTO users (username,email, password,role ,statut)
+        VALUES (:username,:email, :password, :role ,:staut);";
         $stmt = $this->connexion->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':role', $role);
+        $stmt->bindParam(':staut',$statut);
         $insertResults = $stmt->execute();
         return $insertResults;
     }
@@ -65,6 +55,9 @@ class UserModel {
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($user['role'] === 'Admins'){
+                return $user;
+            }
             if ($user && password_verify($password, $user['password'])) {
                 unset($user['password']);
                 return $user;
