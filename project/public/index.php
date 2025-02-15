@@ -6,7 +6,7 @@ use Src\Http\Route;
 use Config\Database;
 
 
-require_once "../vendor/autoload.php";
+
 require_once '../routes/web.php';
 
 

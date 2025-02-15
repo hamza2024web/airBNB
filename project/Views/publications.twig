@@ -1,0 +1,194 @@
+{% include 'Layout/header.php' %}
+
+<section class="p-6 bg-gray-100 min-h-screen">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-[3rem]">
+        <!-- Sidebar Filters -->
+        <aside class="bg-white p-4 rounded-2xl shadow-md h-fit" aria-labelledby="filter-heading">
+            {# <h2 id="filter-heading" class="text-lg font-semibold mb-3">Availability</h2>
+            <form>
+                <label for="from-date" class="block text-gray-600 text-sm">From</label>
+                <input id="from-date" type="date" class="w-full p-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-300" />
+                
+                <label for="to-date" class="block text-gray-600 text-sm mt-3">To</label>
+                <input id="to-date" type="date" class="w-full p-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-300" />
+                
+                <button type="submit" class="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+                    Check Availability
+                </button>
+            </form> #}
+            
+            <h2 class="text-lg font-semibold mt-6">Theme</h2>
+            <fieldset class="mt-2 space-y-2 text-gray-600" id='filterCategories'>
+            <label class="flex items-center">
+                    <input class="inputCategories" id='All' checked  type="checkbox" value='All' onclick='uncheckInputs(this.value)' class="mr-2" > All
+                </label>
+                {% for category in categories %}
+                <label class="flex items-center">
+                    <input class="inputCategories" id='{{category.categoryname}}'  type="checkbox" value='{{category.categoryname}}' onclick='uncheckInputs(this.value)' class="mr-2" > {{category.categoryname}}
+                </label>
+                {% endfor %}
+            </fieldset>
+        </aside>
+        
+        <!-- Search Results -->
+        <main class="md:col-span-3">
+            <header class="flex justify-between items-center mb-4">
+                <h1 class="text-xl font-semibold">Things To Do In London</h1>
+                <label for="sort-options" class="sr-only">Sort by</label>
+                <select id="sort-options" class="p-2 border rounded-lg focus:ring-2 focus:ring-blue-300">
+                    <option>Popularity</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                </select>
+            </header>
+            
+            <section id="annonces" class=" flex flex-wrap gap-[3rem] justify-center " aria-labelledby="activities-heading">
+                
+             
+
+            {% if annonces  %}
+               {% for announce in annonces %}
+        <article class="bg-white p-4 rounded-2xl shadow-md  gap-4 hover:scale-105 transition transform flex flex-col   relative">
+            <!-- Image -->
+            <img src="{{ announce.photo }}" class="rounded-lg w-[20rem] h-[12rem]" alt="{{ announce.titleAnnonce }} image" />
+
+            <!-- Content -->
+            <div class=" ">
+                <!-- Category and Promotion Badge -->
+                <div class="flex gap-4 items-start">
+                    <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-lg">
+                        {{ announce.categoryname }}
+                    </span>
+                     <span class="text-sm bg-red-100 text-red-800 px-2 py-1 rounded-lg">
+                        {{ announce.localisation }}
+                    </span>
+                      
+                     {% if announce.promotion_id is not null and (announce.date_de_fin|date('U') > "now"|date('U'))  %}
+                           <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-lg">
+                        {{ announce.pourcentage_promotion }}%
+                    </span>
+                        {% endif %}
+                    
+                </div>
+
+                <!-- Title and Description -->
+               
+                <h3 class="text-lg font-semibold mt-2">{{ announce.title}}</h3>
+               
+                <!-- Price and Availability -->
+                <div class="mt-2">
+                    <p class="text-blue-500 font-semibold">
+                        {% if announce.promotion_id is not null and (announce.date_de_fin|date('U') > "now"|date('U'))  %}
+                            <span class="line-through text-gray-400 mr-2">{{ announce.prix }}</span>
+                            <span>{{ announce.prix * (1 - announce.pourcentage_promotion / 100) }} DH</span>
+                            {% else %}
+                             <span class="text-blue-500 font-semibold">{{ announce.prix }} DH</span>
+                        {% endif %}
+                    </p>
+                
+                </div>
+                    <!-- See More Button -->
+                        <a href="/details/{{ announce.idannonce}}" class="text-blue-500  right-5 bottom-5 absolute font-semibold mt-2 flex items-center gap-2 hover:text-blue-700 transition">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+            </div>
+        </article>
+               {% endfor %}
+                     {% else %}
+                     <p class='text-[black] flex justify-center items-center mt-[3rem]'>aucune de logements ...</p>
+                {% endif %}
+            </section>
+
+
+
+        </main>
+    </div>
+</section>
+ <script>
+    function uncheckInputs(value) {
+
+      let inputs=document.getElementsByClassName('inputCategories');
+      for (let i = 0; i < inputs.length; i++) {
+                inputs[i].checked = false;
+            }
+    let inputCheckes=document.getElementById(value);
+     if(inputCheckes.checked==true){
+        inputCheckes.checked=false;
+     }else if(inputCheckes.checked==false){
+        inputCheckes.checked=true
+     }
+     loadDoc(value);
+
+    }
+    
+    
+    
+    function loadDoc(value) {
+    let category = value;
+
+    fetch("publication/filter", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "category=" + category,
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        let annoncesSection = document.getElementById('annonces');
+        annoncesSection.innerHTML = ''; 
+
+        if (data.length > 0) {
+            data.forEach(announce => {
+                let announceHTML = `
+                    <article class="bg-white p-4 rounded-2xl shadow-md gap-4 hover:scale-105 transition transform flex flex-col relative">
+                        <img src="${announce.photo}" class="rounded-lg w-[20rem] h-[12rem]" alt="${announce.titleAnnonce} image" />
+                        <div>
+                            <div class="flex gap-4 items-start">
+                                <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-lg">
+                                    ${announce.categoryname}
+                                </span>
+                                <span class="text-sm bg-red-100 text-red-800 px-2 py-1 rounded-lg">
+                                    ${announce.localisation}
+                                </span>
+                                ${announce.promotion_id && new Date(announce.date_de_fin) > new Date() ? 
+                                    `<span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-lg">
+                                        ${announce.pourcentage_promotion}%
+                                    </span>` : ''
+                                }
+                            </div>
+                            <h3 class="text-lg font-semibold mt-2">${announce.title}</h3>
+                            <div class="mt-2">
+                                <p class="text-blue-500 font-semibold">
+                                    ${announce.promotion_id && new Date(announce.date_de_fin) > new Date() ?
+                                        `<span class="line-through text-gray-400 mr-2">${announce.prix} DH</span>
+                                        <span>${announce.prix * (1 - announce.pourcentage_promotion / 100)} DH</span>` :
+                                        `<span>${announce.prix} DH</span>`
+                                    }
+                                </p>
+                            </div>
+                            <a href="/details/${announce.idannonce}" class="text-blue-500 right-5 bottom-5 absolute font-semibold mt-2 flex items-center gap-2 hover:text-blue-700 transition">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                `;
+                annoncesSection.innerHTML += announceHTML;
+            });
+        } else {
+annoncesSection.innerHTML = `
+    <div class="flex flex-col items-center justify-center mt-[3rem] text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-gray-600 text-lg font-semibold">Aucune annonce trouvée</p>
+        <p class="text-gray-500 mt-2">Essayez de modifier vos filtres ou de revenir plus tard.</p>
+    </div>
+`;        }
+    })
+    .catch(error => console.error("Erreur :", error));
+}
+    
+    </script>
+
+{% include 'Layout/footer.php' %}

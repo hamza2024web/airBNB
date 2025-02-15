@@ -36,6 +36,8 @@ class Route
     // Vérifie si la route existe directement
     if (isset(self::$routes[$method][$path])) {
         $action = self::$routes[$method][$path];
+       
+       
         
     } else {
 
@@ -52,6 +54,7 @@ class Route
 
     if (!isset($action)) {
         echo "Route not found";
+       
         exit;
     }
 
@@ -61,6 +64,7 @@ class Route
     }
 
     if (is_string($action)) {
+         
         [$controller, $method] = explode('@', $action);
         $controller = "App\\Controllers\\$controller";
 
