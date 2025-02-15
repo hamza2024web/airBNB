@@ -14,7 +14,6 @@ class Database
     public static function getConnection()
     {
 
-
         if (self::$pdoSinglton != null) {
             return self::$pdoSinglton;
         } else {
@@ -24,7 +23,6 @@ class Database
 
                 $dotenv = Dotenv::createImmutable(__DIR__.'/../');
                 $dotenv->load();
-
 
                 $dsn = "pgsql:host=".$_ENV['DB_HOST'].";dbname=".$_ENV['DB_NAME'];
                 $pdo_instance = new PDO($dsn, $_ENV['DB_USER'],$_ENV['DB_PASSWORD']);
