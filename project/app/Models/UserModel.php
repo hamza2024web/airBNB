@@ -73,6 +73,10 @@ class UserModel {
                 return $user;
             }
             if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['role'] = $user['role'];
+                $_SESSION['statut'] = $user['statut'];
                 unset($user['password']);
                 return $user;
             } else {

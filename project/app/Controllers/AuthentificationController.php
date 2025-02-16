@@ -36,11 +36,15 @@ class AuthentificationController
 
     public function insert()
     {
+<<<<<<< HEAD
         session_start();
 
         $username = trim(htmlspecialchars($_POST['username']));
+=======
+        $username = $_POST['username'];
+>>>>>>> b9c6661908d85d87032be580047d5c0333fc43da
         $email = $_POST['email'];
-        $password = $_POST['password_'];
+        $password = $_POST['password'];
         $role = $_POST['role'];
         if ($role == "Proprietaires"){
             $statut = "Not Actif";
@@ -79,7 +83,7 @@ class AuthentificationController
                     header('Location: /proprietaire');
                     exit;
                 }elseif ($results["role"] == "Voyageurs"){
-                    header('Location: /register');
+                    header('Location: /publication');
                     exit;
                 }
             } elseif ($results["statut"] == "Not Actif"){

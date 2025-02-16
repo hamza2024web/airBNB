@@ -54,7 +54,7 @@
                     <!-- Ticket Body -->
                     <div class="space-y-1">
                         <p class="text-gray-600 text-sm truncate">
-                            <span class="font-semibold">Stay Duration:</span>{{ numberOfDays }} Days at Blue Origin Farms
+                            <span class="font-semibold">Stay Duration:</span>{{ days }} Days at Blue Origin Farms
                         </p>
                         <p class="text-gray-600 text-sm truncate">
                             <span class="font-semibold">Location:</span> Galle, Sri Lanka
@@ -63,10 +63,11 @@
 
                     <div class="mt-4 border-t pt-2 space-y-1">
                         <p class="text-gray-700 text-sm">
-                            <span class="font-medium">Total:</span> <span class="text-blue-600 font-bold">{{ prixTotale }} USD</span>
+                            <span class="font-medium">Total:</span> <span class="text-blue-600 font-bold">{{ prixTotale }} DOLAR</span>
+                            <input name  = 'prixTotale' id = 'PrixTotal' type="text" value = '{{ prixTotale }}' hidden>
                         </p>
                         <p class="text-gray-700 text-sm">
-                            <span class="font-medium">Initial Payment:</span> <span class="text-emerald-600 font-bold">$200</span>
+                            <span class="font-medium">Initial Payment:</span> <span class="text-emerald-600 font-bold">${{ prix }}</span>
                         </p>
                     </div>
 
@@ -79,49 +80,11 @@
             </div>
         <div>
         <!-- PayPal Form -->
-        <div id="paypal-button-container" class="flex"></div>  
+        <div id="paypal-button-container" type='submit' class="flex"></div>  
 
-    </div>
-    <script>
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                    value: <?php echo "$prixTotale"?>
-                    }
-                }]
-                });
-            },
-
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-
-                fetch('verify_payment.php', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                orderID: data.orderID,
-                payerID: details.payer.payer_id
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                alert('The payment was successful.');
-                window.location.href = 'success.html';
-                } else {
-                alert('Payment verification failed.');
-                }
-            })
-            .catch(error => {
-                console.error('Error during verification:', error);
-            });
-            });
-        }
-        }).render('#paypal-button-container');
-</script>
+        </div>
+    <script src = "../../public/js/Piment.js">
+    
+    </script>
 </body>
 </html>

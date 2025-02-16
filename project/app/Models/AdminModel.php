@@ -14,7 +14,8 @@ class AdminModel {
     public function AdminAnnonces(){
         $sql = "SELECT  annonces.id , annonces.title , annonces.photo , annonces.description , annonces.prix , annonces.disponibilite, categories.categoryname ,annonces.date_de_publication ,annonces.statut 
         from annonces
-        inner join categories on categories.id = annonces.category_id";
+        inner join categories on categories.id = annonces.category_id
+        order by id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
