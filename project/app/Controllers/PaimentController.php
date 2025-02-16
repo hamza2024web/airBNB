@@ -57,7 +57,10 @@ class PaimentController
     {
        
         $reservation = new ReservationModel();
-        $reservation->insertReservation('1', '2',$_SESSION['dateStart'],$_SESSION['dateFine'],'1');
+        $paimentinsert=$reservation->paimentinsert($_SESSION['orderId']);
+        $getIdpaiment=$reservation->idepaiment($_SESSION['orderId']);
+
+        $reservation->insertReservation($_SESSION["idAnnonce"], $_SESSION["user_id"],$_SESSION['dateStart'],$_SESSION['dateFine'],$getIdpaiment);
 
 
 
@@ -77,15 +80,15 @@ class PaimentController
 
         $getAnnonces = new AnnoncesModel();
         $getDateOfReservation = new ReservationModel();
-
-
-        $Annonces = $getAnnonces->getInforamtin(6);
+        $id = $_POST["checkeDay"];
+        $_SESSION["idAnnonce"] = $id;
+        $Annonces = $getAnnonces->getInforamtin($id);
 
         if (!$Annonces) {
             return false;
         }
 
-        $Dates = $getDateOfReservation->getDate(6);
+        $Dates = $getDateOfReservation->getDate($id);
 
         $dateOfReservation = [];
         foreach ($Dates as $date) {
