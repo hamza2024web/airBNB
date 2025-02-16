@@ -1,5 +1,5 @@
 <?php  
-namespace App\Controllers\Proprietaire;
+namespace App\Controllers;
 
 use App\Models\Proprietaire;
 use App\Controllers\BaseController;
@@ -15,7 +15,7 @@ class DashboardController extends BaseController {
     public function reservations(){
         $proprietaireModel = new Proprietaire();
         $results = $proprietaireModel->getAllReservations();
-        $this->loadView('listreservations',['results' => $results]);
+        $this->render('listreservations',['results' => $results]);
         return $results;
     }
     public function statistique (){
@@ -52,6 +52,6 @@ class DashboardController extends BaseController {
     }
     private function loadView($viewName, $data = []) {
         extract($data);
-        require_once __DIR__ . "/../../../Views/proprietaires/".$viewName.".twig"; 
+        require_once __DIR__ . "/../../Views/proprietaires/".$viewName.".php"; 
     }
 }

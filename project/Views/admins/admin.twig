@@ -4,32 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord - Propriétaires</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tableau de Bord - AirBnb</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-gray-50">
-    <div class="flex h-screen">
-        <!-- Enhanced Sidebar with green gradient -->
-        <aside class="w-72 bg-gradient-to-br from-green-800 to-green-600 text-white shadow-2xl">
-            <h1 class="text-3xl font-bold px-8 py-6 border-b border-green-700/50">DashBoard</h1>
+<body class="bg-gray-100 font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="bg-gradient-to-b from-green-900 to-green-700 text-white w-64 min-h-screen p-6 shadow-lg">
+            <h1 class="text-3xl font-bold text-center mb-8">AirBnb</h1>
             <nav class="p-4">
                 <ul class="space-y-2">
-                    <li><a href="/proprietaire" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/admin" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">🏠</span>
                             <span class="font-medium">Accueil</span>
                         </a></li>
-                    <li><a href="/messageProprietaire" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
-                            <span class="text-xl">📋</span>
-                            <span class="font-medium">Messages</span>
-                        </a></li>
-                    <li><a href="/statistique" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/statistiqueGlobale" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">📊</span>
                             <span class="font-medium">Statistiques</span>
                         </a></li>
-                    <li><a href="/listreservations" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <li><a href="/gestionLitige" class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/10 transition-all duration-300">
                             <span class="text-xl">📅</span>
-                            <span class="font-medium">Liste des Réservations</span>
+                            <span class="font-medium">Gestion Des Litiges</span>
                         </a></li>
                     <li><a href="/logout" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-600 transition">
                             <span class="text-xl">⚙️</span>
@@ -39,65 +36,54 @@
             </nav>
         </aside>
 
-        <!-- Main Content with improved spacing and shadows -->
-        <main class="flex-1 p-8 overflow-y-auto">
-            <header class="bg-white/80 backdrop-blur-md p-8 rounded-2xl mb-8 flex justify-between items-center border border-white/20 shadow-lg">
-                <div>
-                    <h2 class="text-4xl font-bold text-gray-800 mb-2">Tableau de Bord</h2>
-                    <p class="text-gray-500">Gérez vos propriétés et réservations</p>
-                </div>
-                <div class="flex items-center gap-6">
-                    <button class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Nouvelle Propriété
-                    </button>
-                </div>
-            </header>
-
-            <!-- Enhanced Properties Table -->
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-                <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center gap-3">
+        <main class="flex-1 p-8">
+            <h2 class="text-4xl font-semibold mb-6">Bienvenue sur votre tableau de Bord Admin</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+                <h3 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                     Mes Propriétés
                 </h3>
                 <div class="overflow-x-auto rounded-xl border border-gray-200">
-                    <table class="w-full">
+                    <table class="w-full table-auto">
                         <thead>
                             <tr class="bg-gray-50 border-b border-gray-200">
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Titre</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Photo</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Description</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Prix</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Disponibilité</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Catégorie</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Modifier Disponibilité</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Action</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">ID</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Titre</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Photo</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Prix</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Disponibilité</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Catégorie</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Date de Publication</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Changer Statut</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Action</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
                             {% for result in results %}
-                            <tr class="hover:bg-gray-50/75 transition-all duration-200">
-                                <td class="px-6 py-4 whitespace-nowrap">
+                            <tr class="hover:bg-gray-50 transition-all duration-200">
+                                <td class="px-4 py-2 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">{{ result.id }}</div>
+                                </td>
+                                <td class="px-4 py-2 whitespace-nowrap">
                                     <div class="font-medium text-gray-900">{{ result.title }}</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-2 whitespace-nowrap">
                                     <img src="{{ result.photo }}" alt="Annonce Photo"
                                         class="w-24 h-24 rounded-xl shadow-md object-cover hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-4 py-2">
                                     <div class="text-sm text-gray-600 max-w-xs truncate hover:text-clip hover:overflow-visible">
                                         {{ result.description }}
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-2 whitespace-nowrap">
                                     <div class="text-lg font-semibold text-green-600">{{ result.prix }}€<span class="text-sm text-gray-500">/mois</span></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-2 whitespace-nowrap">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                                         {% if result.disponibilite == 'Disponible' %}
                                             bg-green-100 text-green-800 ring-1 ring-green-600/20
@@ -112,39 +98,13 @@
                                         {{ result.disponibilite }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-2 whitespace-nowrap">
                                     <div class="text-sm text-gray-600">{{ result.categoryname }}</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <form action="/disponibilite" method="POST" class="flex flex-wrap gap-2">
-                                        <input type="hidden" name="id" value="{{ result.id }}">
-                                        {% if result.disponibilite != "Disponible" %}
-                                        <button type="submit" name="disponibilite" value="Disponible"
-                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-500 rounded-lg shadow-sm hover:bg-green-600 transition-all duration-200 hover:shadow-md">
-                                            Disponible
-                                        </button>
-                                        {% endif %}
-                                        {% if result.disponibilite != "Réservé" %}
-                                        <button type="submit" name="disponibilite" value="Réservé"
-                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg shadow-sm hover:bg-blue-600 transition-all duration-200 hover:shadow-md">
-                                            Réservé
-                                        </button>
-                                        {% endif %}
-                                        {% if result.disponibilite != "En attente" %}
-                                        <button type="submit" name="disponibilite" value="En attente"
-                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-yellow-500 rounded-lg shadow-sm hover:bg-yellow-600 transition-all duration-200 hover:shadow-md">
-                                            En attente
-                                        </button>
-                                        {% endif %}
-                                        {% if result.disponibilite != "Vendu" %}
-                                        <button type="submit" name="disponibilite" value="Vendu"
-                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-lg shadow-sm hover:bg-red-600 transition-all duration-200 hover:shadow-md">
-                                            Vendu
-                                        </button>
-                                        {% endif %}
-                                    </form>
+                                <td class="px-4 py-2 whitespace-nowrap">
+                                    <div class="text-sm text-gray-600">{{ result.date_de_publication }}</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-2 whitespace-nowrap">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                                         {% if result.statut == 'Validé' %}
                                             bg-green-100 text-green-800 ring-1 ring-green-600/20
@@ -155,7 +115,24 @@
                                         {{ result.statut }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-2 whitespace-nowrap">
+                                    <form action="/statut" method="POST" class="flex flex-wrap gap-2">
+                                        <input type="hidden" name="id" value="{{ result.id }}">
+                                        {% if result.statut != "Validé" %}
+                                        <button type="submit" name="statut" value="Validé"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-500 rounded-lg shadow-sm hover:bg-green-600 transition-all duration-200 hover:shadow-md">
+                                            Validé
+                                        </button>
+                                        {% endif %}
+                                        {% if result.statut != "Non Validé" %}
+                                        <button type="submit" name="statut" value="Non Validé"
+                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-lg shadow-sm hover:bg-red-600 transition-all duration-200 hover:shadow-md">
+                                            Non Validé
+                                        </button>
+                                        {% endif %}
+                                    </form>
+                                </td>
+                                <td class="px-4 py-2 whitespace-nowrap">
                                     <button class="inline-flex items-center px-4 py-2 text-sm font-medium text-green-600 hover:text-green-800 transition-colors duration-200"
                                         onclick="showAnnonces('{{ result.title }}', '{{ result.photo }}', '{{ result.description }}', '{{ result.prix }}', '{{ result.disponibilite }}', '{{ result.categoryname }}')">
                                         Voir plus
@@ -168,13 +145,13 @@
                 </div>
             </div>
 
-            <!-- Enhanced Modal -->
+            <!-- Modal for Property Details -->
             <div id="annonceDetails" class="hidden fixed inset-0 bg-gray-900/75 backdrop-blur-sm flex justify-center items-center z-50">
                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold text-gray-800 line-clamp-2" id="detailTitle"></h2>
-                        <button onclick="closeAnnonces()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                        <button onclick="closeAnnonces()" class="p-2 hover:bg-gray-200 rounded-full transition-colors">
                             <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -259,18 +236,6 @@
                 modalContent.classList.remove("scale-95", "opacity-0");
             }, 300);
         }
-
-        document.getElementById("annonceDetails").addEventListener("click", (e) => {
-            if (e.target.id === "annonceDetails") {
-                closeAnnonces();
-            }
-        });
-
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && !document.getElementById("annonceDetails").classList.contains("hidden")) {
-                closeAnnonces();
-            }
-        });
     </script>
 </body>
 

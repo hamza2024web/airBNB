@@ -2,9 +2,8 @@
 session_start();
 
 if(isset($_SESSION['users'])){
-
     header('Location:/home');
-    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -16,14 +15,17 @@ if(isset($_SESSION['users'])){
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
    <style>
        .bg-gradient-custom {
-           background: linear-gradient(to bottom right, #1A4B84, #1A4B84);
+           background: linear-gradient(to bottom right, #28A745, #56D98A);
        }
+
        .bg-custom-light {
-           background-color: #5599db;
+           background-color: #4CAF50;
        }
+
        .btn-gradient-custom {
-           background: linear-gradient(to right, #1A4B84, #15396A);
+           background: linear-gradient(to right, #28A745, #56D98A);
        }
+
        .btn-social {
            display: flex;
            align-items: center;
@@ -34,9 +36,11 @@ if(isset($_SESSION['users'])){
            border-radius: 0.375rem;
            transition: all 0.3s ease;
        }
+
        .btn-social:hover {
-           background-color: #F7FAFC;
+           background-color: #F0FFF4;
        }
+
        .btn-social i {
            margin-right: 0.5rem;
        }
@@ -46,18 +50,18 @@ if(isset($_SESSION['users'])){
 <body>
 <header class="fixed w-full bg-white shadow">
    <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
-       <a href="../../Views/index.php" class="text-2xl font-bold text-[#1A4B84] flex items-center">
+       <a href="publication" class="text-2xl font-bold text-[#28A745] flex items-center">
            <svg class="h-8 w-8 mr-2" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="Accueil" role="img" focusable="false">
-               <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.91 3.494 0 2.776-1.684 4.64-4.668 5.134a3.739 3.739 0 0 1-.477.048c-1.845 0-3.391-.959-4.8-2.488-1.41 1.529-2.956 2.488-4.8 2.488-.16 0-.32-.016-.477-.048C7.736 28.617 6 26.783 6 24.006c0-1.022.243-1.903.91-3.494l.165-.402c.958-2.29 5.113-11.037 7.073-14.83l.54-1.036C15.962 1.964 17.416 1 19.424 1z" fill="#1A4B84"></path>
+               <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.91 3.494 0 2.776-1.684 4.64-4.668 5.134a3.739 3.739 0 0 1-.477.048c-1.845 0-3.391-.959-4.8-2.488-1.41 1.529-2.956 2.488-4.8 2.488-.16 0-.32-.016-.477-.048C7.736 28.617 6 26.783 6 24.006c0-1.022.243-1.903.91-3.494l.165-.402c.958-2.29 5.113-11.037 7.073-14.83l.54-1.036C15.962 1.964 17.416 1 19.424 1z" fill="#28A745"></path>
            </svg>
            airbnb
        </a>
        <nav class="hidden md:flex gap-4">
-           <a href="../../Views/index.php" class="hover:text-[#1A4B84] mt-2">Accueil</a>
-           <a href="#about" class="hover:text-[#1A4B84] mt-2">A propos de</a>
-           <a href="#courses" class="hover:text-[#1A4B84] mt-2">Cours</a>
+           <a href="../../Views/index.php" class="hover:text-[#28A745] mt-2">Accueil</a>
+           <a href="#about" class="hover:text-[#28A745] mt-2">À propos de</a>
+           <a href="#courses" class="hover:text-[#28A745] mt-2">Cours</a>
            <a href="../Views/auth/Login.php" class="rounded-full overflow-hidden w-10 h-10">
-               <i class="fas fa-user-circle text-3xl text-[#1A4B84]"></i>
+               <i class="fas fa-user-circle text-3xl text-[#28A745]"></i>
            </a>
        </nav>
        <button class="md:hidden">☰</button>
@@ -77,7 +81,7 @@ if(isset($_SESSION['users'])){
                    </div>
 
                    <div class="p-8">
-                       <!-- Boutons de connexion sociale -->
+                       <!-- Social Login Buttons -->
                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                            <button class="btn-social text-[#1877F2]">
                                <i class="fab fa-facebook-f text-xl"></i>
@@ -89,7 +93,7 @@ if(isset($_SESSION['users'])){
                            </button>
                        </div>
 
-                       <!-- Séparateur -->
+                       <!-- Separator -->
                        <div class="flex items-center my-6">
                            <div class="flex-grow border-t border-gray-300"></div>
                            <span class="mx-4 text-gray-500">ou</span>
@@ -100,24 +104,24 @@ if(isset($_SESSION['users'])){
                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                <div>
                                    <input type="text" name="username" 
-                                       class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1A4B84] focus:border-[#1A4B84] outline-none" 
-                                       placeholder="Username">
+                                       class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none" 
+                                       placeholder="Nom d'utilisateur" required>
                                </div>
                                <div>
                                    <input type="email" name="email" 
-                                       class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1A4B84] focus:border-[#1A4B84] outline-none" 
-                                       placeholder="Email">
+                                       class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none" 
+                                       placeholder="Email" required>
                                </div>
                            </div>
 
-                           <input type="password" name="password " 
-                               class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1A4B84] focus:border-[#1A4B84] outline-none" 
-                               placeholder="Password">
+                           <input type="password" name="password" 
+                               class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none" 
+                               placeholder="Mot de passe" required>
 
                            <div>
-                               <label class="block text-[#1A4B84] font-medium mb-2">Rôle</label>
+                               <label class="block text-[#28A745] font-medium mb-2">Rôle</label>
                                <select name="role" 
-                                   class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1A4B84] focus:border-[#1A4B84] outline-none">
+                                   class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none" required>
                                    <option value="">Choisir un rôle</option>
                                    <option value="Voyageurs">Voyageur</option>
                                    <option value="Proprietaires">Propriétaire</option>
@@ -132,7 +136,7 @@ if(isset($_SESSION['users'])){
 
                        <div class="text-center mt-6">
                            <p class="text-gray-600">Déjà inscrit ? 
-                               <a href="Login.php" class="text-[#1A4B84] hover:text-[#15396A] transition duration-300">
+                               <a href="login" class="text-[#28A745] hover:text-[#15396A] transition duration-300">
                                    Connectez-vous
                                </a>
                            </p>
@@ -142,16 +146,5 @@ if(isset($_SESSION['users'])){
            </div>
        </div>
    </div>
-   <!-- <script>
-document.addEventListener('DOMContentLoaded', ()=>{
-    var messages = document.getElementsByClassName('message');
-
-    setTimeout(function() {
-        for (var i = 0; i < messages.length; i++) {
-            messages[i].style.display = 'none';
-        }
-    }, 4000);
-})
-</script> -->
 </body>
 </html>
