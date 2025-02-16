@@ -15,7 +15,7 @@ class AnnoncesModel {
     } 
 
     public function getInforamtin($id){
-        $sql = "select * from Annonces
+        $sql = "SELECT * from Annonces
                 inner join categories
                 on Annonces.category_id =categories.id
 				inner join reservations 

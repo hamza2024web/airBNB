@@ -23,7 +23,7 @@
                 <a href="/about" class="text-gray-700 hover:text-indigo-600">About</a>
                 <a href="/publication" class="text-gray-700 hover:text-indigo-600">Accommodations</a>
                 <a href="/login" class="text-gray-700 hover:text-indigo-600">Login</a>
-                <a href="/signUp" class="text-white bg-indigo-600 px-4 py-2 rounded-md hover:bg-indigo-500">Sign Up</a>
+                <a href="/register" class="text-white bg-indigo-600 px-4 py-2 rounded-md hover:bg-indigo-500">Sign Up</a>
             </nav>
 
             <!-- Mobile Menu Button -->

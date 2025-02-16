@@ -81,7 +81,7 @@ $tauxOccupation = $fetchAnnonces->tauxOccupation();
                     <div class="flex items-center space-x-4">
                         <i class="fas fa-check-circle text-3xl text-green-500"></i>
                         <div>
-                            <h3 class="text-lg font-medium text-gray-600">Propriétés Louées</h3>
+                            <h3 class="text-lg font-medium text-gray-600">Propriétés Réservè</h3>
                             <p class="text-4xl font-bold text-gray-800"><?= $numbreAnnocesReserve; ?></p>
                         </div>
                     </div>
