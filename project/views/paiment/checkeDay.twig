@@ -65,9 +65,9 @@
                     <label for="bday" class="block  text-gray-700 text-sm font-semibold mb-2">
                     Please select a date:
                     </label>
-                    <input type="text" id="inputDate" value='YY-mm-dd' class="w-full bg-gray-200 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" />
-                    <input type="text" id="inputDatef" value='YY-mm-dd' class="w-full bg-gray-200 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" />
-                    
+                    <input type="text" id="inputDate" value='YY-mm-dd' class="my-2 w-full bg-gray-200 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" />
+                    <input type="text" id="inputDatef" value='YY-mm-dd' class=" my-2 w-full bg-gray-200 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" />
+
                 </div>
                 
                 <!-- Price Information -->
@@ -82,9 +82,12 @@
                 <!-- Action Buttons -->
                 <div class="space-y-3">
                     <form method="post" action="paiment">
+                    
                     <input name  = 'prixTotale' id = 'totalPriceSubmit' type="text" value = '' hidden>
                     <input name  = 'nuberOfDay' id = 'nuberOfDay'       type="text" value = '' hidden>
                     <input name  = 'dateStart'  id = 'dateStart'        type="text" value = '' hidden>
+                    <input name  = 'dateFine'   id = 'dateFine'         type="text" value = '' hidden>
+                    <input name  = 'prix'       id = 'prix'             type="text" value = '' hidden>
                     
                     <button name = 'submit'     id = 'submit'  class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
                         Book Now
@@ -100,7 +103,7 @@
     </div>
 
 <script>
-    const PRICE_PER_DAY ={{ row.prix }}; // $200 USD per day
+    const PRICE_PER_DAY = {{ row.prix }} ; 
     const MIN_DAYS = 1;
     const MAX_DAYS = 14;
 
@@ -110,20 +113,28 @@
     const daysCountSpan = document.getElementById('daysCount');
     const dateRangeSpan = document.getElementById('dateRange');
     const totalPriceSpan = document.getElementById('totalPrice');
-    const totalDaysSpan = document.getElementById('totalDays');
+    const totalDaysSpan    = document.getElementById('totalDays');
+
     const totalPriceSubmit = document.getElementById('totalPriceSubmit');
     const nuberOfDay = document.getElementById('nuberOfDay');
+    const prixe = document.getElementById('prix');    
+
+
     const inputDate = document.getElementById('inputDate');
     const inputDatef = document.getElementById('inputDatef');
 
     const dateStart = document.getElementById('dateStart');
+    const dateFin = document.getElementById('dateFine');
+    
 
+    prixe.value =   {{ row.prix }};
+    
     inputDate.addEventListener('change', function() {
         dateStart.value = inputDate.value;;
-});
-inputDatef.addEventListener('change', function() {
-        dateStart.value = inputDatef.value;;
-});
+    });
+    inputDatef.addEventListener('change', function() {
+        dateFin.value = inputDatef.value;;
+    });
 
     // State
     let numberOfDays = 1;
@@ -179,19 +190,13 @@ inputDatef.addEventListener('change', function() {
 </script>
 <script>
     const reservedDates =['2025-02-05','2025-02-10','2025-02-12','2025-02-23',];
-    flatpickr("#inputDate", {
+    flatpickr(".my-2", {
     disable: reservedDates.map(date => new Date(date)),
     dateFormat: "Y-m-d",
     locale: "fr"
     });
 </script>
-<script>
-    const reservedDates =['2025-02-05','2025-02-10','2025-02-12','2025-02-23',];
-    flatpickr("#inputDatef", {
-    disable: reservedDates.map(date => new Date(date)),
-    dateFormat: "Y-m-d",
-    locale: "fr"
-    });
-</script>
+
+
 </body>
 </html>
