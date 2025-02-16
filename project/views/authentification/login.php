@@ -117,7 +117,7 @@
 
                        <div class="text-center mt-6">
                            <p class="text-gray-600">Pas encore de compte ? 
-                               <a href="Register.php" class="text-[#1A4B84] hover:text-[#15396A] transition duration-300">
+                               <a href="/register" class="text-[#1A4B84] hover:text-[#15396A] transition duration-300">
                                    Inscrivez-vous
                                </a>
                            </p>

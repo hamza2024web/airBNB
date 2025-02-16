@@ -70,7 +70,6 @@
                    </div>
 
                    <div class="p-8">
-                       <!-- Boutons de connexion sociale -->
                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                            <button class="btn-social text-[#1877F2]">
                                <i class="fab fa-facebook-f text-xl"></i>
@@ -82,7 +81,6 @@
                            </button>
                        </div>
 
-                       <!-- Séparateur -->
                        <div class="flex items-center my-6">
                            <div class="flex-grow border-t border-gray-300"></div>
                            <span class="mx-4 text-gray-500">ou</span>
@@ -125,7 +123,7 @@
 
                        <div class="text-center mt-6">
                            <p class="text-gray-600">Déjà inscrit ? 
-                               <a href="Login.php" class="text-[#1A4B84] hover:text-[#15396A] transition duration-300">
+                               <a href="/login" class="text-[#1A4B84] hover:text-[#15396A] transition duration-300">
                                    Connectez-vous
                                </a>
                            </p>
