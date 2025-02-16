@@ -42,19 +42,17 @@ class ReservationModel
 
     public function insertReservation($idAnnoce, $vayageurId, $dateStart, $dateEnd, $paiment_id)
     {
-        if (is_array($paiment_id) && !empty($paiment_id)) {
-            $paiment_id = $paiment_id[0];
-        }
+
         $sql = "INSERT INTO reservations 
-                (annonceid, voyageurid, reservationdatedebut, reservationdatefin, payment_id)
-                VALUES (:annonceid, :voyageurid, :reservationdatedebut, :reservationdatefin, :paiment_id)";
+        (annonceid, voyageurid, reservationdatedebut, reservationdatefin, payment_id)
+        VALUES (:annonceid, :voyageurid, :reservationdatedebut, :reservationdatefin, :payment_id)";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':annonceid', $idAnnoce);
         $stmt->bindParam(':voyageurid', $vayageurId);
         $stmt->bindParam(':reservationdatedebut', $dateStart);
         $stmt->bindParam(':reservationdatefin', $dateEnd);
-        $stmt->bindParam(':paiment_id', $paiment_id);
+        $stmt->bindParam(':payment_id', $paiment_id, PDO::PARAM_NULL); // Explicitly use PDO::PARAM_NULL if needed
 
         $resulta = $stmt->execute();
 

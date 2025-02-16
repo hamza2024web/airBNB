@@ -59,6 +59,7 @@ class PaimentController
         $reservation = new ReservationModel();
         $paimentinsert=$reservation->paimentinsert($_SESSION['orderId']);
         $getIdpaiment=$reservation->idepaiment($_SESSION['orderId']);
+       
 
         $reservation->insertReservation($_SESSION["idAnnonce"], $_SESSION["user_id"],$_SESSION['dateStart'],$_SESSION['dateFine'],$getIdpaiment);
 
