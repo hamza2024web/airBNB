@@ -39,12 +39,14 @@ class Route
         // Vérifie si une route dynamique correspond
         foreach (self::$routes[$method] as $route => $action) {
             $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '([a-zA-Z0-9_-]+)', $route);
+            
             if (preg_match("#^$pattern$#", $path, $matches)) {
-                array_shift($matches); // Supprime le premier élément (chemin complet)
-                $params = $matches; 
+                array_shift($matches); 
+                $params = $matches;  
                 break;              
             }
         }
+        
     }
 
         if (is_string($action)){

@@ -63,7 +63,8 @@
 
                     <div class="mt-4 border-t pt-2 space-y-1">
                         <p class="text-gray-700 text-sm">
-                            <span class="font-medium">Total:</span> <span class="text-blue-600 font-bold">{{ prixTotale }} USD</span>
+                            <span class="font-medium">Total:</span> <span class="text-blue-600 font-bold">{{ prixTotale }} DOLAR</span>
+                            <input name  = 'prixTotale' id = 'PrixTotal' type="text" value = '{{ prixTotale }}' hidden>
                         </p>
                         <p class="text-gray-700 text-sm">
                             <span class="font-medium">Initial Payment:</span> <span class="text-emerald-600 font-bold">${{ prix }}</span>
@@ -79,55 +80,11 @@
             </div>
         <div>
         <!-- PayPal Form -->
-        
-            <div id="paypal-button-container" class="flex"></div>  
-     
+        <div id="paypal-button-container" type='submit' class="flex"></div>  
 
-    </div>
-    <script>
-       
-        paypal.Buttons({
-    createOrder: function(data, actions) {
-        return actions.order.create({
-            purchase_units: [{
-                amount: {
-                    value: "{{prixTotale}}" 
-                }
-            }]
-        });
-    },
-
-    onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-            fetch('http://localhost:82/verifyPaymen', {
-                
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    orderID: data.orderID,
-                    payerID: details.payer.payer_id
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); 
-                if (data.success) {
-
-                    window.location.href = data.redirectUrl;
-                } else {
-                    alert(data.message || 'Piyment is not successful');
-                }
-            })
-            .catch(error => {
-                console.error('sum erorr is hupen', error);
-                alert('sum erorr is hupen ples call seporte');
-            });
-        });
-    }
-}).render('#paypal-button-container');
-
-</script>
+        </div>
+    <script src = "../../public/js/Piment.js">
+    
+    </script>
 </body>
 </html>

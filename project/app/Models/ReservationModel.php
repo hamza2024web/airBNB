@@ -36,6 +36,28 @@ class ReservationModel {
 
         return $reservation;
     }  
+
+    public function insertReservation($idAnnoce,$vayageurId,$dateStart,$dateEnd,$orderId){
+        $sql = "insert into reservations 
+        (annonceid,voyageurid,reservationdatedebut,reservationdatefin,paiment_id)
+         values (:annonceid,:voyageurid,:reservationdatedebut,:reservationdatefin,:paiment_id)";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':annonceid', $idAnnoce) ;
+        $stmt->bindParam(':voyageurid',$vayageurId) ;
+        $stmt->bindParam(':reservationdatedebut',$dateStart) ;
+        $stmt->bindParam(':reservationdatefin',$dateEnd) ;
+        $stmt->bindParam(':paiment_id',$orderId) ;
+        $resulta = $stmt->execute();
+          
+        
+
+         if(!$resulta){
+            return false;
+         }else{
+            return true;
+         }
+    }  
 } 
 
 

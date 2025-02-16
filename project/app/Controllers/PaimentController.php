@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+session_start();
 require_once __DIR__ . '/../../vendor/autoload.php';
 use App\Models\AnnoncesModel;
 use App\Models\ReservationModel;
@@ -10,7 +11,8 @@ use \DateTime;
 class PaimentController
 {
 
-    public function paiment()    {
+    public function paiment()
+    {
 
         if (isset($_POST['prixTotale']) && isset($_POST['nuberOfDay']) && isset($_POST['dateStart'])) {
 
@@ -19,7 +21,7 @@ class PaimentController
             $dateStart = $_POST['dateStart'];
             $dateFine = $_POST['dateFine'];
             $prix = $_POST['prix'];
-
+           
             $startDay = new Datetime($dateStart);
             $endtDay = new Datetime($dateFine);
 
@@ -32,40 +34,42 @@ class PaimentController
                 $days = $diff->days;
             }
 
+            $_SESSION['prixTotale']   = $prixTotale;
+            $_SESSION['numberOfDays'] = $numberOfDays;
+            $_SESSION['dateStart']    = $dateStart;
+            $_SESSION['dateFine']     = $dateFine;
+            $_SESSION['prix']         = $prix;
+            $_SESSION['dateFine']     = $dateFine;
+            $_SESSION['days']         = $days;
 
-            View::render('pyment.twig', ['prixTotale' => $prixTotale, 'days' => $days, 'prix' => $prix]);
+            View::render('pyment.twig', [
+                'prixTotale' => $prixTotale,
+                'days' => $days,
+                'prix' => $prix,
+                'dateStart' => $dateStart,
+                'dateFine' => $dateFine
+            ]);
 
         }
     }
 
-    public function validation()    {
-
-        if (isset($_POST['prixTotale']) && isset($_POST['nuberOfDay']) && isset($_POST['dateStart'])) {
-            $prixTotale = $_POST['prixTotale'];
-            $numberOfDays = $_POST['nuberOfDay'];
-            $dateStart = $_POST['dateStart'];
-            $dateFine = $_POST['dateFine'];
-            $prix = $_POST['prix'];
-
-            var_dump($prixTotale, $numberOfDays, $dateStart, $dateFine, $prix);
-           
-
-            // $startDay = new Datetime($dateStart);
-            // $endtDay = new Datetime($dateFine);
-
-            // $diff = $startDay->diff($endtDay);
-
-            // if ($numberOfDays > $diff->days) {
-            //     $days = $numberOfDays;
-
-            // } else {
-            //     $days = $diff->days;
-            // }
+    public function validation()
+    {
+       
+        $reservation = new ReservationModel();
+        $reservation->insertReservation('1', '2',$_SESSION['dateStart'],$_SESSION['dateFine'],'1');
 
 
-            View::render('validation.twig', ['an' => $prixTotale, 'bb' => $numberOfDays, 'dd' => $prix]);
 
-        }
+        View::render('validation.twig', [
+            'prixTotale'   => $_SESSION['prixTotale'],
+            'numberOfDays' => $_SESSION['numberOfDays'],
+            'dateStart'    => $_SESSION['dateStart'],
+            'dateFine'     => $_SESSION['dateFine'],
+            'prix'         => $_SESSION['prix'],
+            'days'         => $_SESSION['days'],
+            'orderId'      => $_SESSION['orderId']
+        ]);
     }
 
     public function checkeDay()
@@ -109,9 +113,11 @@ class PaimentController
         $data = json_decode($rawData, true);
 
 
+
         if (isset($data['orderID']) && isset($data['payerID'])) {
             $orderID = $data['orderID'];
             $payerID = $data['payerID'];
+            $_SESSION['orderId'] = $orderID;
 
 
             try {
@@ -121,7 +127,7 @@ class PaimentController
                     echo json_encode([
                         'success' => true,
                         'orderID' => $orderID,
-                        'redirectUrl' => 'validation.php?orderID=' . $orderID
+                        'redirectUrl' => 'validation/' . $orderID
                     ]);
                 } else {
                     echo json_encode([
@@ -145,7 +151,7 @@ class PaimentController
 
 
     }
-    
+
     private function getPayPalAccessToken($config)
     {
         $ch = curl_init();
