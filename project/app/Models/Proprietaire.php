@@ -38,8 +38,7 @@ class Proprietaire {
         }
     public function allAnnonces(){
         $sql = "SELECT count(*) as numbreannonces FROM annonces
-        inner join users on annonces.proprietaire_id = users.id
-        where annonces.proprietaire_id = :proprietaire";
+        inner join users on annonces.proprietaire_id = users.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
