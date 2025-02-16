@@ -24,36 +24,50 @@ class PublicationController {
         $allPublication = new Publication();
         $categories=$allPublication->getAllPublicationsCategories();
         $annonces = $allPublication->getAllPublications();
-       
-        echo $this->twig->render('publications.twig', ['annonces' => $annonces,'categories'=>$categories]);
+   
+        echo $this->twig->render('Publication/publications.twig', ['annonces' => $annonces,'categories'=>$categories]);
     }
 
     
-    public function detailsPublication($id='1'){
+    public function detailsPublication($id){
        $PublicationById = new Publication();
-       $row= $PublicationById->getById($id); 
+       $row= $PublicationById->getById($id);
+       
+     echo $this->twig->render('Publication/detailsPublication.twig', ['announce' => $row]);
        
     }
 
-    public function filterPublication() {
+    public function filterCategoryPublication() {
       
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category'])) {
         $category = $_POST['category'];
-       
-        
-
-        // Get filtered publications based on the category
+         $publicationModel = new Publication();
         if ($category === "All") {
-             $allPublication = new Publication();
-       
-        $annonces = $allPublication->getAllPublications();
-
-        } else {
-           $publicationModel = new Publication();
+            $annonces = $publicationModel->getAllPublications();
+        } else  {
             $annonces=$publicationModel->getPublicationsByCategories($category);
         }
+       
+        echo json_encode($annonces);
+    } 
+    
+}
 
-        // Return data as JSON (instead of HTML)
+
+
+
+ public function filterSearchPublication() {
+     
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
+        $search = $_POST['search'];
+        
+         $publicationModel = new Publication();
+        if ($search === "") {
+            $annonces = $publicationModel->getAllPublications();
+        } else  {
+            $annonces=$publicationModel->getPublicationsBySearchName($search);
+        }
+       
         echo json_encode($annonces);
     } 
     

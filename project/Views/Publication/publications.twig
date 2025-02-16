@@ -4,7 +4,11 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-[3rem]">
         <!-- Sidebar Filters -->
         <aside class="bg-white p-4 rounded-2xl shadow-md h-fit" aria-labelledby="filter-heading">
-            {# <h2 id="filter-heading" class="text-lg font-semibold mb-3">Availability</h2>
+        <input id="searchInput" class="py-2 pl-4 my-3 block w-full border border-gray-300 rounded-lg text-sm
+           outline-blue-300   outline-[1px] 
+        " type="text" placeholder="Search " >
+   
+            <h2 id="filter-heading" class="text-lg font-semibold my-3">Availability</h2>
             <form>
                 <label for="from-date" class="block text-gray-600 text-sm">From</label>
                 <input id="from-date" type="date" class="w-full p-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-300" />
@@ -15,7 +19,7 @@
                 <button type="submit" class="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
                     Check Availability
                 </button>
-            </form> #}
+            </form>
             
             <h2 class="text-lg font-semibold mt-6">Theme</h2>
             <fieldset class="mt-2 space-y-2 text-gray-600" id='filterCategories'>
@@ -73,7 +77,7 @@
 
                 <!-- Title and Description -->
                
-                <h3 class="text-lg font-semibold mt-2">{{ announce.title}}</h3>
+                <h3 class="text-lg font-semibold mt-2">{{ announce. titleannonce}}</h3>
                
                 <!-- Price and Availability -->
                 <div class="mt-2">
@@ -105,36 +109,29 @@
     </div>
 </section>
  <script>
+
+
+    document.getElementById('searchInput').addEventListener('input',(value)=>{
+        searchFilter(value.target.value);
+    })
     function uncheckInputs(value) {
 
       let inputs=document.getElementsByClassName('inputCategories');
       for (let i = 0; i < inputs.length; i++) {
                 inputs[i].checked = false;
             }
-    let inputCheckes=document.getElementById(value);
-     if(inputCheckes.checked==true){
-        inputCheckes.checked=false;
-     }else if(inputCheckes.checked==false){
-        inputCheckes.checked=true
-     }
-     loadDoc(value);
-
+        let inputCheckes=document.getElementById(value);
+        if(inputCheckes.checked==true){
+            inputCheckes.checked=false;
+        }else if(inputCheckes.checked==false){
+            inputCheckes.checked=true
+        }
+        
+        CategoryFilter(value);
     }
     
-    
-    
-    function loadDoc(value) {
-    let category = value;
-
-    fetch("publication/filter", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: "category=" + category,
-    })
-    .then(response => response.json()) 
-    .then(data => {
+    function showChangement(data){
+      
         let annoncesSection = document.getElementById('annonces');
         annoncesSection.innerHTML = ''; 
 
@@ -157,7 +154,7 @@
                                     </span>` : ''
                                 }
                             </div>
-                            <h3 class="text-lg font-semibold mt-2">${announce.title}</h3>
+                            <h3 class="text-lg font-semibold mt-2">${announce.titleannonce}</h3>
                             <div class="mt-2">
                                 <p class="text-blue-500 font-semibold">
                                     ${announce.promotion_id && new Date(announce.date_de_fin) > new Date() ?
@@ -176,18 +173,51 @@
                 annoncesSection.innerHTML += announceHTML;
             });
         } else {
-annoncesSection.innerHTML = `
-    <div class="flex flex-col items-center justify-center mt-[3rem] text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <p class="text-gray-600 text-lg font-semibold">Aucune annonce trouvée</p>
-        <p class="text-gray-500 mt-2">Essayez de modifier vos filtres ou de revenir plus tard.</p>
-    </div>
-`;        }
-    })
-    .catch(error => console.error("Erreur :", error));
-}
+            annoncesSection.innerHTML = `
+                <div class="flex flex-col items-center justify-center mt-[3rem] text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-gray-600 text-lg font-semibold">Aucune annonce trouvée</p>
+                    <p class="text-gray-500 mt-2">Essayez de modifier vos filtres ou de revenir plus tard.</p>
+                </div>
+            `;        }
+    }
+    
+    function CategoryFilter(value) {
+        let category = value;
+
+        fetch("publication/CategoryFilter", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: "category=" + category,
+        })
+        .then(response => response.json()) 
+        .then(data=>showChangement(data) 
+        )
+        .catch(error => console.error("Erreur :", error));
+    }
+    function searchFilter(value) {
+        let search = value;
+
+        fetch("publication/SearchFilter", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: "search=" + search,
+        })
+        .then(response => response.json()) 
+        .then(data=>{
+        
+            showChangement(data) 
+            
+        }
+        )
+        .catch(error => console.error("Erreur :", error));
+    }
     
     </script>
 

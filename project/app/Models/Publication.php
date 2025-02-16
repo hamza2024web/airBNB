@@ -14,19 +14,21 @@ class Publication {
     public function getAllPublications() { 
         try {
             $stmt = $this->pdo->query("SELECT 
-        annonces.*, 
-        annonces.id AS idannonce, 
-        annonces.title AS titleAnnonce, 
-        categories.categoryname, 
-        promotion.title AS titlePromotion, 
-        promotion.pourcentage_promotion, 
-        promotion.date_de_fin 
-    FROM annonces
-    LEFT JOIN promotion ON promotion.id = annonces.promotion_id 
-    INNER JOIN categories ON categories.id = annonces.category_id
-    WHERE annonces.promotion_id IS NOT NULL OR annonces.promotion_id IS NULL
+    annonces.*, 
+    annonces.id AS idannonce, 
+    annonces.title AS titleannonce, 
+    categories.categoryname, 
+    promotion.title AS titlePromotion,
+    promotion.pourcentage_promotion, 
+    promotion.date_de_fin
+FROM annonces
+LEFT JOIN promotion ON promotion.id = annonces.promotion_id  
+INNER JOIN categories ON categories.id = annonces.category_id
+where annonces.disponibilite='Disponible'
                ");
+ 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
             
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
@@ -42,13 +44,25 @@ class Publication {
     }
      public function getById($id) { 
         try {
-            $stmt = $this->pdo->query("SELECT *,annonces.id as idannonce,annonces.title as titleAnnonce,categories.categoryname,promotion.title as titlePromotion,
-            promotion.pourcentage_promotion,promotion.date_de_fin FROM annonces
-            INNER JOIN promotion ON promotion.id=annonces.promotion_id
-               INNER JOIN categories ON categories.id=annonces.category_id
-               where annonces.id= $id");
+                $stmt = $this->pdo->query("SELECT 
+                annonces.*, 
+                annonces.id AS idannonce, 
+                annonces.title AS titleannonce, 
+                categories.categoryname, 
+                promotion.title AS titlePromotion,
+                promotion.pourcentage_promotion, 
+                promotion.date_de_fin,
+            users.username as owner_name,
+            users.email as owner_email,
+            profile.photo as owner_photo
+            FROM annonces
+            LEFT JOIN promotion ON promotion.id = annonces.promotion_id  
+            INNER JOIN categories ON categories.id = annonces.category_id
+            INNER JOIN users ON users.id = annonces.proprietaire_id
+            INNER JOIN profile ON profile.id = users.id
+            where annonces.id= $id " );
 
-             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+             return $stmt->fetch(PDO::FETCH_ASSOC);
             
 
         } catch (PDOException $e) {
@@ -57,11 +71,42 @@ class Publication {
     }
     public function getPublicationsByCategories($category) { 
         try {
-            $stmt = $this->pdo->query("SELECT *,annonces.id as idannonce,annonces.title as titleAnnonce,categories.categoryname,promotion.title as titlePromotion,
-            promotion.pourcentage_promotion,promotion.date_de_fin FROM annonces
-            INNER JOIN promotion ON promotion.id=annonces.promotion_id
-               INNER JOIN categories ON categories.id=annonces.category_id
-               where categories.categoryname= '$category'");
+                $stmt = $this->pdo->query("SELECT 
+            annonces.*, 
+            annonces.id AS idannonce, 
+            annonces.title AS titleannonce, 
+            categories.categoryname, 
+            promotion.title AS titlePromotion,
+            promotion.pourcentage_promotion, 
+            promotion.date_de_fin
+            FROM annonces
+            LEFT JOIN promotion ON promotion.id = annonces.promotion_id  
+            INNER JOIN categories ON categories.id = annonces.category_id
+            where categories.categoryname='$category' and annonces.disponibilite='Disponible'");
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+        } catch (PDOException $e) {
+            die("Erreur: " . $e->getMessage());
+        }
+    }
+
+
+
+     public function getPublicationsBySearchName($value) { 
+        try {
+                    $stmt = $this->pdo->query("SELECT 
+            annonces.*, 
+            annonces.id AS idannonce, 
+            annonces.title AS titleannonce, 
+            categories.categoryname, 
+            promotion.title AS titlePromotion,
+            promotion.pourcentage_promotion, 
+            promotion.date_de_fin
+        FROM annonces
+        LEFT JOIN promotion ON promotion.id = annonces.promotion_id  
+        INNER JOIN categories ON categories.id = annonces.category_id
+               where  annonces.title like '$value%' and annonces.disponibilite='Disponible'");
 
              return $stmt->fetchAll(PDO::FETCH_ASSOC);
             

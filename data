@@ -37,3 +37,11 @@ INSERT INTO public.reservations (id, annonce_id, voyageurid, reservationdatedebu
 (3, 3, 1, '2024-03-01 10:00:00', '2024-03-07 09:00:00', 3),
 (4, 4, 4, '2024-03-05 16:00:00', '2024-03-12 12:00:00', 4),
 (5, 5, 1, '2024-03-10 13:00:00', '2024-03-17 10:00:00', 5);
+
+
+INSERT INTO Profile (user_id, photo, location, categoryName)
+VALUES 
+(1, 'https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVufGVufDB8fDB8fHww', 'Paris, France', 'Tech'),
+(2, 'https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVufGVufDB8fDB8fHww', 'New York, USA', 'Fashion'),
+(3, 'https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVufGVufDB8fDB8fHww', 'London, UK', 'Food');
+
