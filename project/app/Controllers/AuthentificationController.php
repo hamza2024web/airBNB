@@ -42,8 +42,14 @@ class AuthentificationController
         $email = $_POST['email'];
         $password = $_POST['password_'];
         $role = $_POST['role'];
-        $userRegistre = new UserModel($username, $email, $password, $role);
-        $userRegistre->addMember($username, $email, $password, $role);
+        if ($role == "Proprietaires"){
+            $statut = "Not Actif";
+        }
+        if ($role == "Voyageurs"){
+            $statut = "Actif";
+        }
+        $userRegistre = new UserModel($username, $email, $password, $role ,$statut);
+        $userRegistre->addMember($username, $email, $password, $role,$statut);
         header('Location: /login');
     }
     public function authenticate()
@@ -54,6 +60,7 @@ class AuthentificationController
             $password = $_POST['password'];
             $userLogin = new UserModel($email, $password);
             $results = $userLogin->login($email, $password);
+<<<<<<< HEAD
             if ($results["role"] == "admins") {
                 header('Location: /register');
                 exit;
@@ -63,6 +70,21 @@ class AuthentificationController
             }elseif ($results["role"] == "Voyageurs"){
                 header('Location: /register');
                 exit;
+=======
+            if ($results["statut"] == "Actif"){
+                if ($results["role"] == "Admins") {
+                    header('Location: /admin');
+                    exit;
+                }elseif ($results["role"] == "Proprietaires"){
+                    header('Location: /proprietaire');
+                    exit;
+                }elseif ($results["role"] == "Voyageurs"){
+                    header('Location: /register');
+                    exit;
+                }
+            } elseif ($results["statut"] == "Not Actif"){
+                echo "Please Contact the support , your account is Not Actif";
+>>>>>>> de94d5f3f0c877c3b9645c9ccc47d3af133ca02d
             }
     }
 

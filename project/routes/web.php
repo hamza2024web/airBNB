@@ -3,6 +3,10 @@
 require_once("../vendor/autoload.php");
 use Src\Http\Route ;
 
+
+Route::get('publication', 'PublicationController@showPublication');
+Route::get('details/{id}', 'PublicationController@detailsPublication');
+Route::post('addPublication', 'PublicationController@addPublication');
 Route::get('', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('login', 'AuthentificationController@login');
@@ -22,4 +26,9 @@ Route::get('listreservations','DashboardController@reservations');
 Route::get('messageProprietaire','ProprietaireController@message');
 Route::get('messageVoyageur','VoyageurController@messageVoyageur');
 Route::post('sendMessage','ProprietaireController@sendMessage');
+Route::get('admin','AdminDashboard@FetchAnnonces');
+Route::post('statut','AdminDashboard@statut');
+Route::get('statistiqueGlobale','AdminDashboard@statistiqueAdmin');
+Route::get('gestionLitige','AdminDashboard@gestiondesLitiges');
+Route::post('statutUser','AdminDashboard@statutUser');
 
