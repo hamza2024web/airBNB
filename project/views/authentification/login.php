@@ -29,6 +29,7 @@
 
         .btn-social:hover {
             background-color: #F0FFF4;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .btn-social i {
@@ -40,14 +41,14 @@
 <body>
     <header class="fixed w-full bg-white shadow">
         <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
-            <a href="../../public/index.php" class="text-2xl font-bold text-[#28A745] flex items-center">
+            <a href="publication" class="text-2xl font-bold text-[#2    8A745] flex items-center">
                 <svg class="h-8 w-8 mr-2" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="Accueil" role="img" focusable="false">
                     <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.91 3.494 0 2.776-1.684 4.64-4.668 5.134a3.739 3.739 0 0 1-.477.048c-1.845 0-3.391-.959-4.8-2.488-1.41 1.529-2.956 2.488-4.8 2.488-.16 0-.32-.016-.477-.048C7.736 28.617 6 26.783 6 24.006c0-1.022.243-1.903.91-3.494l.165-.402c.958-2.29 5.113-11.037 7.073-14.83l.54-1.036C15.962 1.964 17.416 1 19.424 1z" fill="#28A745"></path>
                 </svg>
                 airbnb
             </a>
             <nav class="hidden md:flex gap-4">
-                <a href="../../Views/index.php" class="hover:text-[#28A745] mt-2">Accueil</a>
+                <a href="" class="hover:text-[#28A745] mt-2">Accueil</a>
                 <a href="#about" class="hover:text-[#28A745] mt-2">À propos</a>
                 <a href="#courses" class="hover:text-[#28A745] mt-2">Cours</a>
                 <a href="../Views/auth/Register.php" class="rounded-full overflow-hidden w-10 h-10">
@@ -62,9 +63,9 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-center">
                 <div class="w-full max-w-md">
-                    <div class="bg-white rounded-lg shadow-2xl">
-                        <div class="bg-[#28A745] text-center p-8 rounded-t-lg">
-                            <div class="text-white text-2xl font-bold mb-2">
+                    <div class="bg-white rounded-lg shadow-2xl overflow-hidden">
+                        <div class="bg-[#28A745] text-center p-8">
+                            <div class="text-white text-3xl font-bold mb-2">
                                 <i class="fas fa-home me-2"></i>airbnb
                             </div>
                             <h4 class="text-white font-bold text-xl">Connexion</h4>
@@ -93,13 +94,13 @@
                             <form method="POST" action="/login" class="space-y-6">
                                 <div>
                                     <input type="email" name="email" 
-                                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none" 
+                                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none transition duration-150" 
                                         placeholder="Email" required>
                                 </div>
 
                                 <div>
                                     <input type="password" name="password" 
-                                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none" 
+                                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#28A745] focus:border-[#28A745] outline-none transition duration-150" 
                                         placeholder="Mot de passe" required>
                                 </div>
 
@@ -108,11 +109,11 @@
                                         <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-[#28A745] focus:ring-[#28A745] border-gray-300 rounded">
                                         <label for="remember" class="ml-2 block text-sm text-gray-600">Se souvenir de moi</label>
                                     </div>
-                                    <a href="#" class="text-sm text-[#28A745] hover:text-[#15396A]">Mot de passe oublié ?</a>
+                                    <a href="#" class="text-sm text-[#28A745] hover:text-[#15396A] transition duration-300">Mot de passe oublié ?</a>
                                 </div>
 
                                 <button type="submit" name="submit" 
-                                    class="btn-gradient-custom text-white w-full py-2 rounded-md transition duration-300 hover:opacity-90">
+                                    class="btn-gradient-custom text-white w-full py-2 rounded-md transition duration-300 hover:opacity-90 shadow-md">
                                     Se connecter
                                 </button>
                             </form>
