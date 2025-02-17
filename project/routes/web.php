@@ -36,4 +36,3 @@ Route::post('statut','AdminDashboard@statut');
 Route::get('statistiqueGlobale','AdminDashboard@statistiqueAdmin');
 Route::get('gestionLitige','AdminDashboard@gestiondesLitiges');
 Route::post('statutUser','AdminDashboard@statutUser');
-
