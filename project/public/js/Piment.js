@@ -1,14 +1,3 @@
-// const dateStarte = "{{ dateStart }}"; // نصي
-// const dateFine = "{{ dateFine }}";    // نصي
-// const prixTotale = {{ prixTotale }};  // رقمي
-// const days = {{ days }};               // رقمي
-// const prix = {{ prix }};     
-
-// console.log("dateStarte:", dateStarte);
-// console.log("dateFine:", dateFine);
-// console.log("prixTotale:", prixTotale);
-// console.log("days:", days);
-// console.log("prix:", prix);
  var prix = document.getElementById('PrixTotal').value;
    
     paypal.Buttons({
@@ -23,8 +12,6 @@ createOrder: function(data, actions) {
 },
 
 
-
-
 onApprove: function(data, actions) {
     return actions.order.capture().then(function(details) {
         fetch('http://localhost:82/verifyPayment', {
@@ -36,13 +23,9 @@ onApprove: function(data, actions) {
             body: JSON.stringify({
                 orderID: data.orderID,
                 payerID: details.payer.payer_id,
-                // dateStarte: dateStarte,  
-                // dateFine: dateFine,
-                // prixTotale: prixTotale,
-                // days: days,
-                // prix: prix
             })
         })
+        
         .then(response => response.json())
         .then(data => {
             if (data.success) {

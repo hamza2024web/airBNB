@@ -112,8 +112,6 @@ class PaimentController
         $rawData = file_get_contents(filename: 'php://input');
         $data = json_decode($rawData, true);
 
-
-
         if (isset($data['orderID']) && isset($data['payerID'])) {
             $orderID = $data['orderID'];
             $payerID = $data['payerID'];
