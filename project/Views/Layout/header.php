@@ -14,7 +14,7 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Logo -->
             <div class="flex items-center">
-                <a href="/ " class="text-2xl font-bold text-indigo-600 hover:text-indigo-500">Book ME</a>
+                <a href="/ " class="text-2xl font-bold text-indigo-600 hover:text-indigo-500">AIRBNB</a>
             </div>
 
             <!-- Navbar -->

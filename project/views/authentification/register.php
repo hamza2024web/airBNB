@@ -57,9 +57,7 @@ if(isset($_SESSION['users'])){
            airbnb
        </a>
        <nav class="hidden md:flex gap-4">
-           <a href="../../Views/index.php" class="hover:text-[#28A745] mt-2">Accueil</a>
-           <a href="#about" class="hover:text-[#28A745] mt-2">À propos de</a>
-           <a href="#courses" class="hover:text-[#28A745] mt-2">Cours</a>
+           <a href="publication" class="hover:text-[#28A745] mt-2">Accueil</a>
            <a href="../Views/auth/Login.php" class="rounded-full overflow-hidden w-10 h-10">
                <i class="fas fa-user-circle text-3xl text-[#28A745]"></i>
            </a>
