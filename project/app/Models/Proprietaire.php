@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+session_start();
 use Config\Database;
 use PDO;
 
@@ -13,10 +13,14 @@ class Proprietaire {
     }
 
     public function getAllAnnonces () {
+        $proprietaire = $_SESSION["user_id"];
         $sql = "SELECT  annonces.id , annonces.title , annonces.photo , annonces.description , annonces.prix ,annonces.disponibilite ,annonces.statut , categories.categoryname 
         from annonces
-        inner join categories on categories.id = annonces.category_id";
+        inner join categories on categories.id = annonces.category_id
+        inner join users on users.id = annonces.proprietaire_id
+        where users.id = :proprietaire";
         $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":proprietaire",$proprietaire);
         $stmt->execute();
         $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $annonces ;
@@ -33,7 +37,8 @@ class Proprietaire {
         return $reservations ;
         }
     public function allAnnonces(){
-        $sql = "SELECT count(*) as numbreannonces FROM annonces";
+        $sql = "SELECT count(*) as numbreannonces FROM annonces
+        inner join users on annonces.proprietaire_id = users.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Proprietaire;
+namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\AnnoncesDisponabilite;
@@ -12,26 +12,26 @@ class ProprietaireController extends BaseController{
         $newdisponibilite = $_POST["disponibilite"];
         $disponabilite = new AnnoncesDisponabilite();
         $results = $disponabilite->EditDisponabilite($id , $newdisponibilite);
-        $this->loadView('proprietaire', ['results' => $results]); 
-        return $results;
+        header("location: /proprietaire");
+        $this->loadView('dashboard', ['results' => $results]); 
     }
     public function message(){
         $proprietaireModel = new Proprietaire();
         $results = $proprietaireModel->AfficheMessage();
         $this->render('messageProprietaire', ['results' => $results]);
-        return $results;
     }
     public function sendMessage(){
         $id = $_POST["id"];
         $sendMessage = $_POST["sendMessage"];
-        $proprietaireModel = new Proprietaire($id,$sendMessage);
+        $proprietaireModel = new Proprietaire();
         $results = $proprietaireModel->sendMessageToVoyageur($id , $sendMessage);
-        $this->loadView('messageProprietaire',['results' => $results]);
-        return $results;
+        header("location: /messageProprietaire");
+        $this->render('messageProprietaire', ['results' => $results]);
+        
     }
     private function loadView($viewName, $data = []) {
         extract($data);
-        require_once __DIR__ . "/../../../Views/proprietaires/$viewName.twig"; 
+        require_once __DIR__ . "/../../Views/proprietaires/".$viewName.".twig"; 
     }
 }
 

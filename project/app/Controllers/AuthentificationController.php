@@ -36,13 +36,18 @@ class AuthentificationController
 
     public function insert()
     {
-        session_start();
         $username = $_POST['username'];
         $email = $_POST['email'];
-        $password = $_POST['password_'];
+        $password = $_POST['password'];
         $role = $_POST['role'];
-        $userRegistre = new UserModel($username, $email, $password, $role);
-        $userRegistre->addMember($username, $email, $password, $role);
+        if ($role == "Proprietaires"){
+            $statut = "Not Actif";
+        }
+        if ($role == "Voyageurs"){
+            $statut = "Actif";
+        }
+        $userRegistre = new UserModel($username, $email, $password, $role ,$statut);
+        $userRegistre->addMember($username, $email, $password, $role,$statut);
         header('Location: /login');
     }
     public function authenticate()
@@ -53,15 +58,19 @@ class AuthentificationController
             $password = $_POST['password'];
             $userLogin = new UserModel($email, $password);
             $results = $userLogin->login($email, $password);
-            if ($results["role"] == "admins") {
-                header('Location: /register');
-                exit;
-            }elseif ($results["role"] == "Proprietaires"){
-                header('Location: /register');
-                exit;
-            }elseif ($results["role"] == "Voyageurs"){
-                header('Location: /register');
-                exit;
+            if ($results["statut"] == "Actif"){
+                if ($results["role"] == "Admins") {
+                    header('Location: /admin');
+                    exit;
+                }elseif ($results["role"] == "Proprietaires"){
+                    header('Location: /proprietaire');
+                    exit;
+                }elseif ($results["role"] == "Voyageurs"){
+                    header('Location: /publication');
+                    exit;
+                }
+            } elseif ($results["statut"] == "Not Actif"){
+                echo "Please Contact the support , your account is Not Actif";
             }
     }
 

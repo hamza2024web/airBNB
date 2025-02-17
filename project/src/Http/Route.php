@@ -24,29 +24,39 @@ class Route
    
    
 
-public function resolve() {
-    $path = $this->request->path(); 
-    $method = $this->request->Methode();
+    public function resolve(){
+        $path = $this->request->path(); 
+        $method = $this->request->Methode();
+        
 
-    // Vérifie si la route existe directement
-    if (isset(self::$routes[$method][$path])) {
+
+        if(isset(self::$routes[$method][$path])){
+
         $action = self::$routes[$method][$path];
     } else {
         // Vérifie si une route dynamique correspond
         foreach (self::$routes[$method] as $route => $action) {
             $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '([a-zA-Z0-9_-]+)', $route);
+            
             if (preg_match("#^$pattern$#", $path, $matches)) {
-                array_shift($matches); // Supprime le premier élément (chemin complet)
-                $params = $matches; 
-                break;
+                array_shift($matches); 
+                $params = $matches;  
+                break;              
             }
         }
+        
     }
 
-    if (!isset($action)) {
-        echo "Route not found";
-        exit;
-    }
+        if (is_string($action)){
+
+            [$controllerAction , $methodeAction] = explode('@',$action);
+
+            $controllerAction = "App\\Controllers\\$controllerAction";
+          
+            if(!class_exists($controllerAction)){
+                echo "class not exist";
+                exit;
+            }
 
     if (is_callable($action)) {
         call_user_func_array($action, $params ?? []);
@@ -69,8 +79,13 @@ public function resolve() {
         }
         
         return call_user_func_array([$object, $method], $params ?? []);
+    }else{
+        echo'error 404';
+        
     }
+
 }
+    }
 }
 
 

@@ -18,7 +18,10 @@ Route::post('register', 'AuthentificationController@insert');
 Route::get('logout', 'AuthentificationController@logout');
 Route::get('paiment', 'PaimentController@paiment');
 Route::post('paiment', 'PaimentController@paiment');
+Route::get('validation/{orderID}', 'PaimentController@validation');
+Route::post('verifyPayment', 'PaimentController@verifyPayment');
 Route::get('checkeDay', 'PaimentController@checkeDay');
+Route::post('checkeDay', 'PaimentController@checkeDay');
 Route::get('validation', 'PaimentController@validation');
 Route::post('validation', 'PaimentController@validation');
 Route::get('proprietaire', 'DashboardController@annonces');
@@ -28,5 +31,9 @@ Route::get('listreservations','DashboardController@reservations');
 Route::get('messageProprietaire','ProprietaireController@message');
 Route::get('messageVoyageur','VoyageurController@messageVoyageur');
 Route::post('sendMessage','ProprietaireController@sendMessage');
-
+Route::get('admin','AdminDashboard@FetchAnnonces');
+Route::post('statut','AdminDashboard@statut');
+Route::get('statistiqueGlobale','AdminDashboard@statistiqueAdmin');
+Route::get('gestionLitige','AdminDashboard@gestiondesLitiges');
+Route::post('statutUser','AdminDashboard@statutUser');
 
