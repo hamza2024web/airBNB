@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 project/vendor
+project/composer.lock
+=======
+/project/vendor
+>>>>>>> dec55f9c288f7cbfdbef60a488f3d834f3476f1d
