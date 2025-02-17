@@ -115,12 +115,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         document.getElementById('exportExcel').addEventListener('click', function() {
-            // Get visible rows
+
             const rows = Array.from(document.querySelectorAll('tbody tr')).filter(row =>
                 row.style.display !== 'none'
             );
 
-            // Transform the data
+
             const data = rows.map(row => {
                 return {
                     'Title of Annonce': row.querySelector('td:nth-child(1)').textContent.trim(),
@@ -133,11 +133,10 @@
                 };
             });
 
-            // Create worksheet and convert it to CSV
+
             const worksheet = XLSX.utils.json_to_sheet(data);
             const csvOutput = XLSX.utils.sheet_to_csv(worksheet);
 
-            // Create and download CSV file
             const blob = new Blob([csvOutput], {
                 type: 'text/csv;charset=utf-8;'
             });
@@ -149,15 +148,15 @@
             document.body.removeChild(link);
         });
 
-        // Créer la feuille Excel
+
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Liste des Réservations");
 
-        // Styliser l'en-tête
+
         const range = XLSX.utils.decode_range(worksheet['!ref']);
 
-        // Style pour l'en-tête
+
         const headerStyle = {
             font: {
                 bold: true,
@@ -176,7 +175,7 @@
             }
         };
 
-        // Appliquer le style à l'en-tête
+
         for (let C = range.s.c; C <= range.e.c; ++C) {
             const address = XLSX.utils.encode_cell({
                 r: 0,
@@ -186,7 +185,7 @@
             worksheet[address].s = headerStyle;
         }
 
-        // Ajuster la largeur des colonnes
+
         const columnWidths = data.reduce((acc, row) => {
             Object.entries(row).forEach(([key, value], index) => {
                 const valueLength = value ? value.toString().length : 0;
@@ -199,7 +198,6 @@
             width: width + 2
         }));
 
-        // Style pour les cellules de données
         for (let R = 1; R <= range.e.r; ++R) {
             for (let C = range.s.c; C <= range.e.c; ++C) {
                 const address = XLSX.utils.encode_cell({
@@ -245,7 +243,6 @@
             }
         }
 
-        // Générer et télécharger le fichier
         const date = new Date().toLocaleDateString('fr-FR').replace(/\//g, '-');
         XLSX.writeFile(workbook, `liste_etudiants_${date}.xlsx`);
     </script>
