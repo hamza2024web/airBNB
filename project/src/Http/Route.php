@@ -33,9 +33,7 @@ class Route
         if(isset(self::$routes[$method][$path])){
 
         $action = self::$routes[$method][$path];
-        
     } else {
-
         // Vérifie si une route dynamique correspond
         foreach (self::$routes[$method] as $route => $action) {
             $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '([a-zA-Z0-9_-]+)', $route);
@@ -73,7 +71,7 @@ class Route
             echo "Class $controller does not exist";
             exit;
         }
-      
+
         $object = new $controller();
         if (!method_exists($object, $method)) {
             echo "Method $method does not exist in $controller";

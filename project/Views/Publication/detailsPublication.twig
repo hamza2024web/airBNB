@@ -1,0 +1,105 @@
+{% include 'Layout/header.php' %}
+
+<div class="container mx-auto p-4">
+    <article class="bg-white p-8 rounded-2xl shadow-lg">
+        <div class="flex flex-col items-center justify-center gap-6">
+            <!-- Image -->
+            <div class="flex justify-center mb-4">
+                <img src="{{ announce.photo }}" class="rounded-lg w-full max-w-3xl h-96 object-cover shadow-md" alt="{{ announce.titleAnnonce }} image" />
+            </div>
+
+            <!-- Title, Category, Price, and Promotion -->
+            <div class="flex flex-col items-center gap-4 text-center">
+                <h1 class="text-3xl font-bold text-gray-800">{{ announce.titleannonce }}</h1>
+
+                <div class="flex gap-2">
+                    <span class="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-lg">
+                        {{ announce.categoryname }}
+                    </span>
+                    {% if announce.promotion_id is not null and (announce.date_de_fin|date('U') > "now"|date('U')) %}
+                        <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-lg">
+                            {{ announce.pourcentage_promotion }}% de réduction
+                        </span>
+                    {% endif %}
+                </div>
+
+                <p class="text-2xl font-semibold text-blue-600">
+                    {% if announce.promotion_id is not null and (announce.date_de_fin|date('U') > "now"|date('U')) %}
+                        <span class="line-through text-gray-400 mr-2">{{ announce.prix }} DH</span>
+                        <span>{{ announce.prix * (1 - announce.pourcentage_promotion / 100) }} DH</span>
+                    {% else %}
+                        <span>{{ announce.prix }} DH</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Localisation -->
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold text-gray-800">Localisation</h3>
+            <p class="text-gray-600">{{ announce.localisation }}</p>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold text-gray-800">Description</h3>
+            <p class="text-gray-600">{{ announce.description }}</p>
+        </div>
+
+        <!-- Owner Info -->
+        <div class="mt-6 border-t pt-6">
+            <h3 class="text-xl font-semibold text-gray-800">Propriétaire</h3>
+            <div class="flex items-center gap-4 mt-4">
+                <img src="{{ announce.owner_photo }}" class="w-12 h-12 rounded-full shadow-md" alt="Photo du propriétaire" />
+                <div>
+                    <p class="font-semibold text-gray-800">{{ announce.owner_name }}</p>
+                    <p class="text-sm text-gray-600">{{ announce.owner_email }}</p>
+                </div>
+            </div>
+            <button class="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                Contacter
+            </button>
+        </div>
+
+        <!-- Reservation Button -->
+        <div class="fixed top-24 right-8">
+            <a href="/reservation/{{ announce.idannonce }}" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition">
+                Réserver maintenant
+            </a>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="mt-6 border-t pt-6">
+            <h3 class="text-xl font-semibold text-gray-800">Commentaires</h3>
+
+            <!-- Existing Comments -->
+            <div class="mt-4 space-y-4">
+                {% for comment in announce.comments %}
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <img src="{{ comment.user_photo }}" class="w-10 h-10 rounded-full shadow-md" alt="Photo de l'utilisateur" />
+                            <div>
+                                <p class="font-semibold text-gray-800">{{ comment.user_name }}</p>
+                                <p class="text-sm text-gray-500">{{ comment.date }}</p>
+                            </div>
+                        </div>
+                        <p class="mt-2 text-gray-600">{{ comment.content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Add a Comment -->
+            <div class="mt-6">
+                <h4 class="text-lg font-semibold text-gray-800">Ajouter un Commentaire</h4>
+                <form action="/comment/{{ announce.idannonce }}" method="POST" class="mt-4">
+                    <textarea name="comment" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="Écrivez votre commentaire..." required></textarea>
+                    <button type="submit" class="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                        Ajouter le Commentaire
+                    </button>
+                </form>
+            </div>
+        </div>
+    </article>
+</div>
+
+{% include 'Layout/footer.php' %}
