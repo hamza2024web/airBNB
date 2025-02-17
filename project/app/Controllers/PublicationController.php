@@ -10,14 +10,15 @@ class PublicationController {
 
     public function __construct() {
         // Définir le dossier des templates
-        $loader = new FilesystemLoader(__DIR__. '/../../Views/');
+        $loader = new FilesystemLoader(__DIR__.'/../../Views/');
         $this->twig = new Environment($loader);
     }
 
 
 
-    public function addPublication() {
-        echo "this is addPublicationjnfjnj";
+    public function showFormPublication() {
+       
+        require '/var/www/html/Views/Publication/showFormPublication.php';
     }
 
     public function showPublication() {
@@ -32,8 +33,9 @@ class PublicationController {
     public function detailsPublication($id){
        $PublicationById = new Publication();
        $row= $PublicationById->getById($id);
+       $comments= $PublicationById->getCommentsById($id);
        
-     echo $this->twig->render('Publication/detailsPublication.twig', ['announce' => $row]);
+     echo $this->twig->render('Publication/detailsPublication.twig', ['announce' => $row,'comments'=>$comments]);
        
     }
 
@@ -68,6 +70,21 @@ class PublicationController {
             $annonces=$publicationModel->getPublicationsBySearchName($search);
         }
        
+        echo json_encode($annonces);
+    } 
+    
+}
+public function addComments() {
+      
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && isset($_POST['annonceId'])) {
+        $comment = $_POST['comment'];
+        $annonceId = $_POST['annonceId'];
+        
+         $publicationModel = new Publication();
+        
+        $annonces = $publicationModel->getAllPublications();
+       
+      
         echo json_encode($annonces);
     } 
     

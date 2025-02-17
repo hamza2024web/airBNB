@@ -8,6 +8,8 @@ Route::get('publication', 'PublicationController@showPublication');
 Route::get('details/{id}', 'PublicationController@detailsPublication');
 Route::post('publication/CategoryFilter', 'PublicationController@filterCategoryPublication');
 Route::post('publication/SearchFilter', 'PublicationController@filterSearchPublication');
+Route::post('comments','PublicationController@addComments');
+Route::get('showForm', 'PublicationController@showFormPublication');
 Route::post('addPublication', 'PublicationController@addPublication');
 Route::get('login', 'AuthentificationController@login');
 Route::post('login', 'AuthentificationController@authenticate');
