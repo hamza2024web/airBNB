@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 use Config\Database;
+use Exception;
 use PDOException;
 use PDO;
 class UserModel {
@@ -15,13 +16,23 @@ class UserModel {
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-
+    public function emailExists($email) {
+        $query = "SELECT COUNT(*) FROM users WHERE email = :email";
+        $stmt = $this->connexion->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
 
     private function hashPassword($password) {
         return password_hash($password, PASSWORD_BCRYPT);
     }
 
     public function addMember($username, $email, $password, $role,$statut) {
+
+        if ($this->emailExists($email)){
+            throw new \Exception("Un compte avec cette email existe déja");
+        }
 
         $hashedPassword = $this->hashPassword($password);
         $query = "INSERT INTO users (username,email, password,role ,statut)
