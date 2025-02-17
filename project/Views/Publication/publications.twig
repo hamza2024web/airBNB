@@ -92,9 +92,12 @@
                 
                 </div>
                     <!-- See More Button -->
-                        <a href="/details/{{ announce.idannonce}}" class="text-blue-500  right-5 bottom-5 absolute font-semibold mt-2 flex items-center gap-2 hover:text-blue-700 transition">
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
+            <form action="/checkeDay" method="POST" class="flex flex-wrap gap-2">
+                <input type="hidden" name="checkeDay" value="{{ announce.idannonce }}">
+                    <button value="{{announce.idannonce}}" name="checkeDay" class="text-blue-500 absolute right-5 bottom-5 font-semibold mt-2 flex items-center gap-2 hover:text-blue-700 transition">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+            </form>
             </div>
         </article>
                {% endfor %}

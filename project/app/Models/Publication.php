@@ -1,17 +1,22 @@
-<?php  
+<?php
+
 namespace App\Models;
 
 use PDO;
 use PDOException;
 use Config\Database;
-class Publication {
+
+class Publication
+{
     private  $pdo;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->pdo = Database::getConnection();
     }
 
-    public function getAllPublications() { 
+    public function getAllPublications()
+    {
         try {
             $stmt = $this->pdo->query("SELECT 
     annonces.*, 
@@ -24,17 +29,16 @@ class Publication {
 FROM annonces
 LEFT JOIN promotion ON promotion.id = annonces.promotion_id  
 INNER JOIN categories ON categories.id = annonces.category_id
-where annonces.disponibilite='Disponible'
+where annonces.disponibilite in ('Disponible','Réservé') and annonces.statut = 'Validé' 
                ");
- 
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
         }
     }
-     public function getAllPublicationsCategories() { 
+    public function getAllPublicationsCategories()
+    {
         try {
             $stmt = $this->pdo->query("SELECT DISTINCT categories.categoryname FROM categories");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -42,9 +46,10 @@ where annonces.disponibilite='Disponible'
             die("Erreur: " . $e->getMessage());
         }
     }
-     public function getById($id) { 
+    public function getById($id)
+    {
         try {
-                $stmt = $this->pdo->query("SELECT 
+            $stmt = $this->pdo->query("SELECT 
                 annonces.*, 
                 annonces.id AS idannonce, 
                 annonces.title AS titleannonce, 
@@ -62,20 +67,19 @@ where annonces.disponibilite='Disponible'
             INNER JOIN users ON users.id = annonces.proprietaire_id
             INNER JOIN ratings ON ratings.annonce_id = annonces.id
             INNER JOIN profile ON profile.id = users.id
-            where annonces.id= $id " );
+            where annonces.id= $id ");
 
-             return $stmt->fetch(PDO::FETCH_ASSOC);
-            
-
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
         }
     }
 
 
- public function addComments($comment,$annonceId) { 
+    public function addComments($comment, $annonceId)
+    {
         try {
-                $stmt = $this->pdo->query("SELECT 
+            $stmt = $this->pdo->query("SELECT 
             users.username as user_name,
             profile.photo as user_photo,
             ratings.review as content
@@ -84,21 +88,19 @@ where annonces.disponibilite='Disponible'
             INNER JOIN ratings ON annonces.id = ratings.annonce_id
             INNER JOIN users ON users.id = ratings.voyageurid
             left JOIN profile ON profile.id = ratings.voyageurid
-            where annonces.id= $id" );
+            where annonces.id= $id");
 
-             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            
-
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
         }
     }
 
 
- public function getCommentsById($id) { 
+    public function getCommentsById($id)
+    {
         try {
-                $stmt = $this->pdo->query("SELECT 
+            $stmt = $this->pdo->query("SELECT 
             users.username as user_name,
             profile.photo as user_photo,
             ratings.review as content
@@ -107,12 +109,9 @@ where annonces.disponibilite='Disponible'
             INNER JOIN ratings ON annonces.id = ratings.annonce_id
             INNER JOIN users ON users.id = ratings.voyageurid
             left JOIN profile ON profile.id = ratings.voyageurid
-            where annonces.id= $id" );
+            where annonces.id= $id");
 
-             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            
-
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
         }
@@ -125,9 +124,10 @@ where annonces.disponibilite='Disponible'
 
 
 
-    public function getPublicationsByCategories($category) { 
+    public function getPublicationsByCategories($category)
+    {
         try {
-                $stmt = $this->pdo->query("SELECT 
+            $stmt = $this->pdo->query("SELECT 
             annonces.*, 
             annonces.id AS idannonce, 
             annonces.title AS titleannonce, 
@@ -140,8 +140,7 @@ where annonces.disponibilite='Disponible'
             INNER JOIN categories ON categories.id = annonces.category_id
             where categories.categoryname='$category' and annonces.disponibilite='Disponible'");
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
         }
@@ -149,9 +148,10 @@ where annonces.disponibilite='Disponible'
 
 
 
-     public function getPublicationsBySearchName($value) { 
+    public function getPublicationsBySearchName($value)
+    {
         try {
-                    $stmt = $this->pdo->query("SELECT 
+            $stmt = $this->pdo->query("SELECT 
             annonces.*, 
             annonces.id AS idannonce, 
             annonces.title AS titleannonce, 
@@ -164,9 +164,7 @@ where annonces.disponibilite='Disponible'
         INNER JOIN categories ON categories.id = annonces.category_id
                where  annonces.title like '$value%' and annonces.disponibilite='Disponible'");
 
-             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Erreur: " . $e->getMessage());
         }
